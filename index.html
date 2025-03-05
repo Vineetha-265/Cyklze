@@ -278,7 +278,7 @@
         if (response.ok) {
             const data = await response.json();
             console.log("OTP verified successfully:", data);
-           
+            alert("OTP verified successfully");
           await  localStorage.setItem('napun_accessToken', data.accessToken);
           await  localStorage.setItem('napun_refreshToken', data.refreshToken);
 //             sessionStorage.setItem('accessToken', data.accessToken);
