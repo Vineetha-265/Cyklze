@@ -274,9 +274,9 @@
                     if (response.ok) {
                         const data = await response.json();
                         alert("OTP verified successfully.");
-                        // Store tokens in sessionStorage or other storage if necessary
-                        // Redirect to Home or other screen
-                        window.location.href = "home.html"; // Replace with your actual redirect logic
+                     localStorage.setItem('accessToken',data.accessToken)
+                     localStorage.setItem('refreshToken',data.refreshToken)
+                        window.location.href = "homepage.html"; // Replace with your actual redirect logic
                     } else {
                         alert("Invalid OTP.");
                     }
@@ -285,6 +285,113 @@
                 }
             });
         });
+
+
+
+
+        const getAccessToken = () => localStorage.getItem('accessToken');
+    const getRefreshToken = () => localStorage.getItem('refreshToken');
+    
+    const saveAccessToken = (token) => localStorage.setItem('accessToken', token);
+    const saveRefreshToken = (token) => localStorage.setItem('refreshToken', token);
+
+    const API_URL = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/'; // Replace with your actual API URL
+
+    const navigateToHomeScreen = () => {
+      window.location.href = 'homepage.html'; // Change this to your actual Home screen URL
+    };
+
+    const showToast = (message) => {
+      alert(message); // You can replace this with a more advanced toast implementation if needed
+    };
+
+    const isTokenExpired = async () => {
+      const accessToken = getAccessToken();
+      if (!accessToken) {
+        showToast('Please log in');
+        return true;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}checkTokenExpiration`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({ accessToken }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to check token expiration');
+        }
+
+        const responseData = await response.json();
+        const message = responseData.message;
+
+        return message === 'Token has expired';
+      } catch (error) {
+        console.error('Error checking token expiration:', error);
+        showToast('Failed to check token expiration. Please try again.');
+        return true;
+      }
+    };
+
+    const refreshAccessToken = async () => {
+      const refreshToken = getRefreshToken();
+      if (!refreshToken) {
+        showToast('Please log in');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}refreshToken`, { // Adjust API endpoint
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ refreshToken }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to refresh token');
+        }
+
+        const responseData = await response.json();
+        const newAccessToken = responseData.accessToken;
+        const newRefreshToken = responseData.refreshToken;
+
+        saveAccessToken(newAccessToken);
+        saveRefreshToken(newRefreshToken);
+
+        return { newAccessToken, newRefreshToken };
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        showToast('Error refreshing token. Please log in again.');
+      }
+    };
+
+    const checkTokenAndNavigate = async () => {
+      const accessToken = getAccessToken();
+      if (accessToken) {
+        const isExpired = await isTokenExpired();
+        if (isExpired) {
+          const refreshToken = getRefreshToken();
+          if (refreshToken) {
+            await refreshAccessToken();
+            navigateToHomeScreen();
+          } else {
+            showToast('Please log in');
+          }
+        } else {
+          navigateToHomeScreen();
+        }
+      } else {
+        showToast('Please log in');
+      }
+    };
+
+    window.onload = checkTokenAndNavigate; // Check token on page load
     </script>
 </body>
 </html>
