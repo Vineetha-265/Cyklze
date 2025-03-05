@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Price Calculator</title>
+  <style>
+    /* General Container */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #FFFFFF;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      padding: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Title Section */
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    /* Scrollable Content Section */
+    .scroll-view {
+      background-color: #D4E4F7; /* Powder Blue */
+      border-radius: 8px;
+      margin-bottom: 16px;
+      padding: 16px;
+    }
+
+    .item-container {
+      margin-bottom: 16px;
+    }
+
+    .item-text {
+      font-size: 16px;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+
+    .input {
+      background-color: #FFFFFF;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #CCCCCC;
+      width: 100%;
+    }
+
+    /* Loading Indicator */
+    .loading {
+      text-align: center;
+      font-size: 18px;
+      color: #4A90E2;
+    }
+
+    /* Footer Section */
+    .footer {
+      text-align: center;
+    }
+
+    .calculate-button {
+      background-color: #4A90E2; /* Classic Blue */
+      padding: 12px 24px;
+      border-radius: 25px;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .total-price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Title -->
+    <div class="header">
+      <h1 class="title">Price Calculator</h1>
+    </div>
+
+    <!-- Scrollable Content Section -->
+    <div class="scroll-view" id="scrapTypesContainer">
+      <!-- Loading indicator will be shown until data is fetched -->
+      <div id="loadingIndicator" class="loading">Loading...</div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <button class="calculate-button" id="calculateButton" onclick="calculateTotalPrice()">Calculate Total Price</button>
+      <div class="total-price" id="totalPrice">Total Price: $0.00</div>
+    </div>
+  </div>
+
+  <script>
+    // Define the scrap types data
+    const scrapTypes = [
+      { product: 'Plastic', pricePerKg: 2.5 },
+      { product: 'Paper', pricePerKg: 1.8 },
+      { product: 'Glass', pricePerKg: 3.0 },
+      { product: 'Metal', pricePerKg: 4.5 },
+    ];
+
+    const quantities = {};
+
+    // Function to generate scrap type input fields
+    function generateScrapTypes() {
+      const container = document.getElementById('scrapTypesContainer');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      loadingIndicator.style.display = 'none';
+
+      scrapTypes.forEach((scrapType) => {
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('item-container');
+
+        const itemText = document.createElement('p');
+        itemText.classList.add('item-text');
+        itemText.textContent = scrapType.product;
+
+        const input = document.createElement('input');
+        input.classList.add('input');
+        input.type = 'number';
+        input.placeholder = 'Quantity (kg)';
+        input.oninput = (event) => handleQuantityChange(scrapType.product, event.target.value);
+
+        itemContainer.appendChild(itemText);
+        itemContainer.appendChild(input);
+
+        container.appendChild(itemContainer);
+      });
+    }
+
+    // Function to handle quantity changes
+    function handleQuantityChange(product, value) {
+      quantities[product] = parseFloat(value) || 0;
+    }
+
+    // Function to calculate total price
+    function calculateTotalPrice() {
+      let total = 0;
+
+      scrapTypes.forEach((scrapType) => {
+        const quantity = quantities[scrapType.product] || 0;
+        total += scrapType.pricePerKg * quantity;
+      });
+
+      const totalPrice = document.getElementById('totalPrice');
+      totalPrice.textContent = `Total Price: $${total.toFixed(2)}`;
+    }
+
+    // Simulate loading state and generate scrap types after a delay
+    window.onload = function() {
+      setTimeout(generateScrapTypes, 1000); // Simulate a 1-second delay to load data
+    };
+  </script>
+
+</body>
+</html>
