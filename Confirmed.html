@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #F5F5F5, #E0E0E0);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      padding: 30px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .thankYouText {
+      font-size: 36px;
+      font-weight: bold;
+      color: #00796B;
+      text-align: center;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInUp 1s forwards;
+    }
+
+    .thankYouText.animate {
+      opacity: 1;
+      animation: fadeInUp 1s forwards;
+    }
+
+    .animatedTextContainer {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .animatedText {
+      font-size: 24px;
+      font-weight: 500;
+      color: #333;
+      margin: 10px 0;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeUp 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .trackRequestContainer {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .trackRequestTitle {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .gradientButton {
+      background: linear-gradient(45deg, #00796B, #28a745);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .gradientButton:hover {
+      transform: translateY(-5px);
+    }
+
+    .contactText {
+      font-size: 18px;
+      text-align: center;
+      color: #555;
+      margin-top: 30px;
+    }
+
+    .contactButtonText {
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Thank You Text -->
+    <div class="thankYouText animate">Thank you,</div>
+
+    <!-- Animated Text -->
+    <div class="animatedTextContainer">
+      <div class="animatedText">We appreciate your request!</div>
+      <div class="animatedText">Our team will process it soon.</div>
+      <div class="animatedText">Stay tuned for updates.</div>
+    </div>
+
+    <!-- Track Request Section -->
+    <div class="trackRequestContainer">
+      <div class="trackRequestTitle">Track Your Request</div>
+      <div class="gradientButton" onclick="trackPickup()">Track Your Pickup</div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contactText">Need Help? Contact Us!</div>
+    <div class="gradientButton" onclick="contactSupport()">Contact Support</div>
+  </div>
+
+  <script>
+    // Example words and animation logic for animated texts
+    const words = ["We appreciate your request!", "Our team will process it soon.", "Stay tuned for updates."];
+
+    // Wait for a short time to animate the words one after another
+    setTimeout(() => {
+      const texts = document.querySelectorAll('.animatedText');
+      texts.forEach((text, index) => {
+        setTimeout(() => {
+          text.style.animation = 'fadeUp 1s forwards';
+        }, index * 300); // Staggered animation for each word
+      });
+    }, 500);
+
+    function trackPickup() {
+      alert("Tracking your pickup...");
+    }
+
+    function contactSupport() {
+      alert("Contacting support...");
+    }
+  </script>
+
+</body>
+</html>
