@@ -217,12 +217,37 @@
   </div>
 
   <script>
+    // Function to set cookies
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+}
+
+// Function to get cookie by name
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;  // If cookie not found
+}
+
+
+
     // JavaScript for Functionality
-    const items = sessionStorage.getItem('items');
+    const items = getCookie('items');
     
-    const type = sessionStorage.getItem('type');
-    const date = sessionStorage.getItem('date');
-    const time = sessionStorage.getItem('time');
+    const type = getCookie('type');
+    const date = getCookie('date');
+    const time = getCookie('time');
     document.getElementById('selectedItems').textContent = `Selected Items: ${items}`;
     
     document.getElementById('pickupType').textContent = `Selected Pickup Type: ${type}`;
@@ -335,7 +360,8 @@
         const address = data.display_name;
         fetchedAddressText.textContent = `Address: ${address}`;
         locationInfo.style.display = 'block';
-        sessionStorage.setItem('address', address+'.');
+        setCookie('address',address,1);
+       // sessionStorage.setItem('address', address+'.');
         window.location.href = "Confirm_Details.html";
       } else {
         locationError.textContent = 'Unable to fetch address.';
@@ -357,7 +383,7 @@
       address.postalCode = document.getElementById('postalCode').value;
 
       if (address.street && address.area && address.city && address.postalCode) {
-        sessionStorage.setItem('address', address.street+ ','+address.area+','+address.city+','+address.postalCode+'.');
+        setCookie('address', address.street+ ','+address.area+','+address.city+','+address.postalCode+'.',1);
         window.location.href = "Confirm_Details.html";
         // Navigate or perform further actions
       } else {
