@@ -63,9 +63,7 @@
     <script>
         // Check if access token is present
         if(localStorage.getItem('accessToken')) {
-            document.getElementById('otp-container').style.display = 'none';
-            document.getElementById('otp-form-container').style.display = 'none';
-            document.getElementById('home-container').style.display = 'block';
+            window.location.href = "homepage.html";
         }
 
         // Simulate sending an OTP
@@ -97,10 +95,10 @@
 
                 // Store the access token in localStorage (expiry logic would be handled in a real scenario)
                 localStorage.setItem('accessToken', accessToken);
-
+                window.location.href = "homepage.html";
                 // Hide OTP form and show home page
-                document.getElementById('otp-form-container').style.display = 'none';
-                document.getElementById('home-container').style.display = 'block';
+                // document.getElementById('otp-form-container').style.display = 'none';
+                // document.getElementById('home-container').style.display = 'block';
             } else {
                 alert('Invalid OTP');
             }
