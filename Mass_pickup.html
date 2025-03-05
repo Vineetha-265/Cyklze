@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mass Pickup</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .estimate {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .itemsSelectionText {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .itemContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .typeText {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .quantityButton {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .quantityButton:hover {
+      background-color: #388e3c;
+    }
+
+    .quantityText {
+      font-size: 16px;
+      margin: 0 10px;
+    }
+
+    .datePickerContainer {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .dateText {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .dateButton {
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .dateButton:hover {
+      background-color: #1976d2;
+    }
+
+    .selectedDate {
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    .timeRangeContainer {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .heading {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .radioGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .radioButton {
+      background-color: #f1f1f1;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .radioButton.selected {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .confirmMassPickupButton {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .confirmMassPickupButton:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- General Pickup Heading -->
+    <h1 style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 20px;">Mass Pickup</h1>
+
+    <!-- Items Selection -->
+    <div class="estimate">
+      <div class="itemsSelectionText">Select Type</div>
+
+      <!-- Plastic -->
+      <div class="itemContainer">
+        <div class="typeText">Plastic</div>
+        <button class="quantityButton" onclick="decrement('plastic')">-</button>
+        <div class="quantityText" id="plasticKg">0 kg</div>
+        <button class="quantityButton" onclick="increment('plastic')">+</button>
+      </div>
+
+      <!-- Glass -->
+      <div class="itemContainer">
+        <div class="typeText">Glass</div>
+        <button class="quantityButton" onclick="decrement('glass')">-</button>
+        <div class="quantityText" id="glassKg">0 kg</div>
+        <button class="quantityButton" onclick="increment('glass')">+</button>
+      </div>
+
+      <!-- Paper -->
+      <div class="itemContainer">
+        <div class="typeText">Paper</div>
+        <button class="quantityButton" onclick="decrement('paper')">-</button>
+        <div class="quantityText" id="paperKg">0 kg</div>
+        <button class="quantityButton" onclick="increment('paper')">+</button>
+      </div>
+
+      <!-- Metal -->
+      <div class="itemContainer">
+        <div class="typeText">Metal</div>
+        <button class="quantityButton" onclick="decrement('metal')">-</button>
+        <div class="quantityText" id="metalKg">0 kg</div>
+        <button class="quantityButton" onclick="increment('metal')">+</button>
+      </div>
+
+      <!-- E-Waste -->
+      <div class="itemContainer">
+        <div class="typeText">E-Waste</div>
+        <button class="quantityButton" onclick="decrement('ewaste')">-</button>
+        <div class="quantityText" id="ewasteKg">0 kg</div>
+        <button class="quantityButton" onclick="increment('ewaste')">+</button>
+      </div>
+    </div>
+
+    <!-- Pickup Date -->
+    <div class="datePickerContainer">
+      <div class="dateText">Select Pickup Date</div>
+      <input type="date" id="datePicker" class="dateButton" min="" max="">
+      <div class="selectedDate" id="selectedDate">Selected Date: </div>
+    </div>
+
+    <!-- Time Range -->
+    <div class="timeRangeContainer">
+      <div class="heading">Select the Time</div>
+      <div class="radioGroup">
+        <div class="radioButton" onclick="handleTimeRangeSelection('8 AM - 11 AM')">8 AM - 11 AM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('11 AM - 1 PM')">11 AM - 1 PM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('1 PM - 3 PM')">1 PM - 3 PM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('3 PM - 6 PM')">3 PM - 6 PM</div>
+      </div>
+    </div>
+
+    <!-- Confirm Pickup -->
+    <button class="confirmMassPickupButton" onclick="validateAndConfirmPickup()">Confirm Mass Pickup</button>
+  </div>
+
+  <script>
+    // JavaScript for Functionality
+
+    // Quantity Increment/Decrement
+    let plasticKg = 0;
+    let glassKg = 0;
+    let paperKg = 0;
+    let metalKg = 0;
+    let ewasteKg = 0;
+
+    function increment(type) {
+      if (type === 'plastic' && plasticKg < 100) plasticKg++;
+      if (type === 'glass' && glassKg < 100) glassKg++;
+      if (type === 'paper' && paperKg < 100) paperKg++;
+      if (type === 'metal' && metalKg < 100) metalKg++;
+      if (type === 'ewaste' && ewasteKg < 100) ewasteKg++;
+      updateQuantity(type);
+    }
+
+    function decrement(type) {
+      if (type === 'plastic' && plasticKg > 0) plasticKg--;
+      if (type === 'glass' && glassKg > 0) glassKg--;
+      if (type === 'paper' && paperKg > 0) paperKg--;
+      if (type === 'metal' && metalKg > 0) metalKg--;
+      if (type === 'ewaste' && ewasteKg > 0) ewasteKg--;
+      updateQuantity(type);
+    }
+
+    function updateQuantity(type) {
+      const element = document.getElementById(`${type}Kg`);
+      if (element) {
+        element.textContent = `${eval(`${type}Kg`)} kg`;
+        if (eval(`${type}Kg`) === 100) {
+          element.textContent = `${eval(`${type}Kg`)}+ kg`;
+        }
+      }
+    }
+
+    // Date Picker
+    const datePicker = document.getElementById('datePicker');
+    const selectedDate = document.getElementById('selectedDate');
+
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const oneWeekFromTomorrow = new Date();
+    oneWeekFromTomorrow.setDate(tomorrow.getDate() + 7);
+
+    datePicker.min = tomorrow.toISOString().split('T')[0];
+    datePicker.max = oneWeekFromTomorrow.toISOString().split('T')[0];
+    let date;
+    datePicker.addEventListener('change', (e) => {
+       date = new Date(e.target.value);
+      
+      selectedDate.textContent = `Selected Date: ${date.toLocaleDateString()}`;
+    });
+
+    // Time Range Selection
+    let selectedTimeRange = null;
+
+// Function to handle time range selection
+const handleTimeRangeSelection = (timeRange) => {
+  selectedTimeRange = timeRange;
+  
+  // Optional: Add a visual feedback for the selected time range
+  const buttons = document.querySelectorAll('.radioButton');
+  buttons.forEach(button => {
+    button.classList.remove('selected');
+  });
+  // Highlight the selected button
+  event.target.classList.add('selected');
+};
+
+    const generateItemString = () => {
+    let itemString = '';
+
+// Get values from the input fields
+
+// Construct the item string
+if (plasticKg > 0) {
+  itemString += `Plastic: ${plasticKg} kg, `;
+}
+if (glassKg > 0) {
+  itemString += `Glass: ${glassKg} kg, `;
+}
+if (paperKg > 0) {
+  itemString += `Paper: ${paperKg} kg, `;
+}
+if (metalKg > 0) {
+  itemString += `Metal: ${metalKg} kg, `;
+}
+if (ewasteKg > 0) {
+  itemString += `E-Waste: ${ewasteKg} kg, `;
+}
+
+// Remove the trailing comma and space if any
+if (itemString.endsWith(', ')) {
+  itemString = itemString.slice(0, -2);
+}
+
+return itemString;
+};
+    // Validate and Confirm Pickup
+    function validateAndConfirmPickup() {
+        const validKg = plasticKg > 0 || glassKg > 0 || paperKg > 0 || metalKg > 0 || ewasteKg > 0;
+
+// If no valid recyclable item is added, show an error message
+if (!validKg) {
+  alert('Please add at least one recyclable item.');
+  return;
+}
+if (date == null) {
+      alert('Please select a time range.');
+      return;
+    }
+
+if (!selectedTimeRange){
+        alert('Please select a time range.');
+        return;
+      }
+      // Function to set cookies
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+}
+
+// Function to get cookie by name
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;  // If cookie not found
+}
+
+// Set cookies instead of sessionStorage
+setCookie('time', selectedTimeRange, 1);  // Store 'time' for 1 day
+setCookie('type', "Mass", 1);          // Store 'type' for 1 day
+setCookie('date', date, 1);               // Store 'date' for 1 day
+setCookie('items', generateItemString(), 1);  // Store 'items' for 1 day
+
+      // sessionStorage.setItem('time',selectedTimeRange );
+      // sessionStorage.setItem('type',"General" );
+      // sessionStorage.setItem('date',date );
+      // sessionStorage.setItem('items',generateItemString() );
+     // sessionStorage.setItem('age', '28');
+        window.location.href = "Address.html";
+    }
+  </script>
+</body>
+</html>
