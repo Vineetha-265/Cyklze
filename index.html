@@ -281,6 +281,9 @@
             alert("OTP verified successfully.");
             // localStorage.setItem('napun_accessToken', data.accessToken);
             // localStorage.setItem('napun_refreshToken', data.refreshToken);
+            sessionStorage.setItem('accessToken', data.accessToken);
+sessionStorage.setItem('refreshToken', data.refreshToken);
+
             window.location.href = "homepage.html"; // Replace with your actual redirect logic
         } else {
             console.log("Invalid OTP response:", response.status, response.statusText);
