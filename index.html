@@ -1,11 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My React Native Web App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="otp-container">
+        <h2>Enter OTP</h2>
+        <input type="text" id="otp" placeholder="Enter OTP" />
+        <button onclick="submitOTP()">Submit OTP</button>
+    </div>
+
+    <div class="container" id="home-container" style="display:none;">
+        <h2>Welcome to the Home Page</h2>
+        <p>You have successfully logged in.</p>
+    </div>
+
+    <script>
+        // Check if access token is present
+        if(localStorage.getItem('accessToken')) {
+            document.getElementById('otp-container').style.display = 'none';
+            document.getElementById('home-container').style.display = 'block';
+        }
+
+        function submitOTP() {
+            const otp = document.getElementById('otp').value;
+
+            // For demonstration purposes, we'll assume the OTP is valid if it's "1234"
+            if(otp === '1234') {
+                // Generate an access token (for demonstration, we just store a simple token)
+                const accessToken = generateAccessToken();
+
+                // Store the access token in localStorage (expiry logic would be handled in a real scenario)
+                localStorage.setItem('accessToken', accessToken);
+
+                // Hide OTP form and show home page
+                document.getElementById('otp-container').style.display = 'none';
+                document.getElementById('home-container').style.display = 'block';
+            } else {
+                alert('Invalid OTP');
+            }
+        }
+
+        function generateAccessToken() {
+            // For simplicity, we generate a random string as the access token
+            const token = Math.random().toString(36).substr(2);
+            const expiry = new Date().getTime() + (10 * 60 * 60 * 1000); // 10 hours expiry
+
+            // Add expiry time to the token in localStorage
+            localStorage.setItem('accessTokenExpiry', expiry);
+            return token;
+        }
+    </script>
+</body>
 </html>
+
