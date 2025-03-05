@@ -3,117 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Login</title>
+    <title>Verify Screen</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #E6F0F3;
+        }
+
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
+            min-height: 100vh;
+            flex-direction: column;
         }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+        .splash-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .splash-image {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #00796B;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .content {
+            display: none;
             text-align: center;
         }
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            width: 80%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #00796B;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
+
+        .label {
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #1D4D61;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            background-color: #FFF;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .input {
+            flex: 1;
+            height: 40px;
+            font-size: 16px;
+            margin-left: 8px;
+            padding: 8px;
+        }
+
+        .button {
+            background-color: #1D4D61;
+            border-radius: 10px;
+            padding: 14px;
             color: white;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
+            width: 100%;
+            font-size: 16px;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .button:disabled {
+            background-color: #A0B3B6;
+        }
+
+        .timer-text {
+            font-size: 16px;
+            color: #FF0000;
+            margin-top: 8px;
+        }
+
+        .terms-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .link-text {
+            color: #00796B;
+            text-decoration: underline;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="otp-container">
-        <h2>Enter Your Phone Number</h2>
-        <input type="text" id="phoneNumber" placeholder="Enter Phone Number" />
-        <button onclick="sendOTP()">Send OTP</button>
-    </div>
+    <div class="container">
+        <!-- Splash Screen -->
+        <div id="splashScreen" class="splash-screen">
+            <img src="assets/images/applogo.png" alt="Logo" class="splash-image">
+            <div class="loading">
+                <span>Loading...</span>
+                <div class="spinner"></div>
+            </div>
+        </div>
 
-    <div class="container" id="otp-form-container" style="display:none;">
-        <h2>Enter OTP</h2>
-        <input type="text" id="otp" placeholder="Enter OTP" />
-        <button onclick="submitOTP()">Submit OTP</button>
-    </div>
+        <!-- Main Content -->
+        <div id="verifyContent" class="content">
+            <h1 class="title">Verify</h1>
+            <p class="label">Your Mobile Number</p>
 
-    <div class="container" id="home-container" style="display:none;">
-        <h2>Welcome to the Home Page</h2>
-        <p>You have successfully logged in.</p>
+            <div id="phoneNumberSection">
+                <div class="input-container">
+                    <span>+91</span>
+                    <input type="text" id="phoneNumber" placeholder="Enter phone number" class="input">
+                </div>
+                <button id="sendOtpButton" class="button">Send OTP</button>
+            </div>
+
+            <div id="otpSection" style="display: none;">
+                <p class="label">OTP sent to <span id="phoneNumberText"></span></p>
+                <div class="input-container">
+                    <input type="text" id="otp" placeholder="Enter OTP" class="input">
+                </div>
+                <button id="verifyOtpButton" class="button">Verify OTP</button>
+                <p id="timerText" class="timer-text"></p>
+            </div>
+
+            <div class="terms-container">
+                <span>By continuing, you agree to our </span>
+                <a href="https://example.com/privacy-policy" class="link-text">Privacy Policy</a>
+                <span> and </span>
+                <a href="https://example.com/terms-of-service" class="link-text">Terms of Service.</a>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Check if access token is present
-        if(localStorage.getItem('accessToken')) {
-            window.location.href = "homepage.html";
+        document.addEventListener("DOMContentLoaded", function() {
+            const splashScreen = document.getElementById('splashScreen');
+            const verifyContent = document.getElementById('verifyContent');
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            const sendOtpButton = document.getElementById('sendOtpButton');
+            const otpSection = document.getElementById('otpSection');
+            const otpInput = document.getElementById('otp');
+            const verifyOtpButton = document.getElementById('verifyOtpButton');
+            const timerText = document.getElementById('timerText');
+            const phoneNumberText = document.getElementById('phoneNumberText');
+            let cooldown = 120;
+            let otpCooldownTimer;
+
+            // Simulating Token check and Splash Screen
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                verifyContent.style.display = 'block';
+            }, 3000); // Display splash screen for 3 seconds
+
+            // OTP cooldown logic
+            const startOtpCooldown = () => {
+                sendOtpButton.disabled = true;
+                phoneNumberInput.disabled = true;
+                phoneNumberText.textContent = phoneNumberInput.value;
+                otpSection.style.display = 'block';
+
+                otpCooldownTimer = setInterval(() => {
+                    cooldown--;
+                    timerText.textContent = `Enter OTP within ${cooldown}s`;
+
+                    if (cooldown <= 0) {
+                        clearInterval(otpCooldownTimer);
+                        sendOtpButton.disabled = false;
+                        phoneNumberInput.disabled = false;
+                        otpSection.style.display = 'none';
+                    }
+                }, 1000);
+            };
+
+            // Send OTP Button handler
+            sendOtpButton.addEventListener('click', async () => {
+    const phoneNumber = phoneNumberInput.value;
+
+    // Phone number validation
+    if (!/^[0-9]{10}$/.test(phoneNumber)) {
+        alert("Please enter a valid 10-digit phone number.");
+        return;
+    }
+
+    // Simulating API request to send OTP
+    try {
+        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/verify-otp', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Use a real access token
+            },
+            body: JSON.stringify({ phoneNumber }),
+        });
+
+        // Log the response status and body to debug
+        console.log('Response Status:', response.status);
+        const responseBody = await response.json();
+        console.log('Response Body:', responseBody);
+
+        if (response.ok) {
+            alert("OTP sent successfully.");
+            startOtpCooldown();
+        } else {
+            alert(`Failed to send OTP: ${responseBody.error || 'Unknown error'}`);
         }
+    } catch (error) {
+        console.error('Error sending OTP:', error);
+        alert("Error sending OTP.");
+    }
+});
 
-        // Simulate sending an OTP
-        function sendOTP() {
-            const phoneNumber = document.getElementById('phoneNumber').value;
 
-            // Simple validation for phone number (just check if it's not empty for this example)
-            if(phoneNumber.trim() === '') {
-                alert('Please enter a valid phone number.');
-                return;
-            }
+            // Verify OTP Button handler
+            verifyOtpButton.addEventListener('click', async () => {
+                const otp = otpInput.value;
 
-            // Simulate sending OTP (in a real-world scenario, this would be done via an API to send an SMS)
-            alert('OTP sent to ' + phoneNumber);
+                // OTP validation
+                if (otp.length !== 6 || !/^[0-9]{6}$/.test(otp)) {
+                    alert("OTP must be exactly 6 digits.");
+                    return;
+                }
 
-            // Show the OTP input form
-            document.getElementById('otp-container').style.display = 'none';
-            document.getElementById('otp-form-container').style.display = 'block';
-        }
+                // Simulating API request to verify OTP
+                try {
+                    const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/verify-otp', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Use a real access token
+                        },
+                        body: JSON.stringify({ phoneNumber: phoneNumberInput.value, otp }),
+                    });
 
-        // Simulate OTP submission and access token generation
-        function submitOTP() {
-            const otp = document.getElementById('otp').value;
-
-            // For demonstration purposes, we'll assume the OTP is valid if it's "1234"
-            if(otp === '1234') {
-                // Generate an access token (for demonstration, we just store a simple token)
-                const accessToken = generateAccessToken();
-
-                // Store the access token in localStorage (expiry logic would be handled in a real scenario)
-                localStorage.setItem('accessToken', accessToken);
-                window.location.href = "homepage.html";
-                // Hide OTP form and show home page
-                // document.getElementById('otp-form-container').style.display = 'none';
-                // document.getElementById('home-container').style.display = 'block';
-            } else {
-                alert('Invalid OTP');
-            }
-        }
-
-        // Function to generate an access token with 10 minutes expiry
-        function generateAccessToken() {
-            // For simplicity, we generate a random string as the access token
-            const token = Math.random().toString(36).substr(2);
-            const expiry = new Date().getTime() + (10 * 60 * 1000); // 10 minutes expiry time
-
-            // Store the expiry time of the token in localStorage
-            localStorage.setItem('accessTokenExpiry', expiry);
-            return token;
-        }
+                    if (response.ok) {
+                        const data = await response.json();
+                        alert("OTP verified successfully.");
+                        // Store tokens in sessionStorage or other storage if necessary
+                        // Redirect to Home or other screen
+                        window.location.href = "home.html"; // Replace with your actual redirect logic
+                    } else {
+                        alert("Invalid OTP.");
+                    }
+                } catch (error) {
+                    alert("Error verifying OTP.");
+                }
+            });
+        });
     </script>
 </body>
 </html>
