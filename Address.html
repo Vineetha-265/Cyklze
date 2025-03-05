@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Address and Location</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+
+    .gradientCard {
+      background: linear-gradient(to right, #FFFFFF, #F1F1F1);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .Loctitle {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .sectionTitle {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .toggleButton {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .toggleButtonText {
+      font-size: 16px;
+    }
+
+    .locationRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .locationText {
+      font-size: 16px;
+    }
+
+    .iconButton {
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .errorText {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: #ddd;
+      margin: 20px 0;
+    }
+
+    .inputLabel {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .dropdown {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      background-color: #f9f9f9;
+    }
+
+    .dropdownMenu {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
+
+    .dropdownItem {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .dropdownItem:hover {
+      background-color: #f1f1f1;
+    }
+
+    .button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .button:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Address Details Section -->
+    <div class="card gradientCard">
+      <div class="Loctitle">Details</div>
+      <div class="sectionTitle" id="selectedItems">Selected Items: </div>
+      <div class="sectionTitle" id="pickupType">Pickup Type: </div>
+      <div class="sectionTitle" id="chosenDate">Chosen Date: </div>
+      <div class="sectionTitle" id="chosenTime">Chosen Time: </div>
+    </div>
+
+    <!-- Continue with Saved Address Section -->
+    <div id="savedAddressCard" class="card" style="display: none;">
+      <div class="Loctitle">Continue with Saved Address</div>
+      <button class="toggleButton" id="savedAddressButton">
+        <span id="savedAddressText"></span>
+      </button>
+    </div>
+
+    <!-- Location Section -->
+    <div class="card">
+      <div class="Loctitle">Enable Location</div>
+      <div class="locationRow">
+        <div class="locationText">Enable location for optimized services</div>
+        <button class="iconButton" id="enableLocationButton">Enable</button>
+      </div>
+      <div id="locationInfo" style="display: none;">
+        <button class="toggleButton" id="fetchedAddressButton">
+          <span id="fetchedAddressText">Fetching address...</span>
+        </button>
+      </div>
+      <div id="locationError" class="errorText" style="display: none;"></div>
+      <div class="divider"></div>
+      <div class="locationText">Or</div>
+      <button class="toggleButton" id="toggleAddressFormButton">Enter Address</button>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Address Input Section -->
+    <div id="addressForm" class="card" style="display: none;">
+      <div class="Loctitle">Enter Address</div>
+
+      <!-- Street Address -->
+      <div class="inputLabel">Street Address:</div>
+      <input type="text" class="input" id="streetAddress" placeholder="House no/Flat no/Road no">
+
+      <!-- Colony/Area -->
+      <div class="inputLabel">Colony/Area:</div>
+      <input type="text" class="input" id="colonyArea" placeholder="Colony/Area">
+
+      <!-- City Dropdown -->
+      <div class="inputLabel">City:</div>
+      <div class="dropdown" id="cityDropdown">
+        <span id="selectedCity">Select City</span>
+      </div>
+      <div id="dropdownMenu" class="dropdownMenu" style="display: none;">
+        <!-- Cities will be dynamically populated here -->
+      </div>
+
+      <!-- Postal Code -->
+      <div class="inputLabel">Postal Code:</div>
+      <input type="text" class="input" id="postalCode" placeholder="Postal Code">
+
+      <!-- Confirm Address Button -->
+      <button class="button" id="confirmAddressButton">Confirm Address</button>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript for Functionality
+    const items = sessionStorage.getItem('items');
+    
+    const type = sessionStorage.getItem('type');
+    const date = sessionStorage.getItem('date');
+    const time = sessionStorage.getItem('time');
+    document.getElementById('selectedItems').textContent = `Selected Items: ${items}`;
+    
+    document.getElementById('pickupType').textContent = `Selected Pickup Type: ${type}`;
+    document.getElementById('chosenDate').textContent = `Selected Date: ${date}`;
+    
+    document.getElementById('chosenTime').textContent = `Selected Time: ${time}`;
+    // Sample Data
+    const Tier1Cities = [
+      { value: 'New York', label: 'New York' },
+      { value: 'Los Angeles', label: 'Los Angeles' },
+      { value: 'Chicago', label: 'Chicago' },
+      { value: 'Houston', label: 'Houston' },
+    ];
+
+    // State Variables
+    let savedAddress = ''; // Replace with actual saved address
+    let showAddressForm = false;
+    let selectedCity = 'Select City';
+    let address = {
+      street: '',
+      area: '',
+      city: '',
+      postalCode: '',
+    };
+
+    // DOM Elements
+    const savedAddressCard = document.getElementById('savedAddressCard');
+    const savedAddressText = document.getElementById('savedAddressText');
+    const enableLocationButton = document.getElementById('enableLocationButton');
+    const locationInfo = document.getElementById('locationInfo');
+    const fetchedAddressText = document.getElementById('fetchedAddressText');
+    const locationError = document.getElementById('locationError');
+    const toggleAddressFormButton = document.getElementById('toggleAddressFormButton');
+    const addressForm = document.getElementById('addressForm');
+    const cityDropdown = document.getElementById('cityDropdown');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const fetchedAddressBtn = document.getElementById('fetchedAddressButton');
+    const confirmAddressButton = document.getElementById('confirmAddressButton');
+
+    // Event Listeners
+    fetchedAddressBtn.addEventListener('click',fetchedAddressBtnn)
+    enableLocationButton.addEventListener('click', requestLocationPermission);
+    toggleAddressFormButton.addEventListener('click', toggleAddressForm);
+    cityDropdown.addEventListener('click', toggleDropdown);
+    confirmAddressButton.addEventListener('click', handleConfirmAddress);
+
+    // Functions
+    function fetchedAddressBtnn() {
+      
+      sessionStorage.setItem('address',fetchedAddressText.textContent);
+      window.location.href = "Confirm_Details.html";
+    }
+    // Toggle Address Form
+    function toggleAddressForm() {
+      showAddressForm = !showAddressForm;
+      addressForm.style.display = showAddressForm ? 'block' : 'none';
+      toggleAddressFormButton.textContent = showAddressForm ? 'Hide Address Form' : 'Enter Address';
+    }
+
+    // Toggle Dropdown
+    function toggleDropdown() {
+      const isOpen = dropdownMenu.style.display === 'block';
+      dropdownMenu.style.display = isOpen ? 'none' : 'block';
+      if (!isOpen) {
+        populateDropdown();
+      }
+    }
+
+    // Populate Dropdown
+    function populateDropdown() {
+      dropdownMenu.innerHTML = Tier1Cities.map(city => `
+        <div class="dropdownItem" onclick="selectCity('${city.value}')">${city.label}</div>
+      `).join('');
+    }
+
+    // Select City
+    function selectCity(city) {
+      selectedCity = city;
+      document.getElementById('selectedCity').textContent = city;
+      dropdownMenu.style.display = 'none';
+    }
+
+    // Request Location Permission
+    function requestLocationPermission() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            fetchAddress(latitude, longitude);
+          },
+          (error) => {
+            locationError.textContent = 'Error fetching location: ' + error.message;
+            locationError.style.display = 'block';
+          }
+        );
+      } else {
+        locationError.textContent = 'Geolocation is not supported by this browser.';
+        locationError.style.display = 'block';
+      }
+    }
+
+    // Fetch Address from Coordinates
+    function fetchAddress(latitude, longitude) {
+  const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.display_name) {
+        const address = data.display_name;
+        fetchedAddressText.textContent = `Address: ${address}`;
+        locationInfo.style.display = 'block';
+        sessionStorage.setItem('address', address+'.');
+        window.location.href = "Confirm_Details.html";
+      } else {
+        locationError.textContent = 'Unable to fetch address.';
+        locationError.style.display = 'block';
+      }
+    })
+    .catch(error => {
+      locationError.textContent = 'Error fetching address: ' + error.message;
+      locationError.style.display = 'block';
+    });
+}
+
+
+    // Handle Confirm Address
+    function handleConfirmAddress() {
+      address.street = document.getElementById('streetAddress').value;
+      address.area = document.getElementById('colonyArea').value;
+      address.city = selectedCity;
+      address.postalCode = document.getElementById('postalCode').value;
+
+      if (address.street && address.area && address.city && address.postalCode) {
+        sessionStorage.setItem('address', address.street+ ','+address.area+','+address.city+','+address.postalCode+'.');
+        window.location.href = "Confirm_Details.html";
+        // Navigate or perform further actions
+      } else {
+        alert('Please fill all fields.');
+      }
+    }
+
+    // Initialize Saved Address
+    if (savedAddress) {
+      savedAddressCard.style.display = 'block';
+      savedAddressText.textContent = savedAddress;
+    }
+  </script>
+</body>
+</html>
