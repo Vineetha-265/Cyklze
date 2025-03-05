@@ -129,6 +129,27 @@
 </div>
 
 <script>
+    function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+}
+
+// Function to get cookie by name
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;  // If cookie not found
+}
   let isLoading = false;
   let isButtonDisabled = false;
   const continueBtn = document.getElementById("continueBtn");
@@ -141,11 +162,12 @@
   function handleContinue() {
     window.location.href = "Confirmed.html"; // Simulate loading time
   }
-  const items = sessionStorage.getItem('items');
-  const address = sessionStorage.getItem('address');
-    const type = sessionStorage.getItem('type');
-    const date = sessionStorage.getItem('date');
-    const time = sessionStorage.getItem('time');
+  
+  const items = getCookie('items');
+  const address =getCookie('address');
+    const type = getCookie('type');
+    const date = getCookie('date');
+    const time = getCookie('time');
   // Example data assignment for dynamic content
   document.getElementById("type").textContent = type;
   document.getElementById("items").textContent = items;
