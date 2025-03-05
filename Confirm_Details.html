@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pickup Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      font-size: 16px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .btn {
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-change {
+      background-color: #00796b;
+      color: white;
+    }
+
+    .btn-continue {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Pickup Details Card -->
+  <div class="card fade-in">
+    <div class="card-title">Pickup Details</div>
+    <div class="card-text">Pickup Type: <span id="type">Type Here</span></div>
+    <div class="card-text">Selected Items: <span id="items">Items Here</span></div>
+    <div class="card-text">Address: <span id="address">Address Here</span></div>
+    <div class="card-text">Time: <span id="time">Time Here</span></div>
+    <div class="card-text">Chosen Date: <span id="date">Date Here</span></div>
+  </div>
+
+  <!-- Change Address Button -->
+  <!-- <button class="btn btn-change fade-in" onclick="changeAddress()">Change Address</button> -->
+
+  <!-- Continue for Pickup Button -->
+  <button class="btn btn-continue fade-in" onclick="handleContinue()" id="continueBtn" disabled>
+    Continue for Pickup
+  </button>
+
+  <!-- Loading Progress Bar -->
+  <div id="loading" class="loading fade-in" style="display: none;">
+    <div class="loader"></div>
+  </div>
+</div>
+
+<script>
+  let isLoading = false;
+  let isButtonDisabled = false;
+  const continueBtn = document.getElementById("continueBtn");
+  const loading = document.getElementById("loading");
+
+  function changeAddress() {
+    alert("Change Address clicked");
+  }
+
+  function handleContinue() {
+    window.location.href = "Confirmed.html"; // Simulate loading time
+  }
+  const items = sessionStorage.getItem('items');
+  const address = sessionStorage.getItem('address');
+    const type = sessionStorage.getItem('type');
+    const date = sessionStorage.getItem('date');
+    const time = sessionStorage.getItem('time');
+  // Example data assignment for dynamic content
+  document.getElementById("type").textContent = type;
+  document.getElementById("items").textContent = items;
+  document.getElementById("address").textContent = address;
+  document.getElementById("time").textContent = time;
+  document.getElementById("date").textContent = date;
+  
+  // Enable the "Continue" button when data is ready
+  setTimeout(() => {
+    continueBtn.disabled = false;
+  }, 500);
+</script>
+
+</body>
+</html>
