@@ -279,8 +279,8 @@
             const data = await response.json();
             console.log("OTP verified successfully:", data);
             alert("OTP verified successfully.");
-            localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('refreshToken', data.refreshToken);
+            localStorage.setItem('napun_accessToken', data.accessToken);
+            localStorage.setItem('napun_refreshToken', data.refreshToken);
             window.location.href = "homepage.html"; // Replace with your actual redirect logic
         } else {
             console.log("Invalid OTP response:", response.status, response.statusText);
