@@ -273,7 +273,7 @@
 
                     if (response.ok) {
                         const data = await response.json();
-                        alert("OTP verified successfully.");
+                      
                      localStorage.setItem('accessToken',data.accessToken)
                      localStorage.setItem('refreshToken',data.refreshToken)
                         window.location.href = "homepage.html"; // Replace with your actual redirect logic
@@ -281,7 +281,7 @@
                         alert("Invalid OTP.");
                     }
                 } catch (error) {
-                    alert("Error verifying OTP.");
+                   
                 }
             });
         });
