@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZinkAndBunk - Pickup Services</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #FFFFFF, #C8E6C9);
+            line-height: 1.6;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header & Welcome Text */
+        .title-container {
+            margin-bottom: 20px;
+        }
+
+        .title-container h1 {
+            font-weight: bold;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .title-container p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .welcome-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sub-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .sub-text1 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* Section Styles */
+        .section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .section-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .gradient-button {
+            background: linear-gradient(45deg, #4caf50, #81c784);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .gradient-button:hover {
+            background: linear-gradient(45deg, #388e3c, #66bb6a);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav div {
+            text-align: center;
+            cursor: pointer; /* Make the entire div clickable */
+        }
+
+        .bottom-nav div i {
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 5px;
+            cursor: pointer; /* Make the icon clickable */
+        }
+
+        .bottom-nav div p {
+            font-size: 12px;
+            color: #000;
+            cursor: pointer; /* Make the text clickable */
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            margin-bottom: 30px;
+        }
+
+        .tool-item {
+            margin-bottom: 20px;
+        }
+
+        .tool-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .tool-description {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .contact-section p {
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="title-container">
+            <h1>Saved Address...</h1>
+            <p id="address">Your address will appear here if available.</p>
+        </div>
+        <p class="welcome-text">Welcome Back!</p>
+        <p class="sub-text">Let's get your pickup set up</p>
+
+        <!-- Select Pickup Type -->
+        <p class="sub-text1">Select Pickup Type</p>
+
+        <!-- General Pickup Section -->
+        <div class="section">
+            <p class="section-title">General Pickup</p>
+            <p class="section-description">A general pickup for recyclables and unwanted materials.</p>
+            <button class="gradient-button" onclick="navigateTo('GeneralPickupScreen')">General Pickup</button>
+        </div>
+
+        <!-- Instant Pickup Section -->
+        <div class="section" style="background-color: #FFE5E5;">
+            <p class="section-title">Instant Pickup</p>
+            <p class="section-description">Get your recyclables picked up immediately at a moment's notice.</p>
+            <button class="gradient-button" onclick="navigateTo('InstantScreen')">Instant Pickup</button>
+        </div>
+
+        <!-- Supermarket Pickup Section -->
+        <div class="section" style="background-color: #E6E6FA;">
+            <p class="section-title">Supermarket Pickup</p>
+            <p class="section-description">Pickup service for supermarkets with recyclables such as bottles and cartons.</p>
+            <button class="gradient-button" onclick="navigateTo('Supermarket')">Supermarket Pickup</button>
+        </div>
+
+        <!-- Mass Pickup Section -->
+        <div class="section" style="background-color: #D2B48C;">
+            <p class="section-title">Mass Pickup</p>
+            <p class="section-description">For bulk pickup of recyclables, ideal for large items and heavy loads.</p>
+            <button class="gradient-button" onclick="navigateTo('MassScreen')">Mass Pickup</button>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="tools-section">
+            <p class="tool-title">Tools</p>
+
+            <!-- Price Calculator -->
+            <div class="tool-item">
+                <p class="tool-title">Price Calculator</p>
+                <p class="tool-description">Calculate the cost for bulk pickup of recyclables.</p>
+                <button class="gradient-button" onclick="navigateTo('PriceCalci')">Price Calculator</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Current Prices -->
+            <div class="tool-item">
+                <p class="tool-title">Current Prices</p>
+                <p class="tool-description">Check the current prices for recyclables and waste.</p>
+                <button class="gradient-button" onclick="navigateTo('PriceScreen')">Current Prices</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Guide -->
+            <div class="tool-item">
+                <p class="tool-title">Guide</p>
+                <p class="tool-description">Learn how to handle recyclables and waste efficiently.</p>
+                <button class="gradient-button" onclick="navigateTo('Guide')">Guide</button>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h3>Need Help? Contact Us!</h3>
+            <button class="gradient-button" onclick="navigateTo('Help')">Contact Support</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div onclick="navigateTo('Home')">
+            <i class="material-icons">home</i>
+            <p>Home</p>
+        </div>
+        <div onclick="navigateTo('Profile')">
+            <i class="material-icons">person</i>
+            <p>Profile</p>
+        </div>
+        <div onclick="navigateTo('Settings')">
+            <i class="material-icons">settings</i>
+            <p>Settings</p>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(screen) {
+            console.log("Navigating to:", screen);
+            // Add your actual navigation logic here (e.g., redirect or load a new page)
+        }
+    </script>
+</body>
+</html>
