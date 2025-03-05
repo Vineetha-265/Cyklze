@@ -44,6 +44,12 @@
 </head>
 <body>
     <div class="container" id="otp-container">
+        <h2>Enter Your Phone Number</h2>
+        <input type="text" id="phoneNumber" placeholder="Enter Phone Number" />
+        <button onclick="sendOTP()">Send OTP</button>
+    </div>
+
+    <div class="container" id="otp-form-container" style="display:none;">
         <h2>Enter OTP</h2>
         <input type="text" id="otp" placeholder="Enter OTP" />
         <button onclick="submitOTP()">Submit OTP</button>
@@ -58,9 +64,29 @@
         // Check if access token is present
         if(localStorage.getItem('accessToken')) {
             document.getElementById('otp-container').style.display = 'none';
+            document.getElementById('otp-form-container').style.display = 'none';
             document.getElementById('home-container').style.display = 'block';
         }
 
+        // Simulate sending an OTP
+        function sendOTP() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            // Simple validation for phone number (just check if it's not empty for this example)
+            if(phoneNumber.trim() === '') {
+                alert('Please enter a valid phone number.');
+                return;
+            }
+
+            // Simulate sending OTP (in a real-world scenario, this would be done via an API to send an SMS)
+            alert('OTP sent to ' + phoneNumber);
+
+            // Show the OTP input form
+            document.getElementById('otp-container').style.display = 'none';
+            document.getElementById('otp-form-container').style.display = 'block';
+        }
+
+        // Simulate OTP submission and access token generation
         function submitOTP() {
             const otp = document.getElementById('otp').value;
 
@@ -73,23 +99,23 @@
                 localStorage.setItem('accessToken', accessToken);
 
                 // Hide OTP form and show home page
-                document.getElementById('otp-container').style.display = 'none';
+                document.getElementById('otp-form-container').style.display = 'none';
                 document.getElementById('home-container').style.display = 'block';
             } else {
                 alert('Invalid OTP');
             }
         }
 
+        // Function to generate an access token with 10 minutes expiry
         function generateAccessToken() {
             // For simplicity, we generate a random string as the access token
             const token = Math.random().toString(36).substr(2);
-            const expiry = new Date().getTime() + (10 * 60 * 60 * 1000); // 10 hours expiry
+            const expiry = new Date().getTime() + (10 * 60 * 1000); // 10 minutes expiry time
 
-            // Add expiry time to the token in localStorage
+            // Store the expiry time of the token in localStorage
             localStorage.setItem('accessTokenExpiry', expiry);
             return token;
         }
     </script>
 </body>
 </html>
-
