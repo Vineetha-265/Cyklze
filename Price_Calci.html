@@ -108,21 +108,40 @@
   </div>
 
   <script>
-    // Define the scrap types data
-    const scrapTypes = [
-      { product: 'Plastic', pricePerKg: 2.5 },
-      { product: 'Paper', pricePerKg: 1.8 },
-      { product: 'Glass', pricePerKg: 3.0 },
-      { product: 'Metal', pricePerKg: 4.5 },
-    ];
-
+    // State for scrap types and quantities
+    let scrapTypes = [];
     const quantities = {};
+
+    // Define the API_URL (Replace this with your actual API URL)
+    const API_URL = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order'; // Change with your real API URL
+
+    // Fetch scrap types from API
+    async function fetchScrapTypes() {
+      try {
+        const response = await fetch(API_URL, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'accessToken', // Include the token in request header
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch scrap types');
+        }
+        const data = await response.json();
+        scrapTypes = data; // Set fetched scrap types
+        generateScrapTypes(); // Call function to generate inputs
+      } catch (error) {
+        alert('Error: Failed to fetch scrap types');
+        console.error(error);
+      } finally {
+        document.getElementById('loadingIndicator').style.display = 'none';
+      }
+    }
 
     // Function to generate scrap type input fields
     function generateScrapTypes() {
       const container = document.getElementById('scrapTypesContainer');
-      const loadingIndicator = document.getElementById('loadingIndicator');
-      loadingIndicator.style.display = 'none';
 
       scrapTypes.forEach((scrapType) => {
         const itemContainer = document.createElement('div');
@@ -145,12 +164,12 @@
       });
     }
 
-    // Function to handle quantity changes
+    // Handle quantity change
     function handleQuantityChange(product, value) {
       quantities[product] = parseFloat(value) || 0;
     }
 
-    // Function to calculate total price
+    // Calculate total price
     function calculateTotalPrice() {
       let total = 0;
 
@@ -163,9 +182,9 @@
       totalPrice.textContent = `Total Price: $${total.toFixed(2)}`;
     }
 
-    // Simulate loading state and generate scrap types after a delay
+    // On page load, fetch scrap types
     window.onload = function() {
-      setTimeout(generateScrapTypes, 1000); // Simulate a 1-second delay to load data
+      fetchScrapTypes();
     };
   </script>
 
