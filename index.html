@@ -308,7 +308,7 @@
     const isTokenExpired = async () => {
       const accessToken = getAccessToken();
       if (!accessToken) {
-        showToast('Please log in');
+        
         return true;
       }
 
@@ -340,7 +340,7 @@
     const refreshAccessToken = async () => {
       const refreshToken = getRefreshToken();
       if (!refreshToken) {
-        showToast('Please log in');
+       
         return;
       }
 
@@ -381,13 +381,13 @@
             await refreshAccessToken();
             navigateToHomeScreen();
           } else {
-            showToast('Please log in');
+           
           }
         } else {
           navigateToHomeScreen();
         }
       } else {
-        showToast('Please log in');
+       
       }
     };
 
