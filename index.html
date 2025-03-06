@@ -263,7 +263,7 @@
       }
     }
   const isTokenExpired = async () => {
-    const accessToken = localStorage.getItem('accessToken'); // Assuming the token is stored in localStorage
+    const accessToken = getCookie('accessToken'); // Assuming the token is stored in localStorage
     try {
       const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
         method: 'POST',
