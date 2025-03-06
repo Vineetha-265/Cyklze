@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #E0F7FA; /* Light blue background */
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .title-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      background-color: #ADD8E6; /* Powder blue */
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .back-button {
+      margin-right: 16px;
+    }
+
+    .title-text {
+      flex: 1;
+      font-size: 22px;
+      font-weight: bold;
+      color: #000;
+      text-align: center;
+    }
+
+    .instructions-container {
+      background-color: #98FB98; /* Pale mint */
+      border-radius: 8px;
+      margin-top: 20px;
+      padding: 16px;
+    }
+
+    .instructions-text {
+      font-size: 16px;
+      color: #000;
+    }
+
+    .email-container {
+      background-color: #FFEB3B; /* Light Yellow */
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .email-text {
+      font-size: 16px;
+      color: #000;
+      text-align: center;
+    }
+
+    .contact-form-container {
+      background-color: #E6BE8A; /* Light taupe */
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .form-title-text {
+      font-size: 16px;
+      color: #000;
+      margin-bottom: 8px;
+    }
+
+    .comment-box {
+      width: 100%;
+      height: 200px;
+      background-color: #FFF;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      color: #000;
+      resize: none;
+      box-sizing: border-box;
+    }
+
+    .button {
+      background-color: #00008B; /* Dark blue */
+      padding: 16px;
+      border-radius: 8px;
+      color: #FFF;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+
+    .button:disabled {
+      background-color: #B0C4DE; /* Light Steel Blue */
+      cursor: not-allowed;
+    }
+
+    .loading-indicator {
+      display: none;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 10%;
+      right: 10%;
+      background-color: #2ecc71; /* Green for success */
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      color: #fff;
+      font-weight: bold;
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Title Section -->
+    <div class="title-container">
+      <div class="back-button">
+        <!-- Back button (you can add an arrow icon here if needed) -->
+      </div>
+      <div class="title-text">Contact Us</div>
+    </div>
+
+    <!-- Instructions Section -->
+    <div class="instructions-container">
+      <div class="instructions-text">
+        If you have any issues or inquiries, please contact our support team below.
+      </div>
+    </div>
+
+    <!-- Display Email for contact -->
+    <div class="email-container">
+      <div class="email-text">Email: ramesh@help.com</div>
+      <div class="email-text">For any queries, please email us.</div>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-form-container">
+      <div class="form-title-text">
+        Or, leave us a comment and request a callback:
+      </div>
+
+      <!-- Comment Box -->
+      <textarea id="comment" class="comment-box" placeholder="Enter your message here" rows="4"></textarea>
+
+      <!-- Callback Button -->
+      <div id="request-callback-btn" class="button" onclick="requestCallback()">Request a Callback</div>
+
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="loading-indicator">
+      <div>Loading...</div>
+    </div>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">Request submitted successfully!</div>
+
+  <script>
+    function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+}
+
+// Helper function to get cookie value by name
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;
+}
+    const requestCallback = async () => {
+      const comment = document.getElementById('comment').value.trim();
+      if (!comment) {
+        showToast('Please enter a comment before requesting a callback.');
+        return;
+      }
+
+      const requestBtn = document.getElementById('request-callback-btn');
+      const loadingIndicator = document.getElementById('loading-indicator');
+      
+      requestBtn.disabled = true;
+      loadingIndicator.style.display = 'block';
+
+      try {
+        const accessToken = getCookie('accessToken'); // Get the token (simulated)
+
+        if (!accessToken) {
+          showToast('Authentication failed. Please log in again.');
+          requestBtn.disabled = false;
+          loadingIndicator.style.display = 'none';
+          return;
+        }
+
+        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${accessToken}`,
+          },
+          body: JSON.stringify({ comment }),
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          showToast(responseData.message || 'Callback request submitted successfully!');
+        } else {
+          showToast(responseData.message || 'Failed to request callback. Please try again.');
+        }
+
+      } catch (error) {
+        console.error('RequestCallbackError', error);
+        showToast('Failed to request callback. Please try again.');
+      } finally {
+        requestBtn.disabled = false;
+        loadingIndicator.style.display = 'none';
+      }
+    };
+
+    const showToast = (message) => {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    };
+  </script>
+
+</body>
+</html>
