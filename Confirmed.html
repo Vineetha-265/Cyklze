@@ -154,21 +154,9 @@
 
   <script>
     // Step 1: Set a flag in sessionStorage to indicate the user is on the confirmation page
-    sessionStorage.setItem("onConfirmationPage", "true");
-
-    // Step 2: Redirect to the homepage if the user tries to go back
-    window.onbeforeunload = function () {
-      sessionStorage.removeItem("onConfirmationPage");
-    };
-
-    // Step 3: Example functions for buttons
-    function trackPickup() {
-      alert("Tracking your pickup...");
-    }
-
-    function contactSupport() {
-      alert("Contacting support...");
-    }
+  setTimeout(function() {
+      window.history.go(-3);  // Go 3 pages back after 5 seconds
+    }, 5000); 
 
     // Animation logic for animated texts
     const words = ["We appreciate your request!", "Our team will process it soon.", "Stay tuned for updates."];
