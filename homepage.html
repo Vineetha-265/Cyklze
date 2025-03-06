@@ -6,7 +6,7 @@
     <title>ZinkAndBunk - Pickup Services</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* General Reset */ 
+        /* General Reset */
         * {
             margin: 0;
             padding: 0;
@@ -17,12 +17,19 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(to bottom, #FFFFFF, #C8E6C9);
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            text-align: center;
         }
 
         .container {
             padding: 20px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 20px auto;
+            width: 100%;
         }
 
         /* Header & Welcome Text */
@@ -32,13 +39,14 @@
 
         .title-container h1 {
             font-weight: bold;
-            font-size: 16px;
-            text-align: left;
+            font-size: 24px;
+            text-align: center;
         }
 
         .title-container p {
             font-size: 18px;
             color: #555;
+            text-align: center;
         }
 
         .welcome-text {
@@ -68,6 +76,7 @@
             margin-bottom: 30px;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         .section-title {
@@ -156,21 +165,104 @@
             color: #666;
         }
 
-        /* Contact Section */
-        .contact-section {
-            margin-top: 30px;
+        /* Blocks Section */
+        .block {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            width: 23%;
+            margin-bottom: 20px;
+            box-sizing: border-box;
             text-align: center;
+            display: inline-block;
+            vertical-align: top;
         }
 
-        .contact-section h3 {
+        .block h3 {
+            margin-top: 0;
+        }
+
+        /* Flexbox container for blocks */
+        .blocks-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .block {
+                width: 48%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .block {
+                width: 100%;
+            }
+        }
+        footer {
+            background-color: #000;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 14px;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box; /* Ensure padding doesn't overflow */
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            max-width: 1200px; /* Optional max-width to keep content aligned */
+            margin: 0 auto; /* Center content */
+        }
+
+        .footer-column {
+            margin: 10px;
+            max-width: 250px;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .footer-column p {
+            margin: 5px 0;
+            color: #ccc;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
             font-size: 20px;
-            font-weight: bold;
-            color: #333;
         }
 
-        .contact-section p {
-            font-size: 16px;
-            color: #666;
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #bbb;
         }
     </style>
 </head>
@@ -194,27 +286,26 @@
             <p class="section-description">A general pickup for recyclables and unwanted materials.</p>
             <button class="gradient-button" onclick="window.location.href='General_pickup.html'">General Pickup</button>
         </div>
-        
 
         <!-- Instant Pickup Section -->
         <div class="section" style="background-color: #FFE5E5;">
             <p class="section-title">Instant Pickup</p>
             <p class="section-description">Get your recyclables picked up immediately at a moment's notice.</p>
-            <button class="gradient-button" onclick="window.location.href='Instant_pickup.html'">Instant Pickup</button>
+            <button class="gradient-button" onclick="navigateTo('InstantScreen')">Instant Pickup</button>
         </div>
 
         <!-- Supermarket Pickup Section -->
         <div class="section" style="background-color: #E6E6FA;">
             <p class="section-title">Supermarket Pickup</p>
             <p class="section-description">Pickup service for supermarkets with recyclables such as bottles and cartons.</p>
-            <button class="gradient-button" onclick="window.location.href='Supermarket_pickup.html'">Supermarket Pickup</button>
+            <button class="gradient-button" onclick="navigateTo('Supermarket')">Supermarket Pickup</button>
         </div>
 
         <!-- Mass Pickup Section -->
         <div class="section" style="background-color: #D2B48C;">
             <p class="section-title">Mass Pickup</p>
             <p class="section-description">For bulk pickup of recyclables, ideal for large items and heavy loads.</p>
-            <button class="gradient-button" onclick="window.location.href='Mass_pickup.html'">Mass Pickup</button>
+            <button class="gradient-button" onclick="navigateTo('MassScreen')">Mass Pickup</button>
         </div>
 
         <!-- Tools Section -->
@@ -225,7 +316,7 @@
             <div class="tool-item">
                 <p class="tool-title">Price Calculator</p>
                 <p class="tool-description">Calculate the cost for bulk pickup of recyclables.</p>
-                <button class="gradient-button" onclick="window.location.href='Price_Calci.html'">Price Calculator</button>
+                <button class="gradient-button" onclick="navigateTo('PriceCalci')">Price Calculator</button>
             </div>
 
             <div class="divider"></div>
@@ -234,7 +325,7 @@
             <div class="tool-item">
                 <p class="tool-title">Current Prices</p>
                 <p class="tool-description">Check the current prices for recyclables and waste.</p>
-                <button class="gradient-button" onclick="window.location.href='Current_Prices.html'">Current Prices</button>
+                <button class="gradient-button" onclick="navigateTo('PriceScreen')">Current Prices</button>
             </div>
 
             <div class="divider"></div>
@@ -243,28 +334,86 @@
             <div class="tool-item">
                 <p class="tool-title">Guide</p>
                 <p class="tool-description">Learn how to handle recyclables and waste efficiently.</p>
-                <button class="gradient-button" onclick="window.location.href='Guide.html'">Guide</button>
+                <button class="gradient-button" onclick="navigateTo('Guide')">Guide</button>
             </div>
         </div>
 
         <!-- Contact Section -->
         <div class="contact-section">
             <h3>Need Help? Contact Us!</h3>
-            <button class="gradient-button" onclick="window.location.href='Orders.html'">Contact Support</button>
+            <button class="gradient-button" onclick="navigateTo('Help')">Contact Support</button>
         </div>
     </div>
 
+    <!-- Blocks Section -->
+    <div class="blocks-container">
+        <div class="block">
+            <h3>Heading 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor euismod.</p>
+        </div>
+        <div class="block">
+            <h3>Heading 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor euismod.</p>
+        </div>
+        <div class="block">
+            <h3>Heading 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor euismod.</p>
+        </div>
+        <div class="block">
+            <h3>Heading 4</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor euismod.</p>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <!-- Column 1: Links -->
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <p><a href="#">Privacy Policy</a></p>
+                <p><a href="#">Terms of Service</a></p>
+                <p><a href="#">About Us</a></p>
+                <p><a href="#">Contact</a></p>
+            </div>
+    
+            <!-- Column 2: Office Address -->
+            <div class="footer-column">
+                <h4>Our Office</h4>
+                <p>1234 Street Name</p>
+                <p>City, State, 56789</p>
+                <p>Country</p>
+            </div>
+    
+            <!-- Column 3: Contact -->
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>Email: <a href="mailto:Ramesh@bhai.com">info@example.com</a></p>
+                <p>Phone: +91 45865303</p>
+            </div>
+        </div>
+    
+        <!-- Social Media Links -->
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fa fa-facebook"></i> Facebook</a>
+            <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i> Twitter</a>
+            <a href="#" aria-label="Instagram"><i class="fa fa-instagram"></i> Instagram</a>
+        </div>
+    
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 ZinkAndBunk. All rights reserved.</p>
+        </div>
+    </footer>
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
         <div onclick="navigateTo('Home')">
             <i class="material-icons">home</i>
             <p>Home</p>
         </div>
-        <div onclick="window.location.href='Profile.html'">
+        <div onclick="navigateTo('Profile')">
             <i class="material-icons">person</i>
             <p>Profile</p>
         </div>
-        <div onclick="window.location.href='Settings.html'">
+        <div onclick="navigateTo('Settings')">
             <i class="material-icons">settings</i>
             <p>Settings</p>
         </div>
@@ -276,5 +425,6 @@
             // Add your actual navigation logic here (e.g., redirect or load a new page)
         }
     </script>
+
 </body>
 </html>
