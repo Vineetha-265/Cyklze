@@ -161,7 +161,7 @@ function getCookie(name) {
         const response = await fetch(apiUrl, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `${accessToken}`,
           },
         });
 
