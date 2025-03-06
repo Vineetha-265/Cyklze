@@ -41,6 +41,9 @@
     /* Settings Section */
     .settings-section {
       margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;  /* Ensures buttons are stacked vertically */
+      align-items: center;     /* Centers the buttons horizontally */
     }
 
     .button {
@@ -55,6 +58,8 @@
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s ease;
+      width: 100%; /* Ensures buttons fill the container's width */
+      max-width: 300px; /* Prevents buttons from getting too wide */
     }
 
     .button:hover {
@@ -71,6 +76,8 @@
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s ease;
+      width: 100%; /* Ensures logout button fills container's width */
+      max-width: 300px; /* Prevents logout button from getting too wide */
     }
 
     .logout-button:hover {
@@ -124,9 +131,30 @@
   </div>
 
   <script>
+       function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+}
+
+// Function to get cookie by name
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;  // If cookie not found
+}
     // Fetch the user's phone number from the API
     async function fetchUserPhoneNumber() {
-      const accessToken = localStorage.getItem('accessToken'); // Get the access token from localStorage
+      const accessToken = getCookie('accessToken'); // Get the access token from localStorage
       const apiUrl = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/verify-otp'; // Replace with your actual API URL
 
       try {
