@@ -155,19 +155,28 @@
   </div>
 
   <script>
-    // This function will prevent navigating back by replacing the history state
-    function preventBack() {
-      history.pushState(null, null, location.href);  // Push the current state
-      history.replaceState(null, null, location.href); // Replace it to avoid going back
+    // Replace history state to avoid navigation back
+    function preventBackNavigation() {
+      history.pushState(null, null, location.href);  // Push state
+      history.replaceState(null, null, location.href);  // Replace current state
     }
 
-    // Call preventBack on page load to disable back navigation
-    preventBack();
+    // Force a redirect when back navigation is attempted
+    function handleBackNavigation(event) {
+      // Redirect to the homepage immediately when back is clicked
+      window.location.replace("homepage.html");  // Update with your homepage URL
+    }
 
-    // Listen for the back button event
-    window.onpopstate = function(event) {
-      // When the back button is pressed, redirect to the homepage
-      window.location.href = "homepage.html";  // replace with the URL of your home page
+    // Call preventBackNavigation when the page loads to avoid back navigation
+    preventBackNavigation();
+
+    // Listen for the back button event to intercept it
+    window.onpopstate = handleBackNavigation;
+
+    // For some mobile browsers, use onbeforeunload to catch browser back navigation
+    window.onbeforeunload = function() {
+      // Redirect on refresh or back navigation
+      window.location.replace("homepage.html");
     };
 
     // Example words and animation logic for animated texts
