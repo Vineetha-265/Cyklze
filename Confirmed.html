@@ -127,11 +127,9 @@
       font-weight: bold;
       color: white;
     }
-
   </style>
 </head>
 <body>
-
   <div class="container">
     <!-- Thank You Text -->
     <div class="thankYouText animate">Thank you,</div>
@@ -155,31 +153,43 @@
   </div>
 
   <script>
-    // Replace history state to avoid navigation back
-    function preventBackNavigation() {
-      history.pushState(null, null, location.href);  // Push state
-      history.replaceState(null, null, location.href);  // Replace current state
-    }
+    // Step 1: Replace the current history state with the homepage
+    history.replaceState({ page: "homepage" }, "", "homepage.html");
+    console.log("Replaced state with homepage");
 
-    // Force a redirect when back navigation is attempted
-    function handleBackNavigation(event) {
-      // Redirect to the homepage immediately when back is clicked
-      window.location.replace("homepage.html");  // Update with your homepage URL
-    }
+    // Step 2: Push a new state for the confirmation page
+    history.pushState({ page: "confirmation" }, "", location.href);
+    console.log("Pushed confirmation page state");
 
-    // Call preventBackNavigation when the page loads to avoid back navigation
-    preventBackNavigation();
-
-    // Listen for the back button event to intercept it
-    window.onpopstate = handleBackNavigation;
-
-    // For some mobile browsers, use onbeforeunload to catch browser back navigation
-    window.onbeforeunload = function() {
-      // Redirect on refresh or back navigation
-      window.location.replace("homepage.html");
+    // Step 3: Intercept the back button
+    window.onpopstate = function (event) {
+      console.log("Back button clicked. Event state:", event.state);
+      if (event.state && event.state.page === "homepage") {
+        console.log("Redirecting to homepage...");
+        window.location.replace("homepage.html");
+      } else {
+        console.log("Forcing redirect to homepage...");
+        history.replaceState({ page: "homepage" }, "", "homepage.html");
+        window.location.replace("homepage.html");
+      }
     };
 
-    // Example words and animation logic for animated texts
+    // Step 4: Prevent navigation back to the 4th page
+    window.onbeforeunload = function () {
+      console.log("Page refreshed or back navigation attempted. Redirecting to homepage...");
+      history.replaceState({ page: "homepage" }, "", "homepage.html");
+    };
+
+    // Example functions for buttons
+    function trackPickup() {
+      alert("Tracking your pickup...");
+    }
+
+    function contactSupport() {
+      alert("Contacting support...");
+    }
+
+    // Animation logic for animated texts
     const words = ["We appreciate your request!", "Our team will process it soon.", "Stay tuned for updates."];
 
     // Wait for a short time to animate the words one after another
@@ -191,15 +201,6 @@
         }, index * 300); // Staggered animation for each word
       });
     }, 500);
-
-    function trackPickup() {
-      alert("Tracking your pickup...");
-    }
-
-    function contactSupport() {
-      alert("Contacting support...");
-    }
   </script>
-
 </body>
 </html>
