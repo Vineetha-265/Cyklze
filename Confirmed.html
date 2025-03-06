@@ -155,6 +155,13 @@
   </div>
 
   <script>
+        history.pushState(null, null, location.href);
+
+// Listen for the back button event
+window.onpopstate = function(event) {
+    // When the back button is pressed, go to the home page
+    window.location.href = "homepage.html";  // replace with the URL of your home page
+};
     // Example words and animation logic for animated texts
     const words = ["We appreciate your request!", "Our team will process it soon.", "Stay tuned for updates."];
 
