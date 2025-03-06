@@ -155,10 +155,13 @@
   </div>
 
   <script>
-    // Replace the current state to avoid navigation back to previous pages
+    // Immediately replace the current state on page load to prevent going back
     history.replaceState(null, null, location.href);
+    
+    // Push a new state to the history
+    history.pushState(null, null, location.href);
 
-    // Listen for the back button event
+    // Listen for the back button event and redirect to the homepage
     window.onpopstate = function(event) {
       // When the back button is pressed, redirect to the homepage
       window.location.href = "homepage.html";  // replace with the URL of your home page
