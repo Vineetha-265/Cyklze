@@ -249,6 +249,8 @@
                     alert("Error sending OTP.");
                 }
             });
+
+           
              function checkTokenAndNavigate() {
       const accessToken = getCookie('accessToken');
 
@@ -262,6 +264,8 @@
         alert('Please log in');
       }
     }
+
+             checkTokenAndNavigate();
   const isTokenExpired = async () => {
     const accessToken = getCookie('accessToken'); // Assuming the token is stored in localStorage
     try {
@@ -292,7 +296,7 @@
       return true;
     }
   };
-            window.onload = checkTokenAndNavigate;
+            // window.onload = checkTokenAndNavigate;
             // Verify OTP Button handler
 verifyOtpButton.addEventListener('click', async () => {
     const otp = otpInput.value;
