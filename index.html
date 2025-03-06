@@ -251,11 +251,12 @@
             });
 
            
-             function checkTokenAndNavigate() {
+            async function checkTokenAndNavigate()  {
       const accessToken = getCookie('accessToken');
 
       if (accessToken) {
-        if (isTokenExpired(accessToken)) {
+        const isExpired = await isTokenExpired();
+        if (isExpired) {
             alert('Please log in');
         } else {
           window.location.href = 'homepage.html';
