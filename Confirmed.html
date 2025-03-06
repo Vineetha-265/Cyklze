@@ -153,34 +153,15 @@
   </div>
 
   <script>
-    // Step 1: Replace the current history state with the homepage
-    history.replaceState({ page: "homepage" }, "", "homepage.html");
-    console.log("Replaced state with homepage");
+    // Step 1: Set a flag in sessionStorage to indicate the user is on the confirmation page
+    sessionStorage.setItem("onConfirmationPage", "true");
 
-    // Step 2: Push a new state for the confirmation page
-    history.pushState({ page: "confirmation" }, "", location.href);
-    console.log("Pushed confirmation page state");
-
-    // Step 3: Intercept the back button
-    window.onpopstate = function (event) {
-      console.log("Back button clicked. Event state:", event.state);
-      if (event.state && event.state.page === "homepage") {
-        console.log("Redirecting to homepage...");
-        window.location.replace("homepage.html");
-      } else {
-        console.log("Forcing redirect to homepage...");
-        history.replaceState({ page: "homepage" }, "", "homepage.html");
-        window.location.replace("homepage.html");
-      }
-    };
-
-    // Step 4: Prevent navigation back to the 4th page
+    // Step 2: Redirect to the homepage if the user tries to go back
     window.onbeforeunload = function () {
-      console.log("Page refreshed or back navigation attempted. Redirecting to homepage...");
-      history.replaceState({ page: "homepage" }, "", "homepage.html");
+      sessionStorage.removeItem("onConfirmationPage");
     };
 
-    // Example functions for buttons
+    // Step 3: Example functions for buttons
     function trackPickup() {
       alert("Tracking your pickup...");
     }
