@@ -265,7 +265,7 @@
       }
     }
 
-             checkTokenAndNavigate();
+            
   const isTokenExpired = async () => {
     const accessToken = getCookie('accessToken'); // Assuming the token is stored in localStorage
     try {
@@ -358,7 +358,7 @@ function getCookie(name) {
     }
     return null;
 }
-
+ checkTokenAndNavigate();
         });
     </script>
 </body>
