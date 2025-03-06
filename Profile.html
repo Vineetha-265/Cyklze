@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Screen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F7F9FB; /* Very light grey background for the page */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    /* Profile Header */
+    .profile-header {
+      text-align: center;
+      padding: 40px 0;
+      margin-bottom: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .username {
+      font-size: 22px;
+      font-weight: 600;
+      color: #34495e; /* Dark blue-grey color for username */
+    }
+
+    .user-id {
+      font-size: 16px;
+      color: #7f8c8d; /* Light grey for user ID */
+      margin-top: 6px;
+    }
+
+    /* Settings Section */
+    .settings-section {
+      margin-bottom: 40px;
+    }
+
+    .button {
+      background-color: #34495e; /* Dark blue-grey color for buttons */
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #2c3e50; /* Darker shade of blue-grey for hover effect */
+    }
+
+    /* Logout Button */
+    .logout-button {
+      background-color: #E74C3C; /* Red color for logout button */
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #c0392b; /* Darker red color for hover effect */
+    }
+
+    /* Mobile vs. Desktop Adjustments */
+    @media (min-width: 600px) {
+      .container {
+        padding: 40px;
+      }
+
+      .profile-header {
+        padding: 60px 0;
+      }
+
+      .settings-section {
+        margin-bottom: 60px;
+      }
+
+      .button {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="username">User Name</div>
+      <div class="user-id" id="phone-number">Phone Number: Loading...</div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="settings-section">
+      <button class="button" onclick="navigateTo('price-calculator')">Price Calculator</button>
+      <button class="button" onclick="navigateTo('contact-us')">Contact Us</button>
+      <button class="button" onclick="navigateTo('current-prices')">Current Prices</button>
+      <button class="button" onclick="navigateTo('view-requests')">View Requests</button>
+      <button class="button" onclick="navigateTo('faqs')">FAQS</button>
+      <button class="button" onclick="navigateTo('help')">Help</button>
+      <button class="button" onclick="navigateTo('edit-profile')">Edit Profile</button>
+    </div>
+
+    <!-- Logout Button -->
+    <div>
+      <button class="logout-button" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <script>
+    // Fetch the user's phone number from the API
+    async function fetchUserPhoneNumber() {
+      const accessToken = localStorage.getItem('accessToken'); // Get the access token from localStorage
+      const apiUrl = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/verify-otp'; // Replace with your actual API URL
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const phoneNumber = data.phone_number;
+
+          document.getElementById('phone-number').textContent = `Phone Number: ${phoneNumber || 'Not Available'}`;
+        } else {
+          console.error('Failed to fetch data:', response.statusText);
+          alert('Failed to fetch user data. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        alert('Network error. Please try again.');
+      }
+    }
+
+    // Simulate navigation (for demo purposes)
+    function navigateTo(page) {
+      console.log(`Navigating to ${page}`);
+      // Actual navigation logic would go here (e.g., changing the page, showing new content, etc.)
+    }
+
+    // Simulate logout (for demo purposes)
+    function logout() {
+      console.log('Logging out...');
+      // Clear the access token or handle logout logic
+      localStorage.removeItem('accessToken');
+      alert('Logged out successfully');
+    }
+
+    // Call fetchUserPhoneNumber when the page loads
+    window.onload = fetchUserPhoneNumber;
+  </script>
+
+</body>
+</html>
