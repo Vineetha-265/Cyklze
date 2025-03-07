@@ -331,12 +331,12 @@ function getCookie(name) {
     }
 
     // Request Location Permission
-    function requestLocationPermission() {
+   async function requestLocationPermission() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          (position) => {
+        async  (position) => {
             const { latitude, longitude } = position.coords;
-            fetchAddress(latitude, longitude);
+           await fetchAddress(latitude, longitude);
           },
           (error) => {
             locationError.textContent = 'Error fetching location: ' + error.message;
@@ -350,7 +350,7 @@ function getCookie(name) {
     }
 
     // Fetch Address from Coordinates
-    function fetchAddress(latitude, longitude) {
+    async function fetchAddress(latitude, longitude) {
   const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
 
   fetch(url)
