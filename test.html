@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get User Location</title>
+    <title>Location Access</title>
 </head>
 <body>
-    <h1>Get User Location</h1>
+    <h1>Location Access</h1>
     <button id="getLocationBtn">Get My Location</button>
     <p id="locationStatus"></p>
 
@@ -23,7 +23,8 @@
                 } else if (permissionStatus.state === 'denied') {
                     // Permission denied, inform the user
                     document.getElementById('locationStatus').innerText = 
-                        "You have previously denied location access. Please enable it in your browser settings.";
+                        "You have blocked location access. Please enable it in your browser settings.";
+                    showEnableLocationInstructions();
                 }
 
                 // Listen for changes in permission status
@@ -33,41 +34,54 @@
                     }
                 };
             });
-
-            function getLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        function(position) {
-                            const latitude = position.coords.latitude;
-                            const longitude = position.coords.longitude;
-                            document.getElementById('locationStatus').innerText = 
-                                `Latitude: ${latitude}, Longitude: ${longitude}`;
-                        },
-                        function(error) {
-                            let errorMessage = "Unable to retrieve your location.";
-                            switch(error.code) {
-                                case error.PERMISSION_DENIED:
-                                    errorMessage = "You denied the request for Geolocation.";
-                                    break;
-                                case error.POSITION_UNAVAILABLE:
-                                    errorMessage = "Location information is unavailable.";
-                                    break;
-                                case error.TIMEOUT:
-                                    errorMessage = "The request to get your location timed out.";
-                                    break;
-                                case error.UNKNOWN_ERROR:
-                                    errorMessage = "An unknown error occurred.";
-                                    break;
-                            }
-                            document.getElementById('locationStatus').innerText = errorMessage;
-                        }
-                    );
-                } else {
-                    document.getElementById('locationStatus').innerText = 
-                        "Geolocation is not supported by your browser.";
-                }
-            }
         });
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        document.getElementById('locationStatus').innerText = 
+                            `Latitude: ${latitude}, Longitude: ${longitude}`;
+                    },
+                    function(error) {
+                        let errorMessage = "Unable to retrieve your location.";
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = "You denied the request for Geolocation.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = "Location information is unavailable.";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = "The request to get your location timed out.";
+                                break;
+                            case error.UNKNOWN_ERROR:
+                                errorMessage = "An unknown error occurred.";
+                                break;
+                        }
+                        document.getElementById('locationStatus').innerText = errorMessage;
+                    }
+                );
+            } else {
+                document.getElementById('locationStatus').innerText = 
+                    "Geolocation is not supported by your browser.";
+            }
+        }
+
+        function showEnableLocationInstructions() {
+            const instructions = `
+                <h2>How to Enable Location Access</h2>
+                <p>Follow these steps to enable location access for this website:</p>
+                <ul>
+                    <li><strong>Chrome:</strong> Click the lock icon in the address bar > Site settings > Location > Allow.</li>
+                    <li><strong>Firefox:</strong> Click the padlock icon in the address bar > Permissions > Location Access > Allow.</li>
+                    <li><strong>Safari:</strong> Go to Safari > Preferences > Websites > Location > Allow for this website.</li>
+                </ul>
+            `;
+            document.getElementById('locationStatus').innerHTML = instructions;
+        }
     </script>
 </body>
 </html>
