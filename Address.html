@@ -333,12 +333,13 @@ function getCookie(name) {
     // Request Location Permission
    async function requestLocationPermission() {
       if (navigator.geolocation) {
-        if (navigator.geolocation) {
+    //    if (navigator.geolocation) {
     navigator.geolocation.watchPosition(showPosition);
-  } else {
-         locationError.textContent = 'Error fetching location: ' + error.message;
-            locationError.style.display = 'block';
-  }
+ // } 
+  // else {
+  //        locationError.textContent = 'Error fetching location: ' + error.message;
+  //           locationError.style.display = 'block';
+  // }
 
 
         // navigator.geolocation.getCurrentPosition(
