@@ -333,35 +333,21 @@ function getCookie(name) {
     // Request Location Permission
    async function requestLocationPermission() {
       if (navigator.geolocation) {
-    //    if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(showPosition);
- // } 
-  // else {
-  //        locationError.textContent = 'Error fetching location: ' + error.message;
-  //           locationError.style.display = 'block';
-  // }
-
-
-        // navigator.geolocation.getCurrentPosition(
-        // async  (position) => {
-        //     const { latitude, longitude } = position.coords;
-        //    await fetchAddress(latitude, longitude);
-        //   },
-        //   (error) => {
-        //     locationError.textContent = 'Error fetching location: ' + error.message;
-        //     locationError.style.display = 'block';
-        //   }
-        // );
+        navigator.geolocation.getCurrentPosition(
+        async  (position) => {
+            const { latitude, longitude } = position.coords;
+           await fetchAddress(latitude, longitude);
+          },
+          (error) => {
+            locationError.textContent = 'Error fetching location: ' + error.message;
+            locationError.style.display = 'block';
+          }
+        );
       } else {
         locationError.textContent = 'Geolocation is not supported by this browser.';
         locationError.style.display = 'block';
       }
     }
-   async function showPosition(position) {
-  const lat = position.coords.latitude;
- const long = position.coords.longitude;
- await fetchAddress(lat,long);
-}
 
     // Fetch Address from Coordinates
     async function fetchAddress(latitude, longitude) {
