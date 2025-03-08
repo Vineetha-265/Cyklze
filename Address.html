@@ -180,7 +180,7 @@
         </button>
       </div>
       <div id="locationError" class="errorText" style="display: none;"></div>
-      <div id="enteradd" class="errorText" style="display: none;"></div>
+      <div id="enteradd" class="locationText" style="display: none;"></div>
       <div class="divider"></div>
       <div class="locationText">Or</div>
       <button class="toggleButton" id="toggleAddressFormButton">Enter Address</button>
@@ -370,7 +370,7 @@ function getCookie(name) {
           (error) => {
             locationError.textContent = 'Error fetching location: ' + error.message;
             locationError.style.display = 'block';
-            enteradd.textContent = 'Location Services are Blocked/n Please enter address';
+            enteradd.textContent = 'Location Services are Blocked.<br>Please enter address';
             enteradd.style.display = 'block';
           }
         );
