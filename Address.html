@@ -249,6 +249,10 @@ function getCookie(name) {
     const type = getCookie('type');
     const date = getCookie('date');
     const time = getCookie('time');
+    const token = getCookie('accessToken');
+    if(!items || !token || !type || !date || !time){
+      window.location.href = 'index.html'
+    }
     document.getElementById('selectedItems').textContent = `Selected Items: ${items}`;
     
     document.getElementById('pickupType').textContent = `Selected Pickup Type: ${type}`;
