@@ -142,7 +142,8 @@
     async function handleCancelClick(request) {
       const accessToken = getCookie('accessToken');
       if (!accessToken) {
-        alert('Access token is missing.');
+        alert('Session Expired');
+        window.location.href = 'index.html'
         return;
       }
 
