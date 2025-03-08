@@ -331,9 +331,6 @@ function getCookie(name) {
     }
 
     async function requestLocationPermission() {
-            const locationError = document.getElementById("locationError");
-            const locationStatus = document.getElementById("status");
-            
             if (navigator.geolocation) {
                 try {
                     navigator.geolocation.getCurrentPosition(
@@ -425,7 +422,7 @@ function getCookie(name) {
       savedAddressCard.style.display = 'block';
       savedAddressText.textContent = savedAddress;
     }
-    window.onload = requestLocationPermission;
+    // window.onload = requestLocationPermission;
   </script>
 </body>
 </html>
