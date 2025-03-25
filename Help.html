@@ -237,11 +237,13 @@ function getCookie(name) {
           showToast(responseData.message || 'Callback request submitted successfully!');
         } else {
           showToast(responseData.message || 'Failed to request callback. Please try again.');
+            window.location.href = 'login.html'
         }
 
       } catch (error) {
         console.error('RequestCallbackError', error);
         showToast('Failed to request callback. Please try again.');
+          window.location.href = 'login.html'
       } finally {
         requestBtn.disabled = false;
         loadingIndicator.style.display = 'none';
