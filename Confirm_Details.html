@@ -178,7 +178,7 @@ function getCookie(name) {
 
 
       // Validate input fields
-      if (!address || !date) {
+      if (!address || !date || !type || !time) {
         showToast('Please add a valid address and date');
         return;
       }
@@ -222,6 +222,7 @@ function getCookie(name) {
           window.location.href = "Confirmed.html"; // Replace with your actual navigation logic
         } else {
           showToast(responseData.message || 'Something went wrong. Please try again');
+          window.location.href = "login.html";
         }
 
       } catch (error) {
