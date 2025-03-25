@@ -153,7 +153,10 @@ function getCookie(name) {
 }
     // Fetch the user's phone number from the API
     async function fetchUserPhoneNumber() {
-      const accessToken = getCookie('accessToken'); // Get the access token from localStorage
+      const accessToken = getCookie('accessToken');
+        if(!accessToken){
+      window.location.href = 'login.html'
+    }// Get the access token from localStorage
       const apiUrl = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/verify-otp'; // Replace with your actual API URL
 
       try {
