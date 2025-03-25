@@ -251,7 +251,7 @@ function getCookie(name) {
     const time = getCookie('time');
     const token = getCookie('accessToken');
     if(!items || !token || !type || !date || !time){
-      window.location.href = 'index.html'
+      window.location.href = 'login.html'
     }
     document.getElementById('selectedItems').textContent = `Selected Items: ${items}`;
     
