@@ -82,6 +82,7 @@
 
       if (!accessToken) {
         alert('Access token is missing.');
+        window.location.href = "login.html"; 
         return;
       }
 
@@ -100,6 +101,7 @@
           renderRequests(requests);  // Pass the requests to render function
         } else {
           alert('Failed to fetch requests. Try again!');
+          window.location.href = "login.html"; 
         }
       } catch (error) {
         alert('Network error. Please check your connection.');
@@ -176,6 +178,7 @@
           alert('Request canceled successfully!');
         } else {
           alert('Failed to cancel request. Try again!');
+          window.location.href = "login.html"; 
         }
       } catch (error) {
         alert('Network error. Please check your connection.');
