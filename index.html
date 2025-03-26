@@ -409,6 +409,20 @@
     </div>
 
     <script>
+          async function checkTokenAndNavigate()  {
+      const accessToken = getCookie('accessToken');
+
+      if (accessToken) {
+        const isExpired = await isTokenExpired();
+        if (isExpired) {
+            alert('Please log in');
+        } else {
+          window.location.href = 'index.html';
+        }
+      } else {
+        alert('Please log in');
+      }
+    }
         function navigateTo(screen) {
             console.log("Navigating to:", screen);
             // Add your actual navigation logic here (e.g., redirect or load a new page)
