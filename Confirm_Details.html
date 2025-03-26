@@ -176,7 +176,10 @@ function getCookie(name) {
   document.getElementById("date").textContent = date;
   async function handleContinue() {
 
-
+   if (address.toLowerCase().indexOf("hyderabad") === -1) {
+        // If "Hyderabad" is not found, show an alert
+        alert("The address must contain 'Hyderabad'.");
+      }
       // Validate input fields
       if (!address || !date || !type || !time) {
         showToast('Please add a valid address and date');
