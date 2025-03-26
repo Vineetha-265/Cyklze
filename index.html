@@ -409,6 +409,7 @@
     </div>
 
     <script>
+          document.addEventListener("DOMContentLoaded", function() {
           const isTokenExpired = async () => {
     const accessToken = getCookie('accessToken'); // Assuming the token is stored in localStorage
     try {
@@ -446,8 +447,9 @@
         const isExpired = await isTokenExpired();
         if (isExpired) {
             alert('Please log in');
+              window.location.href = 'login.html';
         } else {
-          window.location.href = 'index.html';
+        
         }
       } else {
         alert('Please log in');
@@ -457,6 +459,11 @@
             console.log("Navigating to:", screen);
             // Add your actual navigation logic here (e.g., redirect or load a new page)
         }
+              window.onload = function() {
+      checkTokenAndNavigate();
+    };
+
+               });
     </script>
 
 </body>
