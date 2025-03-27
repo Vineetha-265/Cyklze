@@ -113,14 +113,14 @@
     <div class="header">Settings</div>
 
     <!-- Privacy Policy and Terms of Service buttons -->
-    <div class="button" onclick="openLink('https://rockybhaibolthey.github.io/terms-of-service/')">Privacy Policy</div>
-    <div class="button" onclick="openLink('https://rockybhaibolthey.github.io/terms-of-service/')">Terms of Service</div>
+    <div class="button" onclick="window.location.href='Privacy_policy.html'">Privacy Policy</div>
+    <div class="button" onclick="window.location.href='Terms_of_Service.html'">Terms of Service</div>
 
     <!-- Edit Profile button -->
     <div class="button" onclick="editProfile()">Edit Profile</div>
 
     <!-- Logout button -->
-    <div class="button" onclick="showModal()">Logout</div>
+    <div class="button" onclick="logout()">Logout</div>
   </div>
 
   <!-- Logout Modal -->
@@ -164,6 +164,15 @@ function deleteCookie(name) {
     // Set the cookie's expiry date to a past date
     setCookie(name, "", -1);  // This calls the setCookie function with a negative value for "days" to expire the cookie immediately
 }
+
+function logout() {
+      console.log('Logging out...');
+      // Clear the access token or handle logout logic
+      deleteCookie('accessToken');
+       window.location.href='login.html'
+      alert('Logged out successfully');
+    }
+
     // Function to open a URL
     function openLink(url) {
       window.open(url, '_blank');
