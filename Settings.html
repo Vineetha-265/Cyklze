@@ -138,6 +138,32 @@
   <div class="toast" id="toast">Logged out successfully</div>
 
   <script>
+           function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+}
+
+// Function to get cookie by name
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;  
+}
+    // Function to delete a cookie by name
+function deleteCookie(name) {
+    // Set the cookie's expiry date to a past date
+    setCookie(name, "", -1);  // This calls the setCookie function with a negative value for "days" to expire the cookie immediately
+}
     // Function to open a URL
     function openLink(url) {
       window.open(url, '_blank');
