@@ -151,6 +151,12 @@ function getCookie(name) {
     }
     return null;  
 }
+    // Function to delete a cookie by name
+function deleteCookie(name) {
+    // Set the cookie's expiry date to a past date
+    setCookie(name, "", -1);  // This calls the setCookie function with a negative value for "days" to expire the cookie immediately
+}
+
     // Fetch the user's phone number from the API
     async function fetchUserPhoneNumber() {
       const accessToken = getCookie('accessToken');
@@ -194,7 +200,8 @@ function getCookie(name) {
     function logout() {
       console.log('Logging out...');
       // Clear the access token or handle logout logic
-      localStorage.removeItem('accessToken');
+      deleteCookie('accessToken');
+       window.location.href='login.html
       alert('Logged out successfully');
     }
 
