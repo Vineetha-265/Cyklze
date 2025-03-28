@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings</title>
+   <link rel="icon" href="Logo.PNG" type="image/png">
+  <title>Profile Screen</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
+      background-color: #F7F9FB; /* Very light grey background for the page */
       margin: 0;
       padding: 0;
     }
@@ -16,129 +18,121 @@
       padding: 20px;
     }
 
-    .header {
-      font-size: 28px;
-      font-weight: bold;
+    /* Profile Header */
+    .profile-header {
       text-align: center;
+      padding: 40px 0;
       margin-bottom: 30px;
-      color: #34495e;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .username {
+      font-size: 22px;
+      font-weight: 600;
+      color: #34495e; /* Dark blue-grey color for username */
+    }
+
+    .user-id {
+      font-size: 16px;
+      color: #7f8c8d; /* Light grey for user ID */
+      margin-top: 6px;
+    }
+
+    /* Settings Section */
+    .settings-section {
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;  /* Ensures buttons are stacked vertically */
+      align-items: center;     /* Centers the buttons horizontally */
     }
 
     .button {
-      background-color: #34495e;
-      border-radius: 8px;
+      background-color: #34495e; /* Dark blue-grey color for buttons */
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
       padding: 12px;
       margin-bottom: 10px;
+      border-radius: 8px;
       text-align: center;
-      color: #fff;
-      font-weight: 600;
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      width: 100%; /* Ensures buttons fill the container's width */
+      max-width: 300px; /* Prevents buttons from getting too wide */
     }
 
     .button:hover {
-      background-color: #2c3e50;
+      background-color: #2c3e50; /* Darker shade of blue-grey for hover effect */
     }
 
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-container {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      width: 80%;
-      text-align: center;
-    }
-
-    .modal-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    .modal-buttons {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .modal-button {
+    /* Logout Button */
+    .logout-button {
+      background-color: #E74C3C; /* Red color for logout button */
       padding: 12px;
       border-radius: 8px;
-      flex: 1;
-      margin: 5px;
       text-align: center;
-      font-weight: 600;
-      color: #fff;
+      color: white;
       cursor: pointer;
-    }
-
-    .cancel-button {
-      background-color: #e74c3c;
-    }
-
-    .ok-button {
-      background-color: #2ecc71;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 10%;
-      right: 10%;
-      background-color: #2ecc71;
-      padding: 10px;
-      border-radius: 8px;
-      text-align: center;
-      color: #fff;
-      font-weight: 600;
-      display: none;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      width: 100%; /* Ensures logout button fills container's width */
+      max-width: 300px; /* Prevents logout button from getting too wide */
     }
 
+    .logout-button:hover {
+      background-color: #c0392b; /* Darker red color for hover effect */
+    }
+
+    /* Mobile vs. Desktop Adjustments */
+    @media (min-width: 600px) {
+      .container {
+        padding: 40px;
+      }
+
+      .profile-header {
+        padding: 60px 0;
+      }
+
+      .settings-section {
+        margin-bottom: 60px;
+      }
+
+      .button {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="header">Settings</div>
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="username">User Name</div>
+      <div class="user-id" id="phone-number">Phone Number: Loading...</div>
+    </div>
 
-    <!-- Privacy Policy and Terms of Service buttons -->
-    <div class="button" onclick="window.location.href='Privacy_policy.html'">Privacy Policy</div>
-    <div class="button" onclick="window.location.href='Terms_of_Service.html'">Terms of Service</div>
+    <!-- Settings Section -->
+    <div class="settings-section">
+      <button class="button" onclick="window.location.href='Price_Calci.html'">Price Calculator</button>
+   
+      <button class="button" onclick="window.location.href='Current_Prices.html'">Current Prices</button>
+      <button class="button" onclick="window.location.href='Orders.html'">View Requests</button>
+      <button class="button" onclick="window.location.href='FAQ.html'">FAQS</button>
+      <button class="button" onclick="window.location.href='Help.html'">Help</button>
+    </div>
 
-    <!-- Edit Profile button -->
-    <div class="button" onclick="editProfile()">Edit Profile</div>
-
-    <!-- Logout button -->
-    <div class="button" onclick="logout()">Logout</div>
-  </div>
-
-  <!-- Logout Modal -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-container">
-      <div class="modal-title">Are you sure you want to logout?</div>
-      <div class="modal-buttons">
-        <div class="modal-button cancel-button" onclick="closeModal()">Cancel</div>
-        <div class="modal-button ok-button" onclick="handleLogout()">OK</div>
-      </div>
+    <!-- Logout Button -->
+    <div>
+      <button class="logout-button" onclick="logout()">Log Out</button>
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">Logged out successfully</div>
-
   <script>
-           function setCookie(name, value, days) {
+       function setCookie(name, value, days) {
     const expires = new Date();
     expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
     document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
@@ -165,7 +159,47 @@ function deleteCookie(name) {
     setCookie(name, "", -1);  // This calls the setCookie function with a negative value for "days" to expire the cookie immediately
 }
 
-function logout() {
+    // Fetch the user's phone number from the API
+    async function fetchUserPhoneNumber() {
+      const accessToken = getCookie('accessToken');
+        if(!accessToken){
+      window.location.href = 'login.html'
+    }// Get the access token from localStorage
+      const apiUrl = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/verify-otp'; // Replace with your actual API URL
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Authorization': `${accessToken}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const phoneNumber = data.phone_number;
+
+          document.getElementById('phone-number').textContent = `Phone Number: ${phoneNumber || 'Not Available'}`;
+        } else {
+          console.error('Failed to fetch data:', response.statusText);
+          alert('Failed to fetch user data. Please try again.');
+          window.location.href='login.html'
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        alert('Network error. Please try again.');
+        window.location.href='login.html'
+      }
+    }
+
+    // Simulate navigation (for demo purposes)
+    function navigateTo(page) {
+      console.log(`Navigating to ${page}`);
+      // Actual navigation logic would go here (e.g., changing the page, showing new content, etc.)
+    }
+
+    // Simulate logout (for demo purposes)
+    function logout() {
       console.log('Logging out...');
       // Clear the access token or handle logout logic
       deleteCookie('accessToken');
@@ -173,47 +207,8 @@ function logout() {
       alert('Logged out successfully');
     }
 
-    // Function to open a URL
-    function openLink(url) {
-      window.open(url, '_blank');
-    }
-
-    // Function to simulate Edit Profile navigation
-    function editProfile() {
-      // Simulate navigating to the Edit Profile page (can be replaced with real navigation)
-      alert("Navigate to Edit Profile");
-    }
-
-    // Function to show the logout modal
-    function showModal() {
-      document.getElementById('modalOverlay').style.display = 'flex';
-    }
-
-    // Function to close the logout modal
-    function closeModal() {
-      document.getElementById('modalOverlay').style.display = 'none';
-    }
-
-    // Function to handle logout
-    function handleLogout() {
-      // Simulate clearing tokens (replace with actual logic)
-      localStorage.clear();
-
-      // Show the toast notification
-      const toast = document.getElementById('toast');
-      toast.style.display = 'block';
-
-      // Hide the toast after 2 seconds
-      setTimeout(() => {
-        toast.style.display = 'none';
-      }, 2000);
-
-      // Close the modal
-      closeModal();
-
-      // Simulate navigation to login page (replace with actual navigation)
-      alert("Logged out successfully! Redirect to Login page.");
-    }
+    // Call fetchUserPhoneNumber when the page loads
+    window.onload = fetchUserPhoneNumber;
   </script>
 
 </body>
