@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="icon" href="Logo.PNG" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="Logo.PNG" type="image/png" />
   <title>Settings</title>
   <style>
     body {
@@ -11,6 +11,20 @@
       background-color: #f8f9fa;
       margin: 0;
       padding: 0;
+    }
+
+    /* AppBar with logo */
+    .appbar {
+      background-color: #34495e;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
     }
 
     .container {
@@ -105,10 +119,14 @@
       display: none;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-
   </style>
 </head>
 <body>
+
+  <!-- AppBar with Logo -->
+  <div class="appbar">
+    <img src="Logo.PNG" alt="Logo" class="logo" />
+  </div>
 
   <div class="container">
     <div class="header">Settings</div>
@@ -116,7 +134,6 @@
     <!-- Privacy Policy and Terms of Service buttons -->
     <div class="button" onclick="window.location.href='Privacy_policy.html'">Privacy Policy</div>
     <div class="button" onclick="window.location.href='Terms_of_Service.html'">Terms of Service</div>
-
 
     <!-- Logout button -->
     <div class="button" onclick="logout()">Logout</div>
@@ -137,81 +154,61 @@
   <div class="toast" id="toast">Logged out successfully</div>
 
   <script>
-           function setCookie(name, value, days) {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
-    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
-}
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
+    }
 
-// Function to get cookie by name
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(";");
+      for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1, c.length);
+        while (c.charAt(0) === " ") {
+          c = c.substring(1, c.length);
         }
         if (c.indexOf(nameEQ) === 0) {
-            return c.substring(nameEQ.length, c.length);
+          return c.substring(nameEQ.length, c.length);
         }
-    }
-    return null;  
-}
-    // Function to delete a cookie by name
-function deleteCookie(name) {
-    // Set the cookie's expiry date to a past date
-    setCookie(name, "", -1);  // This calls the setCookie function with a negative value for "days" to expire the cookie immediately
-}
-
-function logout() {
-      console.log('Logging out...');
-      // Clear the access token or handle logout logic
-      deleteCookie('accessToken');
-       window.location.href='login.html'
-      alert('Logged out successfully');
+      }
+      return null;
     }
 
-    // Function to open a URL
-    function openLink(url) {
-      window.open(url, '_blank');
+    function deleteCookie(name) {
+      setCookie(name, "", -1);
     }
 
-    // Function to simulate Edit Profile navigation
-    function editProfile() {
-      // Simulate navigating to the Edit Profile page (can be replaced with real navigation)
-      alert("Navigate to Edit Profile");
+    function logout() {
+      console.log("Logging out...");
+      deleteCookie("accessToken");
+      window.location.href = "login.html";
+      alert("Logged out successfully");
     }
 
-    // Function to show the logout modal
     function showModal() {
-      document.getElementById('modalOverlay').style.display = 'flex';
+      document.getElementById("modalOverlay").style.display = "flex";
     }
 
-    // Function to close the logout modal
     function closeModal() {
-      document.getElementById('modalOverlay').style.display = 'none';
+      document.getElementById("modalOverlay").style.display = "none";
     }
 
-    // Function to handle logout
     function handleLogout() {
-      // Simulate clearing tokens (replace with actual logic)
       localStorage.clear();
 
-      // Show the toast notification
-      const toast = document.getElementById('toast');
-      toast.style.display = 'block';
+      const toast = document.getElementById("toast");
+      toast.style.display = "block";
 
-      // Hide the toast after 2 seconds
       setTimeout(() => {
-        toast.style.display = 'none';
+        toast.style.display = "none";
       }, 2000);
 
-      // Close the modal
       closeModal();
 
-      // Simulate navigation to login page (replace with actual navigation)
-      alert("Logged out successfully! Redirect to Login page.");
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 500);
     }
   </script>
 
