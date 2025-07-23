@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyklze - Pickup Services</title>
-    <link rel="icon" href="Logo.PNG" type="image/png"> 
+    <link rel="icon" href="Cyklze_ikn.png" type="image/png"> 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         /* General Reset */
@@ -167,29 +167,40 @@
         }
 
         /* Blocks Section */
-        .block {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-            width: 23%;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            text-align: center;
-            display: inline-block;
-            vertical-align: top;
-        }
+   .blocks-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
 
-        .block h3 {
-            margin-top: 0;
-        }
+    .block {
+      flex: 1 1 260px;
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      border-left: 5px solid #4CAF50;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        /* Flexbox container for blocks */
-        .blocks-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+    .block:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .block h5 {
+      font-size: 20px;
+      color: #4CAF50;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .block h3 {
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+    }
 
         /* Responsive Styles */
         @media (max-width: 768px) {
@@ -337,24 +348,24 @@
 
     <!-- Blocks Section -->
 <div style="background-color: #f0f0f0; padding: 20px;">
-    <div class="blocks-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
-        <div class="block" style="flex: 1; padding: 20px; border: 1px solid #ddd; border-radius: 10px; width: 300px; background-color: #f9f9f9;">
-            <h5 style="font-size: 24px; font-weight: bold; color: #333;">Step 1</h5>
-            <h3 style="font-size: 20px; color: #555;">Login using mobile number, visit the prices page.</h3>
-        </div>
-        <div class="block" style="flex: 1; padding: 20px; border: 1px solid #ddd; border-radius: 10px; width: 300px; background-color: #f9f9f9;">
-            <h5 style="font-size: 24px; font-weight: bold; color: #333;">Step 2</h5>
-            <h3 style="font-size: 20px; color: #555;">Enter the estimated weight of recyclables, select a date for pickup and a time slot.</h3>
-        </div>
-        <div class="block" style="flex: 1; padding: 20px; border: 1px solid #ddd; border-radius: 10px; width: 300px; background-color: #f9f9f9;">
-            <h5 style="font-size: 24px; font-weight: bold; color: #333;">Step 3</h5>
-            <h3 style="font-size: 20px; color: #555;">Enter the address where the recyclables are present.</h3>
-        </div>
-        <div class="block" style="flex: 1; padding: 20px; border: 1px solid #ddd; border-radius: 10px; width: 300px; background-color: #f9f9f9;">
-            <h5 style="font-size: 24px; font-weight: bold; color: #333;">Step 4</h5>
-            <h3 style="font-size: 20px; color: #555;">Confirm the details entered, and we take care of the rest.</h3>
-        </div>
+  <div class="blocks-container">
+    <div class="block">
+      <h5>Step 1</h5>
+      <h3>Login using your mobile number and visit the prices page.</h3>
     </div>
+    <div class="block">
+      <h5>Step 2</h5>
+      <h3>Enter the estimated weight of recyclables, then select a date and time slot.</h3>
+    </div>
+    <div class="block">
+      <h5>Step 3</h5>
+      <h3>Enter the pickup address where the recyclables are located.</h3>
+    </div>
+    <div class="block">
+      <h5>Step 4</h5>
+      <h3>Review and confirm the details. We’ll handle the rest.</h3>
+    </div>
+  </div>
 </div>
 
 
