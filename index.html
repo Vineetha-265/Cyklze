@@ -26,87 +26,67 @@
             text-align: center;
         }
 
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 20px auto;
-            width: 100%;
-        }
-
-        /* Header & Welcome Text */
-        .title-container {
-            margin-bottom: 20px;
-        }
-
-        .title-container h1 {
-            font-weight: bold;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .title-container p {
-            font-size: 18px;
-            color: #555;
-            text-align: center;
-        }
-
-        .welcome-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .sub-text {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
         .sub-text1 {
-            font-size: 18px;
-            font-weight: bold;
+            text-align: center;
+            font-size: 28px;
             color: #333;
-            margin-top: 30px;
-            margin-bottom: 10px;
+            margin-bottom: 40px;
+            font-weight: bold;
         }
 
-        /* Section Styles */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .section {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 25px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .section-title {
             font-size: 22px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
         }
 
         .section-description {
-            font-size: 16px;
-            color: #666;
+            font-size: 15px;
+            color: #555;
             margin-bottom: 20px;
         }
 
         .gradient-button {
-            background: linear-gradient(45deg, #388e3c, #66bb6a);
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            border: none;
             color: white;
             padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            font-weight: bold;
-            text-align: center;
+            font-size: 14px;
+            border-radius: 25px;
             cursor: pointer;
             transition: background 0.3s ease;
         }
 
         .gradient-button:hover {
-            background: linear-gradient(45deg, #388e3c, #66bb6a);
+            background: linear-gradient(to right, #0072ff, #00c6ff);
         }
+
+        /* Custom Backgrounds for Each Pickup Type */
+        .instant { background-color: #FFE5E5; }
+        .supermarket { background-color: #E6E6FA; }
+        .mass { background-color: #D2B48C; }
 
         /* Bottom Navigation */
         .bottom-nav {
@@ -288,32 +268,46 @@
         <p class="sub-text1">Select Pickup Type</p>
 
         <!-- General Pickup Section -->
+ 
+    <div class="container">
+
+        <!-- General Pickup -->
         <div class="section">
             <p class="section-title">General Pickup</p>
-            <p class="section-description">Our General Pickup Service is perfect for households with around 100kg of recyclables.</p>
+            <p class="section-description">
+                Our General Pickup Service is perfect for households with around 100kg of recyclables.
+            </p>
             <button class="gradient-button" onclick="window.location.href='General_pickup.html'">General Pickup</button>
         </div>
 
-        <!-- Instant Pickup Section -->
-        <div class="section" style="background-color: #FFE5E5;">
+        <!-- Instant Pickup -->
+        <div class="section instant">
             <p class="section-title">Instant Pickup</p>
-            <p class="section-description"> Our Instant Pickup Service offers a quick and efficient recycling process—schedule a pickup, and we'll call to confirm details and arrange a convenient collection.</p>
+            <p class="section-description">
+                Our Instant Pickup Service offers a quick and efficient recycling process—schedule a pickup, and we'll call to confirm details and arrange a convenient collection.
+            </p>
             <button class="gradient-button" onclick="window.location.href='Instant_pickup.html'">Instant Pickup</button>
         </div>
 
-        <!-- Supermarket Pickup Section -->
-        <div class="section" style="background-color: #E6E6FA;">
+        <!-- Supermarket Pickup -->
+        <div class="section supermarket">
             <p class="section-title">Supermarket Pickup</p>
-            <p class="section-description">    Our Supermarket Pickup Service is ideal for supermarkets.</p>
+            <p class="section-description">
+                Our Supermarket Pickup Service is ideal for supermarkets.
+            </p>
             <button class="gradient-button" onclick="window.location.href='Supermarket_pickup.html'">Supermarket Pickup</button>
         </div>
 
-        <!-- Mass Pickup Section -->
-        <div class="section" style="background-color: #D2B48C;">
+        <!-- Mass Pickup -->
+        <div class="section mass">
             <p class="section-title">Mass Pickup</p>
-            <p class="section-description">     Our Mass Pickup Service is ideal for factories, construction sites, and large-scale with around 300kg of recyclables.</p>
+            <p class="section-description">
+                Our Mass Pickup Service is ideal for factories, construction sites, and large-scale needs with around 300kg of recyclables.
+            </p>
             <button class="gradient-button" onclick="window.location.href='Mass_pickup.html'">Mass Pickup</button>
         </div>
+
+    </div>
 
         <!-- Tools Section -->
         <div class="tools-section">
