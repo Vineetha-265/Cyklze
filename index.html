@@ -34,13 +34,14 @@
             font-weight: bold;
         }
 
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+      .container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 
         .section {
             background-color: #ffffff;
@@ -265,47 +266,45 @@
         <p class="sub-text">Let's get your pickup set up</p>
 
         <!-- Select Pickup Type -->
-        <p class="sub-text1">Select Pickup Type</p>
+      <p class="sub-text1">Select Pickup Type</p>
 
-        <!-- General Pickup Section -->
- 
-<!--     <div class="container"> -->
+<div class="container">
+    <!-- General Pickup -->
+    <div class="section">
+        <p class="section-title">General Pickup</p>
+        <p class="section-description">
+            Our General Pickup Service is perfect for households with around 100kg of recyclables.
+        </p>
+        <button class="gradient-button" onclick="window.location.href='General_pickup.html'">General Pickup</button>
+    </div>
 
-        <!-- General Pickup -->
-        <div class="section">
-            <p class="section-title">General Pickup</p>
-            <p class="section-description">
-                Our General Pickup Service is perfect for households with around 100kg of recyclables.
-            </p>
-            <button class="gradient-button" onclick="window.location.href='General_pickup.html'">General Pickup</button>
-        </div>
+    <!-- Instant Pickup -->
+    <div class="section instant">
+        <p class="section-title">Instant Pickup</p>
+        <p class="section-description">
+            Our Instant Pickup Service offers a quick and efficient recycling process—schedule a pickup, and we'll call to confirm details and arrange a convenient collection.
+        </p>
+        <button class="gradient-button" onclick="window.location.href='Instant_pickup.html'">Instant Pickup</button>
+    </div>
 
-        <!-- Instant Pickup -->
-        <div class="section instant">
-            <p class="section-title">Instant Pickup</p>
-            <p class="section-description">
-                Our Instant Pickup Service offers a quick and efficient recycling process—schedule a pickup, and we'll call to confirm details and arrange a convenient collection.
-            </p>
-            <button class="gradient-button" onclick="window.location.href='Instant_pickup.html'">Instant Pickup</button>
-        </div>
+    <!-- Supermarket Pickup -->
+    <div class="section supermarket">
+        <p class="section-title">Supermarket Pickup</p>
+        <p class="section-description">
+            Our Supermarket Pickup Service is ideal for supermarkets.
+        </p>
+        <button class="gradient-button" onclick="window.location.href='Supermarket_pickup.html'">Supermarket Pickup</button>
+    </div>
 
-        <!-- Supermarket Pickup -->
-        <div class="section supermarket">
-            <p class="section-title">Supermarket Pickup</p>
-            <p class="section-description">
-                Our Supermarket Pickup Service is ideal for supermarkets.
-            </p>
-            <button class="gradient-button" onclick="window.location.href='Supermarket_pickup.html'">Supermarket Pickup</button>
-        </div>
-
-        <!-- Mass Pickup -->
-        <div class="section mass">
-            <p class="section-title">Mass Pickup</p>
-            <p class="section-description">
-                Our Mass Pickup Service is ideal for factories, construction sites, and large-scale needs with around 300kg of recyclables.
-            </p>
-            <button class="gradient-button" onclick="window.location.href='Mass_pickup.html'">Mass Pickup</button>
-        </div>
+    <!-- Mass Pickup -->
+    <div class="section mass">
+        <p class="section-title">Mass Pickup</p>
+        <p class="section-description">
+            Our Mass Pickup Service is ideal for factories, construction sites, and large-scale needs with around 300kg of recyclables.
+        </p>
+        <button class="gradient-button" onclick="window.location.href='Mass_pickup.html'">Mass Pickup</button>
+    </div>
+</div>
 
 <!--     </div> -->
 
