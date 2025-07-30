@@ -119,6 +119,15 @@
       display: none;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+    .button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
   </style>
 </head>
 <body>
@@ -132,8 +141,10 @@
     <div class="header">Settings</div>
 
     <!-- Privacy Policy and Terms of Service buttons -->
-    <div class="button" onclick="window.location.href='Privacy_policy.html'">Privacy Policy</div>
-    <div class="button" onclick="window.location.href='Terms_of_Service.html'">Terms of Service</div>
+  <a class="button" href="Privacy_policy.html">Privacy Policy</a>
+
+<a class="button" href="Terms_of_Service.html">Terms of Service</a>
+
 
     <!-- Logout button -->
     <div class="button" onclick="logout()">Logout</div>
