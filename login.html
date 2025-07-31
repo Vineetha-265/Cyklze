@@ -404,8 +404,8 @@ verifyOtpButton.addEventListener('click', async () => {
             alert("OTP verified successfully.");
 
             // Set cookies for accessToken and refreshToken
-            setCookie('accessToken', data.accessToken, 1);  // Cookie expires in 1 day
-            setCookie('refreshToken', data.refreshToken, 1);  // Cookie expires in 1 day
+            setCookie('accessToken', data.accessToken, 30);  // Cookie expires in 1 day
+            setCookie('refreshToken', data.refreshToken, 30);  // Cookie expires in 1 day
 
             // Redirect to homepage
             window.location.href = "index.html"; // Replace with your actual redirect logic
