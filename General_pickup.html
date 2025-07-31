@@ -279,24 +279,46 @@ function getCookie(name) {
     }
 
     // Date Picker
-    const datePicker = document.getElementById('datePicker');
-    const selectedDate = document.getElementById('selectedDate');
 
-    const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+const datePicker = document.getElementById('datePicker');
+const selectedDate = document.getElementById('selectedDate');
 
-    const oneWeekFromTomorrow = new Date();
-    oneWeekFromTomorrow.setDate(tomorrow.getDate() + 7);
+const today = new Date();
+const tomorrow = new Date();
+tomorrow.setDate(today.getDate() + 1);
 
-    datePicker.min = tomorrow.toISOString().split('T')[0];
-    datePicker.max = oneWeekFromTomorrow.toISOString().split('T')[0];
-    let date;
-    datePicker.addEventListener('change', (e) => {
-       date = new Date(e.target.value);
+const thirtyDaysFromTomorrow = new Date();
+thirtyDaysFromTomorrow.setDate(tomorrow.getDate() + 30);
+
+datePicker.min = tomorrow.toISOString().split('T')[0];
+datePicker.max = thirtyDaysFromTomorrow.toISOString().split('T')[0];
+
+let date;
+datePicker.addEventListener('change', (e) => {
+    date = new Date(e.target.value);
+    selectedDate.textContent = `Selected Date: ${date.toLocaleDateString()}`;
+});
+
+
+    
+    // const datePicker = document.getElementById('datePicker');
+    // const selectedDate = document.getElementById('selectedDate');
+
+    // const today = new Date();
+    // const tomorrow = new Date();
+    // tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // const oneWeekFromTomorrow = new Date();
+    // oneWeekFromTomorrow.setDate(tomorrow.getDate() + 7);
+
+    // datePicker.min = tomorrow.toISOString().split('T')[0];
+    // datePicker.max = oneWeekFromTomorrow.toISOString().split('T')[0];
+    // let date;
+    // datePicker.addEventListener('change', (e) => {
+    //    date = new Date(e.target.value);
       
-      selectedDate.textContent = `Selected Date: ${date.toLocaleDateString()}`;
-    });
+    //   selectedDate.textContent = `Selected Date: ${date.toLocaleDateString()}`;
+    // });
 
     // Time Range Selection
     let selectedTimeRange = null;
