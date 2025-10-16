@@ -108,30 +108,32 @@
       const response = await fetch(API_URL, {
         method: 'DELETE',
         headers: {
-          'Authorization': 'accessToken', // Replace this with actual token if required
+          'Authorization': 'accessToken', // Replace with real token if needed
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ phoneNumber: mobileNumber }),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Account not found on this Number');
+      if (response.status === 200) {
+        // Success
+        document.getElementById('confirmationMessage').style.display = 'block';
+        alert('Account deletion request submitted successfully!');
+      } else {
+        // Try to read error message from server
+        const errorData = await response.json();
+        const errorMessage = errorData?.message || 'Account not found on this number.';
+        alert(errorMessage);
       }
 
-      // Show confirmation
-      document.getElementById('confirmationMessage').style.display = 'block';
-      alert('Account deletion request submitted successfully!');
-
     } catch (error) {
-      alert(error.message || 'Something went wrong, please try again.');
+      alert('Something went wrong, please try again.');
     } finally {
       submitButton.disabled = false;
       submitButton.textContent = 'Submit Request';
     }
   });
 </script>
+
 
 </body>
 </html>
