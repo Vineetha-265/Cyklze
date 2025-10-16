@@ -71,11 +71,10 @@
     <p>To delete your account, please follow these steps:</p>
     <ol>
       <li>Open the <strong>Cyklze</strong> app.</li>
-      <li>Go to <strong>Settings</strong> > <strong>Edit Profile</strong>.</li>
+      <li>Go to <strong>Profile</strong> > <strong>Edit Profile</strong>.</li>
       <li>Tap on <strong>Delete Account</strong> and confirm your choice.</li>
     </ol>
-    <p>Alternatively, you can submit your mobile number below, and we will process your account deletion request.</p>
-
+   <p>Alternatively, you may submit your mobile number below, and we will process your account deletion request. Please ensure that the Cyklze app is no longer installed on your device.</p>
     <form id="deletionForm">
       <label for="mobile">Enter your mobile number:</label>
       <input type="text" id="mobile" name="mobile" placeholder="+91XXXXXXXXXX" required>
@@ -83,7 +82,7 @@
     </form>
 
     <div id="confirmationMessage" class="confirmation">
-      Thank you! Your account deletion request has been submitted. We will process it shortly.
+      Thank you! Your account deletion request has been submitted. We will process it with in 24hrs
     </div>
   </div>
 
@@ -134,7 +133,7 @@
         
       } catch (error) {
         // Handle error
-      alert('Account not found on this Number');
+      alert('Something went wrong please try again.');
       } finally {
         // Re-enable the button and reset text
         submitButton.disabled = false;
