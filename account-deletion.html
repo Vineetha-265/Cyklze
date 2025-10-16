@@ -86,60 +86,52 @@
     </div>
   </div>
 
-  <script>
-    const API_URL = 'https://20pnz6cr8e.execute-api.ap-south-1.amazonaws.com/cyklzee/cyklzee/account-deletion'; // Change with your real API URL
+<script>
+  const API_URL = 'https://20pnz6cr8e.execute-api.ap-south-1.amazonaws.com/cyklzee/cyklzee/account-deletion';
 
-    // Handle form submission
-    document.getElementById('deletionForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
+  document.getElementById('deletionForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-      // Get mobile number from input field
-      const mobileNumber = document.getElementById('mobile').value;
+    const mobileNumber = document.getElementById('mobile').value.trim();
+    const phoneRegex = /^\+91\d{10}$/;
 
-      // Validate mobile number (Check for "+91" and exactly 10 digits after it)
-      const phoneRegex = /^\+91\d{10}$/;
+    if (!phoneRegex.test(mobileNumber)) {
+      alert('Please enter a valid mobile number in the format +91 followed by 10 digits.');
+      return;
+    }
 
-      if (!phoneRegex.test(mobileNumber)) {
-        alert('Please enter a valid mobile number in the format +91 followed by 10 digits.');
-        return;
+    const submitButton = document.getElementById('submitButton');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Loading...';
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': 'accessToken', // Replace this with actual token if required
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber: mobileNumber }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Account not found on this Number');
       }
 
-      // Disable the submit button and change text to 'Loading...'
-      const submitButton = document.getElementById('submitButton');
-      submitButton.disabled = true;
-      submitButton.textContent = 'Loading...';
+      // Show confirmation
+      document.getElementById('confirmationMessage').style.display = 'block';
+      alert('Account deletion request submitted successfully!');
 
-      try {
-        // Make the DELETE request with the mobile number in the request body
-        const response = await fetch(API_URL, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': 'accessToken', // Include the token in request header
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ phoneNumber: mobileNumber }),
-        });
+    } catch (error) {
+      alert(error.message || 'Something went wrong, please try again.');
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Submit Request';
+    }
+  });
+</script>
 
-        // Check if the response was successful
-        if (!response.ok) {
-          throw new Error('Account not found on this Number');
-        }
-
-        // Handle success
-        const data = await response.json();
-        // Show confirmation message
-        document.getElementById('confirmationMessage').style.display = 'block';
-        alert('Account deletion request submitted successfully!');
-        
-      } catch (error) {
-        // Handle error
-      alert('Something went wrong please try again.');
-      } finally {
-        // Re-enable the button and reset text
-        submitButton.disabled = false;
-        submitButton.textContent = 'Submit Request';
-      }
-    });
-  </script>
 </body>
 </html>
