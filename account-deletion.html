@@ -123,7 +123,7 @@
 
         // Check if the response was successful
         if (!response.ok) {
-          throw new Error('Failed to delete account');
+          throw new Error('Account not found on this Number');
         }
 
         // Handle success
