@@ -76,13 +76,17 @@
     </ol>
    <p>Alternatively, you may submit your mobile number below, and we will process your account deletion request. Please ensure that the Cyklze app is no longer installed on your device.</p>
     <form id="deletionForm">
-      <label for="mobile">Enter your mobile number:</label>
+     <label for="mobile">
+  Enter your mobile number:
+  <span style="font-size: 0.9em; color: #666;">(Format: +91 followed by the number, no spaces)</span>
+</label>
+
       <input type="text" id="mobile" name="mobile" placeholder="+91XXXXXXXXXX" required>
       <button type="submit" id="submitButton">Submit Request</button>
     </form>
 
     <div id="confirmationMessage" class="confirmation">
-      Thank you! Your account deletion request has been submitted. We will process it with in 24hrs
+ Thank you! We’ve received your account deletion request. Before we proceed, we’ll verify whether the provided mobile number is valid and associated with an existing account. Once verified, your deletion request will be processed within 24 hours.
     </div>
   </div>
 
