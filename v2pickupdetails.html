@@ -273,30 +273,30 @@
   font-size: 18px;
   user-select: none;
 }
-    .fab {
-  position: fixed;
+/* hidden by default */
+.fab {
   display: none;
-  bottom: 20px;   /* distance from bottom */
-  right: 20px;    /* distance from right */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   border: none;
-  background-color: #6200ee; /* Flutter-like purple */
+  background-color: #6200ee;
   color: white;
   font-size: 32px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  display: flex;
+  display: flex; /* for centering, but we will override to none when hidden */
   justify-content: center;
   align-items: center;
-  transition: 0.2s ease;
 }
 
-.fab:hover {
-  background-color: #3700b3;
-  transform: scale(1.05);
+.fab.show {
+  display: flex; /* visible only when .show class is added */
 }
+
 
 
   </style>
