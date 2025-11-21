@@ -350,101 +350,103 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- General Pickup Heading -->
-    <h1 style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 20px;">General Pickup</h1>
+<div class="container">
+  <!-- General Pickup Heading -->
+  <h1 style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 20px;">
+    General Pickup
+  </h1>
 
-    <!-- Items Selection -->
-  
-      <div class="itemsSelectionText">Select Type</div>
+  <!-- Items Selection -->
+  <div class="itemsSelectionText">Select Type</div>
 
-      <!-- Plastic -->
-    <div class="itemsGrid">
+  <!-- Items Grid -->
+  <div class="itemsGrid">
 
-  <!-- Plastic -->
-  <div class="itemBox">
-    <div class="itemImage">
-      <img src="truck.jpg" alt="item">
-    </div>
-    <div class="itemLabel">Plastic</div>
+    <!-- Plastic -->
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="truck.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Plastic</div>
 
-    <div class="itemCounter">
-      <div class="quantityText" id="plasticKg">0 kg</div>
+      <div class="itemCounter">
+        <div class="quantityText" id="plasticKg">0 kg</div>
 
-      <div class="counterRow">
-        <div class="counterBtn" onclick="decrement('plastic')"><span>-</span></div>
-        <div class="counterBtn" onclick="increment('plastic')"><span>+</span></div>
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('plastic')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('plastic')"><span>+</span></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Glass -->
-  <div class="itemBox">
-    <div class="itemImage">
-      <img src="truck.jpg" alt="item">
-    </div>
-    <div class="itemLabel">Glass</div>
+    <!-- Glass -->
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="truck.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Glass</div>
 
-    <div class="itemCounter">
-      <div class="quantityText" id="glassKg">0 kg</div>
+      <div class="itemCounter">
+        <div class="quantityText" id="glassKg">0 kg</div>
 
-      <div class="counterRow">
-        <div class="counterBtn" onclick="decrement('glass')"><span>-</span></div>
-        <div class="counterBtn" onclick="increment('glass')"><span>+</span></div>
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('glass')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('glass')"><span>+</span></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Paper -->
-  <div class="itemBox">
-    <div class="itemImage">
-      <img src="truck.jpg" alt="item">
-    </div>
-    <div class="itemLabel">Paper</div>
+    <!-- Paper -->
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="truck.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Paper</div>
 
-    <div class="itemCounter">
-      <div class="quantityText" id="paperKg">0 kg</div>
+      <div class="itemCounter">
+        <div class="quantityText" id="paperKg">0 kg</div>
 
-      <div class="counterRow">
-        <div class="counterBtn" onclick="decrement('paper')"><span>-</span></div>
-        <div class="counterBtn" onclick="increment('paper')"><span>+</span></div>
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('paper')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('paper')"><span>+</span></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Metal -->
-  <div class="itemBox">
-    <div class="itemImage">
-      <img src="truck.jpg" alt="item">
-    </div>
-    <div class="itemLabel">Metal</div>
+    <!-- Metal -->
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="truck.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Metal</div>
 
-    <div class="itemCounter">
-      <div class="quantityText" id="metalKg">0 kg</div>
+      <div class="itemCounter">
+        <div class="quantityText" id="metalKg">0 kg</div>
 
-      <div class="counterRow">
-        <div class="counterBtn" onclick="decrement('metal')"><span>-</span></div>
-        <div class="counterBtn" onclick="increment('metal')"><span>+</span></div>
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('metal')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('metal')"><span>+</span></div>
+        </div>
       </div>
     </div>
-  </div>
 
-</div>
+  </div> <!-- END itemsGrid -->
 
+  <!-- Floating Button -->
+  <button id="fab" onclick="openPopup()" class="fab">+</button>
 
-<button id="fab" onclick="openPopup()" class="fab">+</button>
-
+</div> <!-- END container -->
 
 <!-- Popup Overlay -->
 <div id="pickupPopup" class="popupOverlay">
   <div class="popupContent">
 
-    <!-- Your existing content -->
+    <!-- Popup Content -->
     <div class="datePickerContainer">
       <div class="dateText">Select Pickup Date</div>
       <input type="date" id="datePicker" class="dateButton" min="" max="">
       <div class="selectedDate" id="selectedDate">Selected Date: </div>
-    </div> 
+    </div>
 
     <div class="timeRangeContainer">
       <div class="heading">Select the Time</div>
@@ -461,31 +463,9 @@
     <!-- Close button -->
     <span class="closeBtn" onclick="closePopup()">&times;</span>
 
-  
-</div>
+  </div> <!-- END popupContent -->
+</div> <!-- END popupOverlay -->
 
-    
-    <!-- Pickup Date -->
-    <div class="datePickerContainer">
-      <div class="dateText">Select Pickup Date</div>
-      <input type="date" id="datePicker" class="dateButton" min="" max="">
-      <div class="selectedDate" id="selectedDate">Selected Date: </div>
-    </div> 
-
-    <!-- Time Range -->
-    <div class="timeRangeContainer">
-      <div class="heading">Select the Time</div>
-      <div class="radioGroup">
-        <div class="radioButton" onclick="handleTimeRangeSelection('8 AM - 11 AM')">8 AM - 11 AM</div>
-        <div class="radioButton" onclick="handleTimeRangeSelection('11 AM - 1 PM')">11 AM - 1 PM</div>
-        <div class="radioButton" onclick="handleTimeRangeSelection('1 PM - 3 PM')">1 PM - 3 PM</div>
-        <div class="radioButton" onclick="handleTimeRangeSelection('3 PM - 6 PM')">3 PM - 6 PM</div>
-      </div>
-    </div>
-
-    <!-- Confirm Pickup -->
-    <button class="confirmMassPickupButton" onclick="validateAndConfirmPickup()">Continue</button>
-  </div>
 
   <script>
     // JavaScript for Functionality
