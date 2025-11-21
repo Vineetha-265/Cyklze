@@ -3,82 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobile Login</title>
+<title>Modern Login</title>
 
 <style>
     body {
         margin: 0;
-        background: #f2f7fb;
-        font-family: "Inter", sans-serif;
+        height: 100vh;
         display: flex;
         justify-content: center;
-        padding: 40px 20px;
+        align-items: center;
+        background: linear-gradient(145deg, #0A2A43, #195F7A);
+        font-family: 'Inter', sans-serif;
+        color: #fff;
     }
 
     .card {
-        width: 100%;
-        max-width: 360px;
-        background: #ffffffcc;
-        backdrop-filter: blur(14px);
-        border-radius: 20px;
-        padding: 28px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        width: 90%;
+        max-width: 380px;
+        padding: 32px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        backdrop-filter: blur(18px);
+        animation: fadeIn 0.7s ease;
     }
 
-    .title {
-        font-size: 22px;
-        font-weight: 700;
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
         text-align: center;
-        margin-bottom: 18px;
-        color: #1b3b45;
+        margin-bottom: 28px;
+        font-size: 26px;
+        font-weight: 700;
     }
 
-    .input-group {
-        margin-bottom: 18px;
+    .input-wrapper {
+        position: relative;
+        margin-bottom: 24px;
     }
 
     label {
+        position: absolute;
+        top: 14px;
+        left: 18px;
         font-size: 14px;
-        font-weight: 600;
-        color: #2a4a55;
-    }
-
-    .phone-wrapper {
-        display: flex;
-        align-items: center;
-        border: 1.8px solid #d9dfe2;
-        border-radius: 12px;
-        padding: 10px 14px;
-        background: white;
-        margin-top: 6px;
-    }
-
-    .phone-wrapper span {
-        font-weight: 700;
-        font-size: 15px;
-        color: #1d4d61;
-        margin-right: 8px;
+        opacity: 0.7;
+        pointer-events: none;
+        transition: 0.25s;
     }
 
     input {
+        width: 100%;
+        padding: 16px 16px 16px 60px;
+        border-radius: 14px;
         border: none;
         outline: none;
-        font-size: 15px;
-        flex: 1;
+        font-size: 16px;
+        background: rgba(255,255,255,0.15);
+        color: white;
+        letter-spacing: 0.4px;
+    }
+
+    input:focus + label, input:not(:placeholder-shown) + label {
+        top: -10px;
+        left: 12px;
+        font-size: 12px;
+        opacity: 1;
+        background: rgba(0,0,0,0.3);
+        padding: 2px 6px;
+        border-radius: 6px;
+    }
+
+    .prefix {
+        position: absolute;
+        top: 50%;
+        left: 18px;
+        transform: translateY(-50%);
+        font-weight: 700;
+        font-size: 16px;
+        opacity: 0.9;
     }
 
     .btn {
         width: 100%;
-        background: #1d4d61;
-        color: white;
-        padding: 12px;
-        border-radius: 12px;
-        margin-top: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        text-align: center;
-        cursor: pointer;
+        padding: 14px;
+        border-radius: 14px;
         border: none;
+        background: #00C2FF;
+        color: #043346;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: 0.2s;
     }
 
     .btn:active {
@@ -88,46 +108,39 @@
     /* OTP Section */
     #otp-section {
         display: none;
-        margin-top: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.4s;
     }
 
-    #otp-box {
-        letter-spacing: 10px;
+    #otp-input {
         text-align: center;
-        font-size: 22px;
-        font-weight: bold;
-        padding: 12px;
-        width: 100%;
-        border-radius: 12px;
-        border: 1.8px solid #d9dfe2;
-        background: #fff;
-        outline: none;
+        letter-spacing: 14px;
+        padding-left: 20px !important;
     }
+
 </style>
 </head>
 
 <body>
 
 <div class="card">
-    <div class="title">Login</div>
+    <h2>Welcome</h2>
 
-    <!-- Phone number -->
-    <div class="input-group">
+    <!-- Phone -->
+    <div class="input-wrapper">
+        <span class="prefix">+91</span>
+        <input id="mobile" type="text" maxlength="10" placeholder=" " />
         <label>Mobile Number</label>
-
-        <div class="phone-wrapper">
-            <span>+91</span>
-            <input id="mobile" type="text" maxlength="10" placeholder="Enter 10-digit number">
-        </div>
     </div>
 
     <button class="btn" onclick="showOTP()">Send OTP</button>
 
-    <!-- OTP Section -->
+    <!-- OTP -->
     <div id="otp-section">
-        <div class="input-group">
+        <div class="input-wrapper">
+            <input id="otp-input" type="text" maxlength="6" placeholder=" " />
             <label>Enter OTP</label>
-            <input id="otp-box" type="text" maxlength="6" placeholder="••••••">
         </div>
 
         <button class="btn">Verify OTP</button>
@@ -135,21 +148,27 @@
 </div>
 
 <script>
-    // Allow only digits in phone input
+    // Allow only numbers
     document.getElementById("mobile").addEventListener("input", function () {
         this.value = this.value.replace(/[^0-9]/g, "");
     });
 
-    // Show OTP section only after clicking Send OTP
+    // Show OTP fields after validation
     function showOTP() {
-        let mob = document.getElementById("mobile").value;
+        let mobile = document.getElementById("mobile").value;
 
-        if (mob.length !== 10) {
-            alert("Enter a valid 10-digit mobile number");
+        if (mobile.length !== 10) {
+            alert("Enter valid 10-digit mobile number");
             return;
         }
 
-        document.getElementById("otp-section").style.display = "block";
+        let otpBox = document.getElementById("otp-section");
+        otpBox.style.display = "block";
+
+        setTimeout(() => {
+            otpBox.style.opacity = "1";
+            otpBox.style.transform = "translateY(0)";
+        }, 50);
     }
 </script>
 
