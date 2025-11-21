@@ -249,6 +249,40 @@
   box-sizing: border-box;
   overflow: hidden; /* prevent content spill */
 }
+/* Overlay */
+.popupOverlay {
+  display: none; /* hidden initially */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup box */
+.popupContent {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  position: relative;
+}
+
+/* Close button (X) */
+.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
 
 /* Image */
 .itemImage img {
@@ -386,9 +420,37 @@
 </div>
 
 
-<button id="fab" class="fab">+</button>
+<button id="fab" onclick="openPopup()" class="fab">+</button>
 
 
+<!-- Popup Overlay -->
+<div id="pickupPopup" class="popupOverlay">
+  <div class="popupContent">
+
+    <!-- Your existing content -->
+    <div class="datePickerContainer">
+      <div class="dateText">Select Pickup Date</div>
+      <input type="date" id="datePicker" class="dateButton" min="" max="">
+      <div class="selectedDate" id="selectedDate">Selected Date: </div>
+    </div> 
+
+    <div class="timeRangeContainer">
+      <div class="heading">Select the Time</div>
+      <div class="radioGroup">
+        <div class="radioButton" onclick="handleTimeRangeSelection('8 AM - 11 AM')">8 AM - 11 AM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('11 AM - 1 PM')">11 AM - 1 PM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('1 PM - 3 PM')">1 PM - 3 PM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('3 PM - 6 PM')">3 PM - 6 PM</div>
+      </div>
+    </div>
+
+    <button class="confirmMassPickupButton" onclick="validateAndConfirmPickup()">Continue</button>
+
+    <!-- Close button -->
+    <span class="closeBtn" onclick="closePopup()">&times;</span>
+
+  </div>
+</div>
 
     
     <!-- Pickup Date -->
@@ -436,6 +498,14 @@ function getCookie(name) {
     }
     return null;  // If cookie not found
 }
+    function openPopup() {
+  document.getElementById("pickupPopup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("pickupPopup").style.display = "none";
+}
+
     // Quantity Increment/Decrement
     let plasticKg = 0;
     let glassKg = 0;
