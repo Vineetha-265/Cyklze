@@ -273,18 +273,18 @@
       <img src="truck.jpg" alt="item">
     </div>
 
-    <div class="itemLabel">Label Here</div>
+    <div class="itemLabel">Paper</div>
 
     <!-- If value > 0 -->
     <div class="itemCounter">
-      <div class="itemValue">2 kg</div>
+     <div class="quantityText" id="paperKg">0 kg</div>
 
       <div class="counterRow">
-        <div class="counterBtn" onclick="removeItem()">
+        <div class="counterBtn" onclick="decrement('paper')">
           <span>-</span>
         </div>
 
-        <div class="counterBtn" onclick="addItem()">
+        <div class="counterBtn" onclick="increment('paper')">
           <span>+</span>
         </div>
       </div>
