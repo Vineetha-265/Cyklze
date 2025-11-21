@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cyklze UI</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: #ffffff;
+        color: #1d1d1d;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    /* Header */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .header span {
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0.6;
+    }
+
+    /* Card */
+    .card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 18px;
+        margin-bottom: 16px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    }
+
+    .pickup-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #003b4f;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        opacity: 0.7;
+        margin-top: 4px;
+    }
+
+    .btn {
+        margin-top: 12px;
+        background: #003b4f;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 8px;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .row {
+        display: flex;
+        gap: 14px;
+        margin-top: 4px;
+    }
+
+    .small-card {
+        background: #fff;
+        padding: 16px;
+        border-radius: 14px;
+        flex: 1;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .help-card {
+        background: #003b4f;
+        color: white;
+        padding: 18px;
+        border-radius: 16px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-top: 16px;
+    }
+
+    .help-card strong {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .big-img {
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 12px;
+    }
+
+    /* Bottom Menu */
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #fff;
+        padding: 12px 0;
+        display: flex;
+        justify-content: space-around;
+        border-top: 1px solid #ddd;
+    }
+
+    .nav-item {
+        text-align: center;
+        font-size: 12px;
+        opacity: 0.6;
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    Cyklze
+    <div>
+        <div style="font-size:14px;font-weight:600">What we buy?</div>
+        <span>Ac</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Book a Pickup Card -->
+    <div class="card">
+        <div class="pickup-title">BOOK A PICKUP</div>
+        <div class="subtitle">Let's setup your scrap pickup</div>
+        <a href="#" class="btn">Schedule Now</a>
+    </div>
+
+    <!-- Current Prices + FAQ row -->
+    <div class="row">
+        <div class="small-card">
+            <strong>Current Prices</strong>
+            <div style="font-size: 12px; opacity:0.7;">View latest scrap prices</div>
+        </div>
+
+        <div class="small-card">
+            <strong>FAQs</strong>
+            <div style="font-size: 12px; opacity:0.7;">Quick answers to questions</div>
+        </div>
+    </div>
+
+    <!-- Help Card -->
+    <div class="help-card">
+        <img src="your_support_icon.png" width="38" />
+        <div>
+            <strong>Need help?</strong><br>
+            Get support with our team
+        </div>
+    </div>
+
+    <!-- Big Image -->
+    <img src="your_scrap_image.png" class="big-img" />
+
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+    <div class="nav-item">Home</div>
+    <div class="nav-item">Profile</div>
+    <div class="nav-item">Settings</div>
+</div>
+
+</body>
+</html>
