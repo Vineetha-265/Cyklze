@@ -274,8 +274,9 @@
   user-select: none;
 }
 /* hidden by default */
+/* Hidden by default */
 .fab {
-  display: none;
+  display: none;          /* stays hidden */
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -288,14 +289,15 @@
   font-size: 32px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  display: flex; /* for centering, but we will override to none when hidden */
+}
+
+/* Only when condition is true */
+.fab.show {
+  display: flex;           /* NOW it becomes visible */
   justify-content: center;
   align-items: center;
 }
 
-.fab.show {
-  display: flex; /* visible only when .show class is added */
-}
 
 
 
@@ -384,7 +386,8 @@
 </div>
 
 
-<button class="fab">+</button>
+<button id="fab" class="fab">+</button>
+
 
 
     
