@@ -257,6 +257,40 @@
         <button class="quantityButton" onclick="increment('glass')">+</button>
       </div>
 
+
+
+      <div class="itemContainer">
+  <div class="itemBox">
+    <div class="itemImage">
+      <img src="truck.jpg" alt="item">
+    </div>
+
+    <div class="itemLabel">Glass</div>
+
+    <!-- If value > 0 -->
+    <div class="itemCounter">
+     <div class="quantityText" id="glassKg">0 kg</div>
+
+      <div class="counterRow">
+        <div class="counterBtn" onclick="decrement('glass')">
+          <span>-</span>
+        </div>
+
+        <div class="counterBtn" onclick="increment('glass')">
+          <span>+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- If value == 0 -->
+    <!--
+    <div class="sellBtn" onclick="addItem()">
+      Sell
+    </div>
+    -->
+  </div>
+</div>
+
       <!-- Paper -->
       <div class="itemContainer">
         <div class="typeText">Paper</div>
