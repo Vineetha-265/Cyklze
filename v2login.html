@@ -8,73 +8,42 @@
 <style>
     body {
         margin: 0;
-        height: 100vh;
+        background: #0c0f11;
+        font-family: "Inter", sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(145deg, #0A2A43, #195F7A);
-        font-family: 'Inter', sans-serif;
-        color: #fff;
+        height: 100vh;
+        padding: 20px;
+        color: white;
     }
 
     .card {
-        width: 90%;
+        width: 100%;
         max-width: 380px;
-        padding: 32px;
-        border-radius: 22px;
-        background: rgba(255, 255, 255, 0.12);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        backdrop-filter: blur(18px);
-        animation: fadeIn 0.7s ease;
+        padding: 38px 30px;
+        border-radius: 28px;
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(20px);
+        box-shadow: 0px 20px 40px rgba(0,0,0,0.6);
+        animation: fadeUp 0.6s ease-out;
     }
 
-    @keyframes fadeIn {
+    @keyframes fadeUp {
         from { opacity: 0; transform: translateY(20px); }
         to   { opacity: 1; transform: translateY(0); }
     }
 
-    h2 {
-        text-align: center;
-        margin-bottom: 28px;
-        font-size: 26px;
-        font-weight: 700;
+    h1 {
+        font-size: 30px;
+        font-weight: 800;
+        text-align: left;
+        margin-bottom: 25px;
     }
 
-    .input-wrapper {
+    .input-container {
         position: relative;
-        margin-bottom: 24px;
-    }
-
-    label {
-        position: absolute;
-        top: 14px;
-        left: 18px;
-        font-size: 14px;
-        opacity: 0.7;
-        pointer-events: none;
-        transition: 0.25s;
-    }
-
-    input {
-        width: 100%;
-        padding: 16px 16px 16px 60px;
-        border-radius: 14px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-        background: rgba(255,255,255,0.15);
-        color: white;
-        letter-spacing: 0.4px;
-    }
-
-    input:focus + label, input:not(:placeholder-shown) + label {
-        top: -10px;
-        left: 12px;
-        font-size: 12px;
-        opacity: 1;
-        background: rgba(0,0,0,0.3);
-        padding: 2px 6px;
-        border-radius: 6px;
+        margin-bottom: 28px;
     }
 
     .prefix {
@@ -82,25 +51,41 @@
         top: 50%;
         left: 18px;
         transform: translateY(-50%);
+        font-size: 17px;
         font-weight: 700;
-        font-size: 16px;
         opacity: 0.9;
+    }
+
+    input {
+        width: 100%;
+        padding: 18px 18px 18px 70px;
+        border-radius: 16px;
+        border: none;
+        background: rgba(255,255,255,0.12);
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: 0.2s;
+    }
+
+    input:focus {
+        background: rgba(255,255,255,0.18);
     }
 
     .btn {
         width: 100%;
-        padding: 14px;
-        border-radius: 14px;
+        padding: 16px;
+        margin-top: 5px;
+        background: #ff375f;
         border: none;
-        background: #00C2FF;
-        color: #043346;
-        font-size: 16px;
+        border-radius: 16px;
+        color: white;
+        font-size: 17px;
         font-weight: 700;
         cursor: pointer;
-        margin-top: 10px;
+        box-shadow: 0px 10px 20px rgba(255,56,95,0.3);
         transition: 0.2s;
     }
-
     .btn:active {
         transform: scale(0.97);
     }
@@ -115,32 +100,28 @@
 
     #otp-input {
         text-align: center;
-        letter-spacing: 14px;
-        padding-left: 20px !important;
+        letter-spacing: 15px;
+        padding-left: 25px !important;
+        font-size: 20px;
     }
-
 </style>
 </head>
 
 <body>
 
 <div class="card">
-    <h2>Welcome</h2>
+    <h1>Enter your mobile number</h1>
 
-    <!-- Phone -->
-    <div class="input-wrapper">
+    <div class="input-container">
         <span class="prefix">+91</span>
-        <input id="mobile" type="text" maxlength="10" placeholder=" " />
-        <label>Mobile Number</label>
+        <input id="mobile" type="text" maxlength="10" placeholder="Your mobile number">
     </div>
 
     <button class="btn" onclick="showOTP()">Send OTP</button>
 
-    <!-- OTP -->
     <div id="otp-section">
-        <div class="input-wrapper">
-            <input id="otp-input" type="text" maxlength="6" placeholder=" " />
-            <label>Enter OTP</label>
+        <div class="input-container">
+            <input id="otp-input" type="text" maxlength="6" placeholder="------">
         </div>
 
         <button class="btn">Verify OTP</button>
@@ -148,17 +129,16 @@
 </div>
 
 <script>
-    // Allow only numbers
+    // Allow only digits
     document.getElementById("mobile").addEventListener("input", function () {
         this.value = this.value.replace(/[^0-9]/g, "");
     });
 
-    // Show OTP fields after validation
     function showOTP() {
         let mobile = document.getElementById("mobile").value;
 
         if (mobile.length !== 10) {
-            alert("Enter valid 10-digit mobile number");
+            alert("Enter a valid 10-digit number");
             return;
         }
 
