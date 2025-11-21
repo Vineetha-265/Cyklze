@@ -275,6 +275,7 @@
 }
     .fab {
   position: fixed;
+      display: none;
   bottom: 20px;   /* distance from bottom */
   right: 20px;    /* distance from right */
   width: 60px;
@@ -445,6 +446,7 @@ function getCookie(name) {
       if (type === 'paper' && paperKg < 100) paperKg++;
       if (type === 'metal' && metalKg < 100) metalKg++;
       if (type === 'ewaste' && ewasteKg < 100) ewasteKg++;
+      fab.classList.add("show"); 
       updateQuantity(type);
     }
 
