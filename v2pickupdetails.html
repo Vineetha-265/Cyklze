@@ -273,6 +273,30 @@
   font-size: 18px;
   user-select: none;
 }
+    .fab {
+  position: fixed;
+  bottom: 20px;   /* distance from bottom */
+  right: 20px;    /* distance from right */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #6200ee; /* Flutter-like purple */
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease;
+}
+
+.fab:hover {
+  background-color: #3700b3;
+  transform: scale(1.05);
+}
+
 
   </style>
 </head>
@@ -359,6 +383,7 @@
 </div>
 
 
+<button class="fab">+</button>
 
 
     
