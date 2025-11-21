@@ -196,20 +196,27 @@
       margin-bottom: 15px;
     }
 
-    .radioGroup {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+.radioButton {
+  background: #f0f0f0;
+  padding: 8px 12px;     /* reduced padding */
+  font-size: 14px;       /* smaller text */
+  border-radius: 6px;
+  margin: 6px 0;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s ease;
+}
 
-    .radioButton {
-      background-color: #f1f1f1;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      text-align: center;
-      font-size: 16px;
-    }
+.radioButton:hover {
+  background: #e0e0e0;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;             /* spacing between buttons */
+}
+
 
     .radioButton.selected {
       background-color: #4caf50;
