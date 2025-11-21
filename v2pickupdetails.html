@@ -245,7 +245,7 @@
       <div class="itemContainer">
         <div class="typeText">Plastic</div>
         <button class="quantityButton" onclick="decrement('plastic')">-</button>
-        <div class="quantityText" id="plasticKg">0 kg</div>
+        <!-- <div class="quantityText" id="plasticKg">0 kg</div> -->
         <button class="quantityButton" onclick="increment('plastic')">+</button>
       </div>
 
@@ -287,12 +287,12 @@
 
       
       <!-- Glass -->
-      <div class="itemContainer">
+      <!-- <div class="itemContainer">
         <div class="typeText">Glass</div>
         <button class="quantityButton" onclick="decrement('glass')">-</button>
         <div class="quantityText" id="glassKg">0 kg</div>
         <button class="quantityButton" onclick="increment('glass')">+</button>
-      </div>
+      </div> -->
 
 
 
@@ -329,12 +329,12 @@
 </div>
 
       <!-- Paper -->
-      <div class="itemContainer">
+      <!-- <div class="itemContainer">
         <div class="typeText">Paper</div>
         <button class="quantityButton" onclick="decrement('paper')">-</button>
-        <!-- <div class="quantityText" id="paperKg">0 kg</div> -->
+        <div class="quantityText" id="paperKg">0 kg</div>
         <button class="quantityButton" onclick="increment('paper')">+</button>
-      </div>
+      </div> -->
 
       <!-- Metal -->
 
@@ -372,23 +372,95 @@
 
 
 
-      
+      <!-- 
       <div class="itemContainer">
         <div class="typeText">Metal</div>
         <button class="quantityButton" onclick="decrement('metal')">-</button>
         <div class="quantityText" id="metalKg">0 kg</div>
         <button class="quantityButton" onclick="increment('metal')">+</button>
-      </div>
+      </div> -->
 
+
+
+      
+<div class="itemContainer">
+  <div class="itemBox">
+    <div class="itemImage">
+      <img src="truck.jpg" alt="item">
+    </div>
+
+    <div class="itemLabel">Metal</div>
+
+    <!-- If value > 0 -->
+    <div class="itemCounter">
+    <div class="quantityText" id="metalKg">0 kg</div>
+
+      <div class="counterRow">
+        <div class="counterBtn" onclick="decrement('metal')">
+          <span>-</span>
+        </div>
+
+        <div class="counterBtn" onclick="increment('metal')">
+          <span>+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- If value == 0 -->
+    <!--
+    <div class="sellBtn" onclick="addItem()">
+      Sell
+    </div>
+    -->
+  </div>
+</div>
       <!-- E-Waste -->
-      <div class="itemContainer">
+      <!-- <div class="itemContainer">
         <div class="typeText">E-Waste</div>
         <button class="quantityButton" onclick="decrement('ewaste')">-</button>
         <div class="quantityText" id="ewasteKg">0 kg</div>
         <button class="quantityButton" onclick="increment('ewaste')">+</button>
       </div>
+    </div> -->
+
+
+
+<div class="itemContainer">
+  <div class="itemBox">
+    <div class="itemImage">
+      <img src="truck.jpg" alt="item">
     </div>
 
+    <div class="itemLabel">Metal</div>
+
+    <!-- If value > 0 -->
+    <div class="itemCounter">
+    <div class="quantityText" id="metalKg">0 kg</div>
+
+      <div class="counterRow">
+        <div class="counterBtn" onclick="decrement('metal')">
+          <span>-</span>
+        </div>
+
+        <div class="counterBtn" onclick="increment('metal')">
+          <span>+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- If value == 0 -->
+    <!--
+    <div class="sellBtn" onclick="addItem()">
+      Sell
+    </div>
+    -->
+  </div>
+</div>
+
+
+
+
+    
     <!-- Pickup Date -->
     <div class="datePickerContainer">
       <div class="dateText">Select Pickup Date</div>
