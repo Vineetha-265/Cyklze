@@ -364,8 +364,8 @@ padding-left: 20px;
     function goToLogin() {
     // Redirect to your login page
      localStorage.setItem("previousPage", window.location.href);
+  window.location.replace("login.html");
 
-    window.location.href = "login.html"; 
 }
 
 function openPopup() {
