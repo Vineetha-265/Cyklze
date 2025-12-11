@@ -1,4 +1,1017 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Request a general scrap pickup service with Cyklze. We offer hassle-free, eco-friendly collection of paper, plastic, metal, and e-waste directly from your doorstep in Hyderabad and Secunderabad.">
+<meta name="keywords" content="scrap pickup, paper collection, plastic collection, metal recycling, e-waste, doorstep service, waste management, eco-friendly, scrap recycling, general pickup, Hyderabad, Secunderabad">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.cyklze.com/General_pickup.html">
+
+<meta property="og:title" content="General Scrap Pickup - Cyklze | Eco-Friendly Collection in Hyderabad & Secunderabad">
+<meta property="og:description" content="Need a general scrap pickup? Cyklze offers convenient doorstep pickup for paper, plastic, metal, and e-waste with instant payments in Hyderabad and Secunderabad.">
+<meta property="og:image" content="https://www.cyklze.com/Cyklze_ikn.png">
+<meta property="og:url" content="https://www.cyklze.com/General_pickup.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cyklze">
+  <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+<meta name="author" content="Cyklze">
+
+<title>General Scrap Pickup | Cyklze - Fast & Eco-Friendly Service</title>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Cyklze",
+  "image": "https://www.cyklze.com/Cyklze_ikn.png",
+  "url": "https://www.cyklze.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hyderabad",
+    "addressRegion": "Telangana",
+    "addressCountry": "IN"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Hyderabad"
+    },
+    {
+      "@type": "City",
+      "name": "Secunderabad"
+    }
+  ],
+  "description": "Cyklze offers general scrap pickup services in Hyderabad and Secunderabad, specializing in paper, plastic, metal, and e-waste. Eco-friendly, efficient, and reliable."
+}
+</script>
+  <title>General Pickup</title>
+  <style>
+    /* General Styles */
+/* ==============================
+   GLOBAL STYLES
+=================================*/
+/* body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 60px;   /* space for title bar */
+
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+}
+
+footer {
+  margin-top: auto; /* pushes footer to bottom */
+}
+.itemsGrid {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+* {
+  touch-action: manipulation;
+}
+
+/* Prevent iOS auto-zoom on tap */
+input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
+  font-size: 16px !important;
+}
+
+.counterBtn {
+  width: 40px;
+  height: 40px;
+}
+
+.itemLabel, .itemValue {
+  font-size: 16px !important;
+}
+
+
+.container {
+  /* padding: 20px; */
+  width: 100%;
+  max-width: none;   /* remove 600px constraint */
+  margin: 0 auto;
+}
+
+
+/* ==============================
+   SECTIONS
+=================================*/
+.estimate,
+.timeRangeContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.itemsSelectionText,
+.heading {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* ==============================
+   TOP ITEM (single item display)
+=================================*/
+.itemContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.itemBox1 {
+  width: 84px;
+  height: 140px;
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 7.2px;
+  padding: 4.8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.itemImage {
+  width: 48px;
+  height: 48px;
+  border-radius: 4.8px;
+  overflow: hidden;
+  background: white;
+}
+
+.itemImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemLabel {
+  width: 72px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+  margin: 3px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==============================
+   RESPONSIVE GRID FOR ITEMS
+=================================*/
+.itemsGrid {
+  display: grid;
+  gap: 14px;
+  padding: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.itemBox {
+  min-width: 0;
+}
+.itemLabel {
+  width: auto;
+  max-width: 100%;
+}
+
+/* 📱 Mobile (default): 3 per row */
+.itemsGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 📟 Tablet (min-width: 600px): 5 per row */
+@media (min-width: 600px) {
+  .itemsGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* 💻 Laptop/Desktop (min-width: 992px): 7 per row */
+@media (min-width: 992px) {
+  .itemsGrid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+@media (max-width: 420px) {
+  .itemsGrid {
+    gap: 8px;
+  }
+}
+@media (max-width: 360px) {
+  .itemsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* ==============================
+   ITEM BOXES
+=================================*/
+.itemBox {
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+
+  display: flex;              /* enable flexbox */
+  flex-direction: column;     /* stack items vertically */
+  align-items: center;        /* center horizontally */
+  justify-content: center;    /* center vertically */
+}
+
+
+.itemValue {
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+}
+
+/* ==============================
+   COUNTER BUTTONS
+=================================*/
+.counterRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.counterBtn {
+  width: 25px;
+  height: 25px;
+  background: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+/* ==============================
+   BUTTONS
+=================================*/
+.sellBtn {
+  background: #1D4D61;
+  color: white;
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.1px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.quantityButton {
+  background-color: #1D4D61;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.quantityButton:hover {
+  background-color: #1D4D61;
+}
+
+.quantityText {
+  font-size: 16px;
+  margin: 0 10px;
+}
+
+/* ==============================
+   DATE PICKER BOX
+=================================*/
+.datePickerContainer {
+  background-color: #1D4D61;
+  padding: 15px;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.datePickerContainer .dateText,
+.datePickerContainer .selectedDate {
+  color: white;
+}
+
+.datePickerContainer .dateButton {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+/* ==============================
+   RADIO BUTTONS
+=================================*/
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radioButton {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  margin: 6px 0;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.radioButton:hover {
+  background: #939191;
+}
+
+.radioButton.selected {
+  background-color: #1D4D61;
+  color: white;
+}
+
+/* ==============================
+   CONFIRM BUTTON
+=================================*/
+.confirmMassPickupButton {
+  background-color: #1D4D61;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+}
+
+.confirmMassPickupButton:hover {
+  background-color: #1D4D61;
+}
+
+/* ==============================
+   POPUP
+=================================*/
+.popupOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popupContent {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* ==============================
+   FAB BUTTON
+=================================*/
+.fab {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: linear-gradient(135deg, #1D4D61, #1D4D61);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+}
+input, select, textarea, button {
+  font-size: 16px !important;
+}
+
+/* Hide initially */
+.hidden {
+  display: none;
+}
+
+.fab:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
+}
+
+.fab:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.appBar {
+  position: fixed;            /* stays on top even when scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;               /* AppBar height */
+  background-color: #1D4D61;  /* your color */
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;            /* left-right spacing */
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;              /* stay above everything */
+}
+
+/* To prevent your content from hiding behind the AppBar */
+.pageContent {
+  padding-top: 70px;          /* same as appbar height + some space */
+}
+#confirmBtn {
+  display: none; /* hidden initially */
+}
+
+
+
+  </style>
+</head>
+<body>
+    <div class="appBar">
+  <span class="appTitle">Pickup Details</span>
+</div>
+
+<div class="container">
+  <!-- General Pickup Heading -->
+  <!-- <h1 style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 20px;">
+    General Pickup
+  </h1> -->
+
+  <!-- Items Selection -->
+  <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">General Recyclables</div>
+
+  <!-- Items Grid -->
+  <div class="itemsGrid">
+
+    <!-- Plastic -->
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="plastic.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Plastic</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="plasticKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('plastic')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('plastic')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Glass -->
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="glass.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Glass</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="glassKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('glass')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('glass')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper -->
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="news.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Paper</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="paperKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('paper')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('paper')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metal -->
+    
+          <div class="itemBox">
+      <div class="itemImage">
+        <img src="books.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Books</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="booksKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('books')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('books')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+      <div class="itemBox">
+      <div class="itemImage">
+        <img src="ewaste.jpg" alt="item">
+      </div>
+      <div class="itemLabel">E-waste</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="ewasteKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('ewaste')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('ewaste')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+      <div class="itemBox">
+      <div class="itemImage">
+        <img src="cardboard.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Cardboard</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="cardKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('card')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('card')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+ </div> 
+  <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">Metal Recyclables</div>
+ <div class="itemsGrid">
+   
+      <div class="itemBox">
+      <div class="itemImage">
+        <img src="iron.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Iron</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="metalKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('metal')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('metal')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="wcopper" alt="item">
+      </div>
+      <div class="itemLabel">Copper wire</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="cwireKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('cwire')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('cwire')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="copper.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Copper</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="wireKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('wire')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('wire')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="silver.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Silver</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="silverKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('silver')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('silver')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+     <div class="itemBox">
+      <div class="itemImage">
+        <img src="brass.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Brass</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="brassKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('brass')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('brass')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- END itemsGrid -->
+ <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">E-Waste </div>
+ <div class="itemsGrid">
+   
+      <div class="itemBox">
+      <div class="itemImage">
+        <img src="fridge.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Fridge</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="fridgeKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('fridge')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('fridge')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="ac.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Ac</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="acKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('ac')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('ac')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="itemBox">
+      <div class="itemImage">
+        <img src="ewaste.jpg" alt="item">
+      </div>
+      <div class="itemLabel">Mixed</div>
+
+      <div class="itemCounter">
+        <div class="quantityText" id="mixedKg">0 kg</div>
+
+        <div class="counterRow">
+          <div class="counterBtn" onclick="decrement('mixed')"><span>-</span></div>
+          <div class="counterBtn" onclick="increment('mixed')"><span>+</span></div>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+  <!-- Floating Button -->
+<button id="fab" onclick="openPopup()" class="fab hidden">
+  Continue to Address
+</button>
+
+<footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+        
+        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+    </div>
+</footer>
+
+</div> <!-- END container -->
+
+<!-- Popup Overlay -->
+<div id="pickupPopup" class="popupOverlay">
+  <div class="popupContent">
+
+    <!-- Popup Content -->
+    <div class="datePickerContainer">
+      <div class="dateText">Select Pickup Date</div>
+      <input type="date" id="datePicker" class="dateButton" min="" max="">
+      <div class="selectedDate" id="selectedDate">Selected Date: </div>
+    </div>
+
+    <div class="timeRangeContainer">
+      <div class="heading">Select the Time</div>
+      <div class="radioGroup">
+        <div class="radioButton" onclick="handleTimeRangeSelection('8 AM - 11 AM')">8 AM - 11 AM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('11 AM - 1 PM')">11 AM - 1 PM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('1 PM - 3 PM')">1 PM - 3 PM</div>
+        <div class="radioButton" onclick="handleTimeRangeSelection('3 PM - 6 PM')">3 PM - 6 PM</div>
+      </div>
+    </div>
+
+    <button class="confirmMassPickupButton" onclick="validateAndConfirmPickup()">Continue</button>
+
+    <!-- Close button -->
+    <span class="closeBtn" onclick="closePopup()">&times;</span>
+
+  </div> <!-- END popupContent -->
+</div> <!-- END popupOverlay -->
+
+
+ <script>
+
+
+let plasticKg = 0;
+let glassKg = 0;
+let paperKg = 0;
+let metalKg = 0;
+let ewasteKg = 0;
+
+let cardKg = 0;
+let booksKg = 0;
+let cwireKg = 0;
+let wireKg = 0;
+
+let silverKg = 0;
+let brassKg = 0;
+
+let fridgeKg = 0;
+let acKg = 0;
+
+let mixedKg = 0;
+  // ---------- Cookie Functions ----------
+  function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
+  }
+
+  function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i].trim();
+      if (c.indexOf(nameEQ) === 0) {
+        return c.substring(nameEQ.length, c.length);
+      }
+    }
+    return null;
+  }
+
+  // ---------- Quantity Handling ----------
+let kg = {
+  plastic: 0,
+  glass: 0,
+  paper: 0,
+  metal: 0,
+  ewaste: 0,
+  card: 0,
+  books: 0,
+  cwire: 0,
+  wire: 0,
+  silver: 0,
+  brass: 0,
+  fridge: 0,
+  ac: 0,
+  mixed: 0
+};
+
+function openPopup() {
+  const popup = document.getElementById("pickupPopup");
+  if (popup) popup.style.display = "flex";
+}
+
+  function closePopup() {
+     const popup = document.getElementById("pickupPopup");
+  if (popup) popup.style.display = "none";
+     // document.getElementById('myPopup').style.display = 'none';
+    }
+
+function increment(type) {
+  let step = (type === "ac" || type === "fridge") ? 1 : 100;
+
+  if (kg[type] + step <= 4000) {
+    kg[type] += step;
+  }
+
+  const fab = document.getElementById("fab");
+  if (fab) {
+    fab.classList.add("show");
+    fab.style.display = "block";
+  }
+
+  updateQuantity(type);
+}
+
+function decrement(type) {
+  let step = (type === "ac" || type === "fridge") ? 1 : 100;
+
+  if (kg[type] - step >= 0) {
+    kg[type] -= step;
+  } else {
+    kg[type] = 0;
+  }
+
+  const allZero = Object.values(kg).every(value => value === 0);
+  const fab = document.getElementById("fab");
+
+  if (allZero && fab) {
+    fab.style.display = "none";
+  }
+
+  updateQuantity(type);
+}
+
+
+  function updateQuantity(type) {
+    const element = document.getElementById(type + "Kg");
+    if (element) element.textContent = kg[type] + " kg";
+  }
+
+  // ---------- Date Picker ----------
+  const datePicker = document.getElementById('datePicker');
+  let date = null;
+
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+
+  const thirtyDaysFromTomorrow = new Date();
+  thirtyDaysFromTomorrow.setDate(tomorrow.getDate() + 30);
+
+  datePicker.min = tomorrow.toISOString().split('T')[0];
+  datePicker.max = thirtyDaysFromTomorrow.toISOString().split('T')[0];
+
+  datePicker.addEventListener('change', (e) => {
+    date = new Date(e.target.value);
+    const selectedDate = document.getElementById('selectedDate');
+    if (selectedDate) selectedDate.textContent = `Selected Date: ${date.toLocaleDateString()}`;
+  });
+
+  // ---------- Time Range ----------
+  let selectedTimeRange = null;
+  function handleTimeRangeSelection(timeRange, event) {
+    selectedTimeRange = timeRange;
+
+    const buttons = document.querySelectorAll('.radioButton');
+    buttons.forEach(button => button.classList.remove('selected'));
+
+    if (event && event.currentTarget) {
+      event.currentTarget.classList.add('selected');
+    }
+  }
+
+  // ---------- Generate Item String ----------
+  function generateItemString() {
+    let itemString = '';
+    for (const [key, value] of Object.entries(kg)) {
+      if (value > 0) itemString += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value} kg, `;
+    }
+    return itemString.endsWith(', ') ? itemString.slice(0, -2) : itemString;
+  }
+
+  // ---------- Validate and Confirm Pickup ----------
+ async function validateAndConfirmPickup() {
+    const anySelected = Object.values(kg).some(value => value > 0);
+
+    if (!anySelected) {
+      alert('Please add at least one recyclable item.');
+      return;
+    }
+
+    if (!date) {
+      alert('Please select a date.');
+      return;
+    }
+
+    if (!selectedTimeRange) {
+      alert('Please select a time range.');
+      return;
+    }
+
+    // Set cookies
+  // Store data in localStorage instead of cookies
+await localStorage.setItem('items', generateItemString());       // Store items as string
+await localStorage.setItem('type', "General");                   // Store type
+await localStorage.setItem('date', date.toISOString());          // Store date in ISO format
+await localStorage.setItem('time', selectedTimeRange);           // Store time
+
+
+    // Redirect
+    window.location.href = "Address.html";
+  }
+
+  // ---------- Token Check ----------
+  async function isTokenExpired() {
+    const accessToken = getCookie('accessToken');
+    if (!accessToken) return true;
+
+    try {
+      const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${accessToken}`,
+        },
+        body: JSON.stringify({ accessToken }),
+      });
+      if (!response.ok) throw new Error('Failed to check token expiration');
+
+      const data = await response.json();
+      return data.message === 'Token has expired';
+    } catch (error) {
+      console.error(error);
+      return true;
+    }
+  }
+
+  async function checkTokenAndNavigate() {
+    const expired = await isTokenExpired();
+    if (expired) {
+      alert('Please log in');
+      window.location.href = 'login.html';
+    }
+  }
+
+  // Run token check on page load
+//   window.addEventListener('DOMContentLoaded', () => {
+//     checkTokenAndNavigate();
+//   });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -455,4 +1468,4 @@ setCookie('items', generateItemString(), 1);  // Store 'items' for 1 day
   };
   </script>
 </body>
-</html>
+</html> -->
