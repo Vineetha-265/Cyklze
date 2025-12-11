@@ -291,7 +291,7 @@ padding-left: 20px;
         }
   </style>
 </head>
-<body>
+<body onload="fetchUserPhoneNumber()">
 
 <div class="titleBar">
   <span class="titleText">Profile</span>
@@ -363,6 +363,8 @@ padding-left: 20px;
     let count = 0;  
     function goToLogin() {
     // Redirect to your login page
+     localStorage.setItem("previousPage", window.location.href);
+
     window.location.href = "login.html"; 
 }
 
@@ -494,21 +496,8 @@ const refreshToken = localStorage.getItem('refreshToken');
     }
 
     // Call fetchUserPhoneNumber when the page loads
-    window.onload = fetchUserPhoneNumber;
+   // window.onload = fetchUserPhoneNumber;
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
