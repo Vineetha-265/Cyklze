@@ -447,7 +447,14 @@ localStorage.setItem('refreshToken', data.refreshToken);
  // Cookie expires in 1 day
 
             // Redirect to homepage
-           window.history.back();
+                const previousPage = localStorage.getItem("previousPage");
+
+        // If the previous page exists, redirect to it; otherwise, go to profile page
+        if (previousPage) {
+          window.location.href = previousPage;  // Go back to the original page
+        } else {
+          window.location.href = "index.html";  // Fallback to the profile page if no previous page stored
+        }
 // Replace with your actual redirect logic
         } else {
             alert("Invalid OTP.");
@@ -494,16 +501,3 @@ window.onload = function() {
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
