@@ -1,6 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="Get the best rates for recyclables with Cyklze—local pickup for paper, plastic, metal, and scrap with instant payments. Fast, reliable, and hassle-free.">
+<meta name="keywords" content="scrap, recyclables, e-waste, paper, plastic, metal, iron, sell scrap, scrap dealer, doorstep pickup, collection, waste collection, Hyderabad, Secunderabad, cyklze">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.cyklze.com/">
+
+    <meta property="og:title" content="Cyklze - Sell Your Scrap Easily">
+    <meta property="og:description" content="Turn your scrap into cash with Cyklze. Book a pickup for paper, plastic, metal, and e-waste. Instant payment and transparent collection.">
+    <meta property="og:image" content="Cyklze_ikn.png">
+    <meta property="og:url" content="https://www.cyklze.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Cyklze">
+
+<meta name="author" content="Cyklze">
+  <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+
+<title>Cyklze | Sell Scrap with Doorstep Pickup in Hyderabad & Secunderabad</title>
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Cyklze",
+    "image": "https://www.cyklze.com/Cyklze_ikn.png",
+    "url": "https://www.cyklze.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hyderabad",
+      "addressRegion": "Telangana",
+      "addressCountry": "IN"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Hyderabad"
+      },
+      {
+        "@type": "City",
+        "name": "Secunderabad"
+      }
+    ],
+    "description": "Cyklze provides doorstep scrap pickup services for paper, plastic, metal, and e-waste in Hyderabad and Secunderabad. Instant payments, reliable and hassle-free."
+  }
+  </script>
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  :root{
+    --card-width: 90%;
+    --accent: #1D4D61;
+    --cta: #2e8b57;
+    --support: #1D4D61;
+  }
+
+  body{
+    margin:0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background:#f6f7f7;
+    color:#333;
+  }
+
+  /* Top bar */
+  .top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:14px 18px;
+    background:#ffffff;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+    font-weight:700;
+    font-size:20px;
+  }
+  .sub-title{ font-size:12px; color:#888; font-weight:500; margin-top:2px; }
+
+  /* Main booking card */
+  .card{
+    position:relative;
+    width:var(--card-width);
+    margin:18px auto;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 20px;
+    box-shadow: 0 8px 18px rgba(12,22,36,0.06);
+    overflow:visible;
+    display:flex;
+    gap:16px;
+    align-items:center;
+  }
+
+  .card-left{
+    flex:1 1 auto;
+    min-width:0;
+  }
+
+  .big-title{
+    font-size:26px;
+    letter-spacing:1px;
+    color:var(--accent);
+    font-weight:900;
+    margin:0 0 6px 0;
+    line-height:1;
+  }
+  .subtitle{
+    color:#8a8f92;
+    margin:0 0 14px 0;
+    font-size:14px;
+  }
+
+  .btn{
+    background:var(--cta);
+    color:#fff;
+    border:0;
+    padding:10px 16px;
+    border-radius:10px;
+    font-size:15px;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(46,139,87,0.14);
+  }
+
+  /* Truck image on right */
+  .truck-wrap{
+    width:110px;
+    flex: 0 0 110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .truck{
+    width:95px;
+    height:auto;
+    transform: translateY(-6px);
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+  }
+
+  /* Two mini cards row */
+  .row{
+    display:flex;
+    gap:14px;
+    width:var(--card-width);
+    margin:16px auto;
+  }
+  .mini{
+    background:#fff;
+    flex:1;
+    border-radius:14px;
+    padding:18px;
+    box-shadow: 0 6px 14px rgba(12,22,36,0.04);
+    text-align:left;
+    color:#666;
+    font-size:14px;
+  }
+  .mini strong{ color:#222; display:block; margin-bottom:6px; font-size:15px; }
+
+  /* Support banner */
+  .support-banner{
+    width:var(--card-width);
+    margin:18px auto;
+    background:var(--support);
+    color:#fff;
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    box-shadow: 0 8px 18px rgba(10,123,216,0.12);
+  }
+  .support-banner img{ width:44px; height:44px; border-radius:50%; background:#fff; padding:6px; }
+  .support-banner .text{ font-size:15px; font-weight:600; }
+
+  /* bottom image */
+  .bottom-items{
+    width:var(--card-width);
+    margin:14px auto 90px auto;
+    text-align:center;
+  }
+  .bottom-items img{ width:100%; max-width:720px; border-radius:6px; opacity:0.95; }
+
+  /* bottom nav */
+  .bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:64px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    box-shadow:0 -1px 6px rgba(0,0,0,0.06);
+    border-top:1px solid rgba(0,0,0,0.04);
+  }
+  .nav-item{ text-align:center; font-size:12px; color:#7b7f84; }
+  .nav-item i{ display:block; font-size:20px; margin-bottom:4px; }
+  .nav-item.active{ color:#222; font-weight:700; }
+  .custom-text {
+  text-align: left;
+  font-size: 80px;
+  font-weight: 800;
+  color: #8F8F92;
+  letter-spacing: 0.5px;
+  line-height: 0.9;
+}
+.link-block {
+  text-decoration: none;   /* Remove underline */
+  color: inherit;          /* Keep same text color */
+  display: block;          /* Make it behave like the div */
+}
+
+
+
+  /* responsive */
+  @media (max-width:420px){
+    .truck-wrap{ display:none; }
+    .card{ padding:16px; }
+    .big-title{ font-size:22px; }
+  }
+
+
+
+
+ 
+  .about-container {
+    background: #f9f9f9;
+    padding: 60px 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    border-radius: 10px;
+    margin: 30px auto;
+    max-width: 900px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  .about-heading {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0b3d91;
+  }
+
+  .about-preview {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .about-full h1 {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #0b3d91;
+  }
+
+  .about-full h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    color: #1a1a1a;
+  }
+
+  .about-full h3 {
+    font-size: 18px;
+    margin-top: 15px;
+    color: #1a1a1a;
+  }
+
+  .about-full p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 10px 0;
+  }
+
+  .about-toggle-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 18px;
+    background-color: #0b3d91;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .about-toggle-btn:hover {
+    background-color: #072b62;
+  }
+
+  @media (max-width: 600px) {
+    .about-container {
+      padding: 40px 15px;
+    }
+    .about-heading {
+      font-size: 24px;
+    }
+    .about-full h1 {
+      font-size: 22px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div>Cyklze</div>
+    <!-- <div style="text-align:right;">
+      What we buy?<br>
+      <div class="sub-title">books</div>
+    </div> -->
+  </div>
+
+  <!-- Booking card with truck on right -->
+    <a href="General_pickup.html" class="mini link-block">
+  <div class="card">
+    <div class="card-left">
+      <div class="big-title">BOOK A PICKUP</div>
+      <div class="subtitle">Let's setup your scrap pickup</div>
+      
+ <div style="display: flex; justify-content: space-between; gap: 10px;">
+ <button class="btn">Schedule</button>
+<img src="webtruck.png" alt="Description of image"width="75">
+
+</div>
+
+    </div>
+  
+
+    <!-- truck image -->
+    <!-- <div class="truck-wrap" >
+   
+      <img class="truck" src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" alt="truck illustration">
+    </div> -->
+  </div>
+   </a>
+  <!-- Two mini cards -->
+  <div class="row">
+  <a href="Current_Prices.html" class="mini link-block">
+      <strong>Current Prices</strong>
+      View latest scrap prices
+  </a>
+<a href="FAQ.html" class="mini link-block">
+  <strong>FAQs</strong>
+  Quick answers to common questions
+</a>
+  </div>
+
+  <!-- support -->
+<div class="support-banner" onclick="window.location.href='help.html';">
+  <img src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png" alt="support">
+  <div class="text">Need help? Get support with our team →</div>
+</div>
+
+<p class="custom-text">Sell your scrap with ❤️</p>
+<section id="about" class="about-container">
+  <div class="container">
+    
+    <!-- Short visible heading -->
+    <h2>About Cyklze</h2>
+
+    <!-- Preview text (1 line) -->
+    <p id="about-preview">
+      Cyklze provides doorstep scrap pickup and recycling services in Hyderabad & Secunderabad...
+      <a href="#" id="about-more-btn">More</a>
+    </p>
+
+    <!-- Full About content, hidden initially -->
+    <div id="about-full" style="display: none;">
+      <!-- Main heading (H1) for SEO -->
+      <h1>Sell Scrap, Recyclables, Paper, Plastic, Metal, Iron & E-Waste in Hyderabad & Secunderabad – Doorstep Pickup and Collection</h1>
+      
+      <!-- Secondary heading (H2) -->
+      <h2>Trusted Scrap Dealers and Local Recycling Services</h2>
+      <p>
+        Cyklze is your top platform to <strong>sell scrap</strong>, <strong>recyclables</strong>, <strong>paper scrap</strong>, <strong>plastic waste</strong>, <strong>metal scrap</strong>, <strong>iron scrap</strong>, and <strong>e-waste</strong> in Hyderabad and Secunderabad. 
+        We provide fast, reliable, and hassle-free <strong>doorstep pickup</strong> and <strong>waste collection</strong> for homes, offices, and businesses. 
+        Our verified <strong>scrap dealers</strong> handle <strong>plastic, paper, metal, iron, and e-waste scrap</strong> safely and ensure <strong>instant payments</strong>.
+      </p>
+      
+      <h2>Comprehensive Scrap and Recyclables Collection Services</h2>
+      <p>
+        Our <strong>scrap collection services</strong> cover every type of <strong>waste</strong>: <strong>paper, plastic, metal, iron, e-waste, old electronics, bottles, cardboard, and recyclables</strong>. 
+        We connect you with trusted <strong>scrap dealers</strong> to sell your <strong>recyclables</strong> efficiently. 
+        With Cyklze, selling <strong>scrap</strong> is simple, profitable, and eco-friendly, promoting sustainable <strong>recycling</strong> across Hyderabad and Secunderabad.
+      </p>
+      
+      <h3>Doorstep Scrap Pickup and Recyclables Collection in Hyderabad & Secunderabad</h3>
+      <p>
+        Cyklze offers <strong>door step scrap pickup</strong> and <strong>waste collection</strong> for <strong>paper, plastic, metal, iron, and e-waste</strong>. 
+        Whether it’s <strong>old paper scrap, plastic bottles, metal scrap, iron waste, electronic scrap, or recyclables</strong>, we provide fast, reliable, and transparent <strong>collection services</strong> in Hyderabad and Secunderabad. 
+        Our verified <strong>scrap dealers</strong> ensure <strong>instant payments</strong> for every pickup.
+      </p>
+      
+      <h3>Sell Scrap and Recyclables Today – Fast, Local, and Reliable</h3>
+      <p>
+        Join thousands of customers who trust Cyklze for <strong>scrap selling, recyclable collection, paper, plastic, metal, iron, and e-waste pickup</strong> in Hyderabad and Secunderabad. 
+        Turn your <strong>waste, scrap, and recyclables</strong> into cash with fast <strong>doorstep pickup</strong>, <strong>collection</strong> services, and trusted <strong>scrap dealers</strong>. 
+        Cyklze is your ultimate local solution for <strong>recycling, waste management, scrap selling, and doorstep collection</strong> of all <strong>paper, plastic, metal, iron, and e-waste recyclables</strong>.
+      </p>
+      
+      <!-- Less button -->
+      <p><a href="#" id="about-less-btn">Less</a></p>
+    </div>
+
+  </div>
+</section>
+
+<footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+       
+        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+    </div>
+</footer>
+
+  <!-- bottom nav with icons -->
+  <div class="bottom-nav">
+     <a class="mini link-block">
+    <div class="nav-item active">
+      <i class="fa-solid fa-house"></i>
+      Home
+    </div>
+    </a>
+    <!-- <div class="nav-item">
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      Orders
+    </div> -->
+     <a href="Profile.html" class="mini link-block">
+    <div class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      Profile
+    </div>
+    </a>
+      <!-- <a href="profile.html" class="mini link-block">
+    <div class="nav-item">
+      <i class="fa-solid fa-gear"></i>
+      Settings
+    </div>
+    </a> -->
+  </div>
+<script>
+  const moreBtn = document.getElementById('about-more-btn');
+  const lessBtn = document.getElementById('about-less-btn');
+  const fullContent = document.getElementById('about-full');
+  const preview = document.getElementById('about-preview');
+
+  moreBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    fullContent.style.display = 'block';
+    preview.style.display = 'none';
+  });
+
+  lessBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    fullContent.style.display = 'none';
+    preview.style.display = 'block';
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyklze - Pickup Services</title>
@@ -520,4 +1005,4 @@
 
 
 </body>
-</html>
+</html> -->
