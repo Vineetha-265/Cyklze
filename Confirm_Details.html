@@ -1,4 +1,653 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+  <title>Pickup Details</title>
+ <style>
+/* -------------------------------------------------- */
+/*  GLOBAL                                            */
+/* -------------------------------------------------- */
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+      flex-direction: column; 
+       display: flex;
+    justify-content: center;   
+    align-items: center;
+  background: #ffffff;
+  /* color: #2e2e2e; */
+}
+
+/* -------------------------------------------------- */
+/*  CONTAINER                                         */
+/* -------------------------------------------------- */
+.container {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* -------------------------------------------------- */
+/*  MODERN CARD                                       */
+/* -------------------------------------------------- */
+.card {
+  background: #ffffff;
+  padding: 24px;
+  margin-bottom: 22px;
+  border-radius: 18px;
+  box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.12);
+  animation: fadeInUp 0.5s ease;
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1D4D61;
+  margin-bottom: 12px;
+}
+
+.card-text {
+  font-size: 15px;
+  margin: 8px 0;
+  color: #444;
+}
+
+/* -------------------------------------------------- */
+/*  BUTTONS                                           */
+/* -------------------------------------------------- */
+.btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.25s ease;
+}
+
+.btn-continue {
+  background: linear-gradient(135deg, #1D4D61, #1D4D61);
+  color: white;
+  box-shadow: 0 6px 12px rgba(46, 125, 50, 0.35);
+}
+
+.btn-continue:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 16px rgba(46, 125, 50, 0.45);
+}
+
+.btn:disabled {
+  background: #c8e6c9 !important;
+  color: #6b6b6b !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+ .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
+
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+/* -------------------------------------------------- */
+/*  LOADING SPINNER                                   */
+/* -------------------------------------------------- */
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #b2dfdb;
+  border-top: 5px solid #1D4D61;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* -------------------------------------------------- */
+/*  ANIMATIONS                                        */
+/* -------------------------------------------------- */
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.center-img {
+  width: 50%;
+  height: auto;
+  display: block;        /* allows margin auto to work */
+  margin: 20px auto;     /* centers horizontally + adds padding top/bottom */
+  padding: 20px;         /* adds inner spacing on all sides */
+}
+
+
+
+.order-success {
+  text-align: center;
+  background: #e8f5e9;          /* soft green background */
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 400px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.order-success p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1D4D61;              /* darker green */
+  margin: 0;
+}
+
+/* Reuse fade-in animation from your previous CSS */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.clean-link {
+    text-decoration: none;    /* remove underline */
+    color: inherit;           /* don't change text color */
+    display: block;           /* allow wrapping children */
+}
+
+.clean-link * {
+    color: inherit;           /* ensure all children keep their own style */
+    text-decoration: none;
+}
+
+
+   .centered-text {
+            color: grey;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
+        }
+
+
+
+        
+    #loading {
+      padding: 40px;
+      font-size: 20px;
+          margin-top: 250px;
+    margin-bottom: 450PX;
+      display: none;
+    }
+
+    #error-box {
+       width: 300px;
+    padding: 20px;
+    background-color: white;
+      justify-content: center;  /* center horizontally */
+    align-items: center; 
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 250px;
+    margin-bottom: 450PX;
+    text-align: center;
+    /* margin: 20px auto; */
+    font-family: Arial, sans-serif;
+    }
+
+    #error-box button {
+      background: #34495e;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #main-content {
+      padding: 20px;
+      display: none;
+    }
+
+    /* Simple spinner */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ddd;
+      border-top-color: #34495e;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 20px auto;
+    }
+
+#login-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+      justify-content: center;  /* center horizontally */
+    align-items: center; 
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 250px;
+    margin-bottom: 450PX;
+    text-align: center;
+    /* margin: 20px auto; */
+    font-family: Arial, sans-serif;
+}
+#login-box h3 {
+    color: black;
+}
+#login-box button {
+    padding: 10px 20px;
+    background-color: #34495e;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#login-box button:hover {
+    background-color: #34495e;
+}
+
+
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+</style>
+
+
+
+</head>
+<body onload="setui()">
+  <div id="login-box">
+    <h3>You are not logged in!</h3>
+    <p>Please log in to continue.</p>
+    <button onclick="goToLogin()">Login</button>
+</div>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    Loading...
+  </div>
+
+  <!-- Error Section -->
+  <div id="error-box">
+    <h3>Something went wrong!</h3>
+    <p>Please try again.</p>
+    <button onclick="setui()">Retry</button>
+  </div>
+  <div class="titleBar">
+  <span class="titleText">Confirm Pickup</span>
+</div>
+  <div id="main-content" class="container">
+<!-- <div class="container"> -->
+   
+  <!-- Pickup Details Card -->
+  <div class="card fade-in">
+    <div class="card-title">Pickup Details</div>
+    <div class="card-text">Pickup Type: <span id="type">Type Here</span></div>
+    <div class="card-text">Selected Items: <span id="items">Items Here</span></div>
+    <div class="card-text">Address: <span id="address">Address Here</span></div>
+    <div class="card-text">Time: <span id="time">Time Here</span></div>
+    <div class="card-text">Chosen Date: <span id="date">Date Here</span></div>
+  </div>
+
+  <!-- Change Address Button -->
+  <!-- <button class="btn btn-change fade-in" onclick="changeAddress()">Change Address</button> -->
+
+  <!-- Continue for Pickup Button -->
+  <button class="btn btn-continue fade-in" onclick="handleContinue()" id="continueBtn">
+    Confirm Pickup
+  </button>
+<img src="webtruck.png" class="center-img">
+
+<div style="width: 100%; text-align: center; color: grey; font-size: 12px;">
+    Everything looks great!!
+</div>
+
+  <!-- Loading Progress Bar -->
+  <!-- <div id="loading" class="loading fade-in" style="display: none;">
+    <div class="loader"></div>
+  </div> -->
+</div>
+
+<!-- <div id="footer"></div> -->
+
+<!-- </div> -->
+<footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+        
+        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+    </div>
+</footer>
+<script>
+      let count = 0;  
+    function goToLogin() {
+    // Redirect to your login page
+    window.location.href = "login.html"; 
+}
+ function setui() {
+    // Redirect to your login page
+const items = localStorage.getItem('items');
+const address = localStorage.getItem('address');
+const type = localStorage.getItem('type');
+const date = localStorage.getItem('date');
+const time = localStorage.getItem('time');
+const accessToken = localStorage.getItem('accessToken');
+     if (!address || !date || !type || !time) {
+        window.location.href = "index.html";
+        return;
+      }
+
+        if (!accessToken) {
+       //   showToast('Authentication failed. Please log in again.');
+
+             document.getElementById("loading").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("error-box").style.display = "none";
+        document.getElementById("login-box").style.display = "block";
+          return;
+        }
+        document.getElementById("type").textContent = localStorage.getItem('type') || '';
+document.getElementById("items").textContent = localStorage.getItem('items') || '';
+document.getElementById("address").textContent = localStorage.getItem('address') || '';
+document.getElementById("time").textContent = localStorage.getItem('time') || '';
+document.getElementById("date").textContent = localStorage.getItem('date') || '';
+         document.getElementById("loading").style.display = "none";
+        document.getElementById("error-box").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+         document.getElementById("login-box").style.display = "none";
+
+}
+
+
+//      const isTokenExpired = async () => {
+//    const accessToken = localStorage.getItem('accessToken');
+//  // Assuming the token is stored in localStorage
+//     try {
+//       const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Authorization: `${accessToken}`,
+//         },
+//         body: JSON.stringify({ accessToken }),
+//       });
+
+//       if (!response.ok) {
+//         throw new Error('Failed to check token expiration');
+//       }
+
+//       const responseData = await response.json();
+//       const message = responseData.message;
+
+//       if (message === 'Token has expired') {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     } catch (error) {
+//       console.error('Error checking token expiration:', error);
+//       alert('Failed to check token expiration. Please try again.');
+//       return true;
+//     }
+//   };
+
+//   async function checkTokenAndNavigate() {
+//    const accessToken = localStorage.getItem('accessToken');
+
+
+//     if (accessToken) {
+//       const isExpired = await isTokenExpired();
+//       if (isExpired) {
+//         alert('Please log in');
+//         window.location.href = 'login.html';
+//       } else {
+//         // Token is not expired, you can add your next steps here if needed.
+//       }
+//     } else {
+//       alert('Please log in');
+//        window.location.href = 'login.html';
+//     }
+//   }   
+  // window.onload = setui;
+  
+//   function() {
+// const items = localStorage.getItem('items');
+// const address = localStorage.getItem('address');
+// const type = localStorage.getItem('type');
+// const date = localStorage.getItem('date');
+// const time = localStorage.getItem('time');
+//   const accessToken = localStorage.getItem('accessToken');
+//      if (!address || !date || !type || !time) {
+//         window.location.href = "index.html";
+//         return;
+//       }
+
+//         if (!accessToken) {
+//           showToast('Authentication failed. Please log in again.');
+//           // continueButton.disabled = false;
+//           // loadingIndicator.style.display = 'none';
+//         document.getElementById("loading").style.display = "none";
+//         document.getElementById("main-content").style.display = "none";
+//         document.getElementById("error-box").style.display = "none";
+//         document.getElementById("login-box").style.display = "block";
+//           return;
+//         }
+//         document.getElementById("type").textContent = localStorage.getItem('type') || '';
+// document.getElementById("items").textContent = localStorage.getItem('items') || '';
+// document.getElementById("address").textContent = localStorage.getItem('address') || '';
+// document.getElementById("time").textContent = localStorage.getItem('time') || '';
+// document.getElementById("date").textContent = localStorage.getItem('date') || '';
+//          document.getElementById("loading").style.display = "none";
+//         document.getElementById("error-box").style.display = "none";
+//         document.getElementById("main-content").style.display = "block";
+//          document.getElementById("login-box").style.display = "none";
+
+
+
+//     // checkTokenAndNavigate();
+//   };
+
+
+
+
+  //     function setCookie(name, value, days) {
+//     const expires = new Date();
+//     expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+//     document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+// }
+
+// // Function to get cookie by name
+// function getCookie(name) {
+//     const nameEQ = name + "=";
+//     const ca = document.cookie.split(';');
+//     for (let i = 0; i < ca.length; i++) {
+//         let c = ca[i];
+//         while (c.charAt(0) === ' ') {
+//             c = c.substring(1, c.length);
+//         }
+//         if (c.indexOf(nameEQ) === 0) {
+//             return c.substring(nameEQ.length, c.length);
+//         }
+//     }
+//     return null;  // If cookie not found
+// }
+  // let isLoading = false;
+  // let isButtonDisabled = false;
+  // const continueBtn = document.getElementById("continueBtn");
+  // const loading = document.getElementById("loading");
+
+  function changeAddress() {
+    alert("Change Address clicked");
+  }
+
+  // function handleContinue() {
+  //   window.location.href = "Confirmed.html"; // Simulate loading time
+  // }
+  
+const items = localStorage.getItem('items');
+const address = localStorage.getItem('address');
+const type = localStorage.getItem('type');
+const date = localStorage.getItem('date');
+const time = localStorage.getItem('time');
+  // Example data assignment for dynamic content
+document.getElementById("type").textContent = localStorage.getItem('type') || '';
+document.getElementById("items").textContent = localStorage.getItem('items') || '';
+document.getElementById("address").textContent = localStorage.getItem('address') || '';
+document.getElementById("time").textContent = localStorage.getItem('time') || '';
+document.getElementById("date").textContent = localStorage.getItem('date') || '';
+
+  async function handleContinue() {
+
+   if (address.toLowerCase().indexOf("hyderabad") === -1) {
+        // If "Hyderabad" is not found, show an alert
+        alert("The address must contain 'Hyderabad'.");
+      }
+      // Validate input fields
+      if (!address || !date || !type || !time) {
+        window.location.href = "index.html";
+        return;
+      }
+          document.getElementById("loading").style.display = "block";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+     document.getElementById("login-box").style.display = "none";
+      // const continueButton = document.getElementById("continueBtn");
+      // const loadingIndicator = document.getElementById("loading");
+
+      // // Disable the button and show loading indicator
+      // continueButton.disabled = true;
+      // loadingIndicator.style.display = 'block';
+
+      try {
+        const accessToken = localStorage.getItem('accessToken');// Simulating access token from local storage
+
+        if (!accessToken) {
+          showToast('Authentication failed. Please log in again.');
+          // continueButton.disabled = false;
+          // loadingIndicator.style.display = 'none';
+             document.getElementById("loading").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("error-box").style.display = "block";
+        document.getElementById("login-box").style.display = "none";
+          return;
+        }
+
+        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${accessToken}`,
+          },
+          body: JSON.stringify({
+            address: address,
+            date: date,
+            time: time,
+            items: items,
+            type: type,
+          }),
+        });
+
+        const responseData = await response.json();
+
+       if (response.ok) {
+    // const responseBody = await response.json();
+    const message = responseData.message ? responseData.message.toLowerCase() : "";
+     document.getElementById("loading").style.display = "none";
+        document.getElementById("error-box").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+             document.getElementById("login-box").style.display = "none";
+    // Check for "pending" same as Flutter code
+    if (message.includes("pending")) {
+      // Replace this with your actual logout confirmation
+      alert("Your pickup is still pending."); 
+      
+      // Keep user on the same page (equivalent to setState(... loggedIn))
+     // console.log("Status: Logged In (pending state)");
+    
+    } else { 
+   
+      // Success → redirect to confirmation page
+      window.location.href = "Confirmed.html";
+    }
+  } else {
+     if(count > 1){
+          goToLogin();
+        }
+        count++;
+      document.getElementById("loading").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("error-box").style.display = "block";
+        document.getElementById("login-box").style.display = "none";
+          // showToast(responseData.message || 'Something went wrong. Please try again');
+          // window.location.href = "login.html";
+        }
+
+      } catch (error) {
+         if(count > 1){
+          goToLogin();
+        }
+        count++;
+        console.error('Error:', error);
+          document.getElementById("loading").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("error-box").style.display = "block";
+        document.getElementById("login-box").style.display = "none";
+         // alert("Failed to connect. Please try again later."); 
+       // showToast('Failed to connect. Please try again later.');
+      } finally {
+        // Re-enable the button and hide loading indicator
+        // continueButton.disabled = false;
+        // loadingIndicator.style.display = 'none';
+      }
+    }
+  // Enable the "Continue" button when data is ready
+  setTimeout(() => {
+   // continueBtn.disabled = false;
+  }, 500);
+  
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head> 
   <meta charset="UTF-8">
@@ -296,4 +945,4 @@ function getCookie(name) {
 </script>
 
 </body>
-</html>
+</html> -->
