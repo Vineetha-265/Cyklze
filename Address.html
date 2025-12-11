@@ -3,6 +3,282 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="icon" href="Logo.PNG" type="image/png"> -->
+     <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+  <title>Address</title>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 60px;   /* space for title bar */
+
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+}
+
+footer {
+  margin-top: auto; /* pushes footer to bottom */
+}
+
+    .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
+
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+/* body {
+  margin: 0;
+  padding-top: 60px;
+ 
+} */
+
+    .container { padding: 20px; max-width: 600px; margin: 0 auto; }
+    .card { background-color: white; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; padding: 20px; }
+    .gradientCard { background: linear-gradient(to right,#FFFFFF,#F1F1F1); border-radius: 10px; padding: 20px;   }
+    .hidden {
+  display: none;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Popup box */
+.popupContent {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 450px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+/* Close button */
+.closeBtn {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.actionBtn {
+  padding: 12px 22px;
+  border: none;
+  background: #1D4D61;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+}
+    .Loctitle { font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+    .sectionTitle { font-size: 16px; margin-bottom: 10px; }
+    .toggleButton { background-color: #1D4D61; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; text-align: center; margin-top: 10px; }
+    .inputLabel { font-size: 16px; margin-bottom: 5px; }
+    .input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px; font-size: 16px; }
+    .dropdown { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px; cursor: pointer; background-color: #f9f9f9; }
+    .dropdownMenu { border: 1px solid #ddd; border-radius: 5px; margin-top: -10px; margin-bottom: 15px; display:none; }
+    .dropdownItem { padding: 10px; cursor: pointer; }
+    .dropdownItem:hover { background-color: #f1f1f1; }
+    .button { background-color: #1D4D61; color: white; border: none; padding: 15px 20px; border-radius: 5px; cursor: pointer; width: 100%; text-align: center; font-size: 16px; }
+    .button:hover { background-color: #1D4D61; }
+    .errorText { color: red; font-size: 14px; margin-top: 10px; }
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+   <div class="titleBar">
+  <span class="titleText">Enter Address</span>
+</div>
+
+<!-- Button that opens popup -->
+
+
+<!-- <button onclick="showDetails()" class="actionBtn">Show Details</button> -->
+
+
+    <div id="savedAddressCard" class="card" style="display: none;">
+      <div class="Loctitle">Continue with Saved Address</div>
+      <button class="toggleButton" id="savedAddressButton">
+        <span id="savedAddressText"></span>
+      </button>
+    </div>
+
+    <div id="addressForm" class="card">
+      <div class="Loctitle">Enter Address</div>
+
+      <div class="inputLabel">Street Address:</div>
+      <input type="text" class="input" id="streetAddress" placeholder="House no/Flat no/Road no">
+
+      <div class="inputLabel">Colony/Area:</div>
+      <input type="text" class="input" id="colonyArea" placeholder="Colony/Area">
+
+      <div class="inputLabel">City:</div>
+      <div class="dropdown" id="cityDropdown">
+        <span id="selectedCity">Select City</span>
+      </div>
+      <div id="dropdownMenu" class="dropdownMenu"></div>
+
+      <div class="inputLabel">Postal Code:</div>
+      <input type="text" class="input" id="postalCode" placeholder="Postal Code">
+
+      <button class="button" id="confirmAddressButton">Confirm Address</button>
+    </div>
+  </div>
+  <footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+      
+        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+    </div>
+</footer>
+
+  <script>
+    // Cookie helpers
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + (days*24*60*60*1000));
+      document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
+    }
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for(let i=0;i<ca.length;i++) {
+        let c = ca[i].trim();
+        if(c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+      }
+      return null;
+    }
+
+    // Populate page from cookies
+    window.onload = function() {
+    const items = localStorage.getItem('items');
+const type = localStorage.getItem('type');
+const date = new Date(localStorage.getItem('date'));  // convert back to Date
+const time = localStorage.getItem('time');
+// function openPopup() {
+//   document.getElementById("detailsPopup").classList.remove("hidden");
+// }
+
+  const accessToken = localStorage.getItem('accessToken');
+     if (!items || !date || !type || !time) {
+        window.location.href = "index.html";
+        return;
+      }
+
+// function closePopup() {
+//   document.getElementById("detailsPopup").classList.add("hidden");
+// }
+
+console.log(items, type, date, time);
+
+
+      if (items) document.getElementById('selectedItems').textContent = `Selected Items: ${items}`;
+      if (type) document.getElementById('pickupType').textContent = `Selected Pickup Type: ${type}`;
+      if (date) document.getElementById('chosenDate').textContent = `Chosen Date: ${date}`;
+      if (time) document.getElementById('chosenTime').textContent = `Selected Time: ${time}`;
+    };
+
+    // Cities
+    const Tier1Cities = [{ value: 'Hyderabad', label: 'Hyderabad' }];
+    let selectedCity = 'Select City';
+
+    const cityDropdown = document.getElementById('cityDropdown');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const confirmAddressButton = document.getElementById('confirmAddressButton');
+
+    // Populate dropdown
+    function populateDropdown() {
+      dropdownMenu.innerHTML = Tier1Cities.map(city => 
+        `<div class="dropdownItem" onclick="selectCity('${city.value}')">${city.label}</div>`).join('');
+    }
+
+    function selectCity(city) {
+      selectedCity = city;
+      document.getElementById('selectedCity').textContent = city;
+      dropdownMenu.style.display = 'none';
+    }
+
+    cityDropdown.addEventListener('click', function() {
+      dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+      if (dropdownMenu.style.display === 'block') populateDropdown();
+    });
+
+    // Handle confirm
+    confirmAddressButton.addEventListener('click', function() {
+      const street = document.getElementById('streetAddress').value.trim();
+      const area = document.getElementById('colonyArea').value.trim();
+      const postal = document.getElementById('postalCode').value.trim();
+
+      if (!street || !area || selectedCity==='Select City' || !postal) {
+        alert('Please fill all fields.');
+        return;
+      }
+          const pattern = /^5000(0[1-9]|[1-9][0-9])$/;
+
+    if (!pattern.test(postal)) {
+        alert("We don't serve this postal code.");
+        return;
+    }
+
+      const fullAddress = `${street}, ${area}, ${selectedCity}, ${postal}`;
+     localStorage.setItem('address', fullAddress);
+
+      window.location.href = "Confirm_Details.html";
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="icon" href="Logo.PNG" type="image/png">
   <title>Address</title>
   <style>
@@ -483,4 +759,4 @@ function getCookie(name) {
     // window.onload = requestLocationPermission;
   </script>
 </body>
-</html>
+</html> -->
