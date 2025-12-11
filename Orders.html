@@ -1,4 +1,533 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+  <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+ 
+  <style>
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+          flex-direction: column; 
+       display: flex;
+    justify-content: center;   
+    align-items: center;
+      padding: 0;
+    }
+    .container {
+      padding: 16px;
+      background-color: #fff;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .request-card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .request-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .request-description, .request-status, .request-weight, .request-products, .request-status-comments {
+      font-size: 14px;
+      color: #333;
+      margin-top: 8px;
+    }
+    .cancel-button {
+      background-color: #34495e;
+      color: white;
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .loading-indicator {
+      margin-top: 100px;
+      text-align: center;
+    }
+    /* Overlay Background */
+ #login-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+      justify-content: center;  /* center horizontally */
+    align-items: center; 
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 250px;
+    margin-bottom: 450PX;
+    text-align: center;
+    /* margin: 20px auto; */
+    font-family: Arial, sans-serif;
+}
+#login-box h3 {
+    color: black;
+}
+#login-box button {
+    padding: 10px 20px;
+    background-color: #34495e;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#login-box button:hover {
+    background-color: #34495e;
+}
+
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Popup Box */
+.popup {
+  background: white;
+  padding: 25px;
+  width: 280px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-in;
+}
+
+.popup-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  margin: 0 5px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.confirm {
+  background: #28a745;
+  color: white;
+}
+
+.cancel {
+  background: #dc3545;
+  color: white;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+/* adding three api layers */
+
+
+    #loading {
+      
+       margin-left: 20px;
+     margin-right: 20px;
+     margin-bottom: 400px;
+     margin-top: 300px;
+     padding: 20px;
+      font-size: 20px;
+      display: none;
+    }
+
+    #error-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+      justify-content: center;  /* center horizontally */
+    align-items: center; 
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 250px;
+    margin-bottom: 450PX;
+    text-align: center;
+    /* margin: 20px auto; */
+    font-family: Arial, sans-serif;
+    }
+
+    #error-box button {
+      background: #34495e;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #main-content {
+      padding-top: 100px;
+     
+      padding-left: 20px;
+       padding-right: 20px;
+      display: none;
+    }
+
+    /* Simple spinner */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ddd;
+      border-top-color: #2a7be4;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+      .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
+
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+
+  </style>
+</head>
+<body>
+<div class="titleBar">
+  <span class="titleText">pickups</span>
+</div>
+  <div id="loading">
+    <div class="spinner"></div>
+    Loading...
+  </div>
+<div id="login-box">
+    <h3>You are not logged in!</h3>
+    <p>Please log in to continue.</p>
+    <button onclick="goToLogin()">Login</button>
+</div>
+
+  <div id="error-box">
+    <h3>Something went wrong!</h3>
+    <p>Please try again.</p>
+    <button onclick="fetchRequests()">Retry</button>
+  </div>
+
+
+    <div id="main-content">
+        <div class="container">
+    <!-- <div id="loadingIndicator" class="loading-indicator">
+      <p>Loading...</p>
+    </div> -->
+    <div id="requestList"></div>
+  </div>
+<div id="popupOverlay" class="overlay">
+  <div class="popup">
+    <p class="popup-text">Are you sure?</p>
+
+    <div class="popup-buttons">
+      <button class="popup-btn confirm" onclick="confirmAction()">Confirm</button>
+      <button class="popup-btn cancel" onclick="closePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+  </div>
+   <footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+        
+        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+    </div>
+</footer>
+  <script>
+    // Helper functions to manage cookies
+      let current_request;  
+       let count = 0;  
+       function goToLogin() {
+    // Redirect to your login page
+    window.location.href = "login.html"; 
+}
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+          return c.substring(nameEQ.length, c.length);
+        }
+      }
+      return null;  // If cookie not found
+    }
+
+    // Fetch requests data from API
+    async function fetchRequests() {
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+        document.getElementById("login-box").style.display = "none"; // Show loading indicator
+         const accessToken = localStorage.getItem('accessToken');
+const refreshToken = localStorage.getItem('refreshToken');
+// Get access token from cookies
+
+      if (!accessToken) {
+         document.getElementById("loading").style.display = "none";
+        document.getElementById("error-box").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+         document.getElementById("login-box").style.display = "block";
+        return;
+      }
+
+      try {
+        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
+          method: 'GET',
+          headers: {
+            'Authorization': accessToken, // Include the token in request header
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const requests = data.data; 
+                // Assuming the response contains a `data` field
+         await renderRequests(requests); 
+           document.getElementById("loading").style.display = "none";
+        document.getElementById("error-box").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+         document.getElementById("login-box").style.display = "none"; // Pass the requests to render function
+        } else {
+                  document.getElementById("loading").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("error-box").style.display = "block";
+ document.getElementById("login-box").style.display = "none";
+          alert('Failed to fetch requests. Try again!');
+          if(count > 1){
+          goToLogin();
+        }
+        count++;
+         // window.location.href = "login.html"; 
+        }
+      } catch (error) {
+                document.getElementById("loading").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("error-box").style.display = "block";
+         document.getElementById("login-box").style.display = "none";
+if(count > 1){
+          goToLogin();
+        }
+        count++;
+      //  alert('Network error. Please check your connection.');
+      } finally {
+       // loadingIndicator.style.display = 'none'; // Hide loading indicator
+      }
+    }
+function openPopup(request) {
+  current_request = request;
+  document.getElementById("popupOverlay").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popupOverlay").style.display = "none";
+}
+
+function confirmAction() {
+  closePopup();
+  handleCancelClick(current_request);
+ // alert("Confirmed!");  // Replace this with your custom action
+}
+
+    // Render requests to the HTML
+    function renderRequests(requests) {
+      const requestList = document.getElementById('requestList');
+      requestList.innerHTML = '';  // Clear previous requests
+
+      requests.forEach(request => {
+        const requestCard = document.createElement('div');
+        requestCard.classList.add('request-card');
+        requestCard.innerHTML = `
+        <p class="request-title" 
+   style="font-size: 18px; font-weight: bold; color: #2c3e50; margin: 5px 0;">
+   Ordered on: ${request.time}
+</p>
+
+<p class="request-description" 
+   style="background: #e8f5e9; padding: 8px; border-left: 4px solid #2ecc71; margin: 5px 0;">
+   Pickup Location: ${request.Address}
+</p>
+
+<p class="request-status" 
+   style="font-weight: bold; color: #fff; background: #3498db; padding: 6px 10px; border-radius: 4px; display: inline-block; margin: 5px 0;">
+   Status: ${request.Status}
+</p>
+
+<p class="request-weight" 
+   style="background: #fff3cd; padding: 8px; border-left: 4px solid #f1c40f; margin: 5px 0;">
+   Set Date: ${request.Set_date}
+</p>
+
+<p class="request-products" 
+   style="background: #f8f9fa; padding: 10px; border: 1px solid #dcdcdc; border-radius: 5px; margin: 5px 0;">
+   Items: ${request.Selected_items}
+</p>
+
+<p class="request-status-comments" 
+   style="font-style: italic; color: #7f8c8d; margin: 5px 0;">
+   Comments: ${request.Status_comments}
+</p>
+
+        `;
+
+        // Conditionally render Cancel button
+        if (request.Status.toLowerCase() !== 'cancel' && request.Status.toLowerCase() !== 'processing') {
+          const cancelButton = document.createElement('div');
+          cancelButton.classList.add('cancel-button');
+          cancelButton.textContent = 'Cancel';
+          cancelButton.addEventListener('click', () =>
+          // handleCancelClick(request)
+          openPopup(request)
+          );
+          requestCard.appendChild(cancelButton);
+        }
+
+        requestList.appendChild(requestCard);
+      });
+    }
+
+    // Handle cancel request
+  async function handleCancelClick(request) {
+   
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        document.getElementById("loading").style.display = "none";
+    document.getElementById("error-box").style.display = "none";
+    document.getElementById("main-content").style.display = "none";
+  document.getElementById("login-box").style.display = "block";
+        return;
+    }
+     document.getElementById("loading").style.display = "block";
+    document.getElementById("error-box").style.display = "none";
+    document.getElementById("main-content").style.display = "none";
+  document.getElementById("login-box").style.display = "none";
+
+    try {
+        const requestBody = {
+            'time': request.time   // also fix this bug
+        };
+
+        const response = await fetch(
+            'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/ordermodify',
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': accessToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            }
+        );
+
+        if (!response.ok) {
+           document.getElementById("loading").style.display = "none";
+    document.getElementById("error-box").style.display = "block";
+    document.getElementById("main-content").style.display = "none";
+  document.getElementById("login-box").style.display = "none";
+        }
+
+        // WAIT for refresh
+        await fetchRequests();
+
+        alert('Request canceled successfully!');
+
+        // NOW hide loading after everything is done
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("error-box").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+          document.getElementById("login-box").style.display = "none";
+
+    } catch(err) {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("error-box").style.display = "block";
+          document.getElementById("login-box").style.display = "none";
+       // alert("Network error!");
+    }
+}
+
+    // Fetch the requests when the page loads
+    window.onload = ()=>{
+      fetchRequests()
+        //   document.getElementById("loading").style.display = "none";
+        // document.getElementById("main-content").style.display = "none";
+        // document.getElementById("error-box").style.display = "block";
+        //   document.getElementById("login-box").style.display = "none";
+    };
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -190,4 +719,4 @@
     window.onload = fetchRequests;
   </script>
 </body>
-</html>
+</html> -->
