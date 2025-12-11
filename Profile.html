@@ -1,4 +1,520 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+  <title>Profile Screen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F7F9FB; /* Very light grey background for the page */
+      margin: 0;
+      padding: 0;
+         flex-direction: column; 
+       display: flex;
+    justify-content: center;   
+    align-items: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    /* Profile Header */
+    .profile-header {
+      text-align: center;
+      padding: 40px 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .username {
+      font-size: 22px;
+      font-weight: 600;
+      color: #34495e; /* Dark blue-grey color for username */
+    }
+
+    .user-id {
+      font-size: 16px;
+      color: #7f8c8d; /* Light grey for user ID */
+      margin-top: 6px;
+    }
+
+    /* Settings Section */
+    .settings-section {
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;  /* Ensures buttons are stacked vertically */
+      align-items: center;     /* Centers the buttons horizontally */
+    }
+
+    .button {
+      background-color: #34495e; /* Dark blue-grey color for buttons */
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      width: 100%; /* Ensures buttons fill the container's width */
+      max-width: 300px; /* Prevents buttons from getting too wide */
+    }
+
+    .button:hover {
+      background-color: #2c3e50; /* Darker shade of blue-grey for hover effect */
+    }
+
+    /* Logout Button */
+    .logout-button {
+      margin-bottom: 150px;
+      background-color: #E74C3C; /* Red color for logout button */
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      width: 100%; /* Ensures logout button fills container's width */
+      max-width: 300px; /* Prevents logout button from getting too wide */
+    }
+
+    .logout-button:hover {
+      background-color: #c0392b; /* Darker red color for hover effect */
+    }
+
+    /* Mobile vs. Desktop Adjustments */
+    @media (min-width: 600px) {
+      .container {
+        padding: 40px;
+      }
+
+      .profile-header {
+        padding: 60px 10px;
+      }
+
+      .settings-section {
+        margin-bottom: 60px;
+      }
+
+      .button {
+        font-size: 18px;
+      }
+    }
+
+
+        #loading {
+      padding: 40px;
+      font-size: 20px;
+       margin-top: 250px;
+    margin-bottom: 450PX;
+      display: none;
+    }
+
+    #error-box {
+      width: 300px;
+    padding: 20px;
+    background-color: white;
+      justify-content: center;  /* center horizontally */
+    align-items: center; 
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 250px;
+    margin-bottom: 450PX;
+    text-align: center;
+    /* margin: 20px auto; */
+    font-family: Arial, sans-serif;
+    }
+
+    #error-box button {
+      background: #34495e;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #main-content {
+      padding: 20px;
+      display: none;
+      margin-top: 100px;
+    }
+ #login-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+      justify-content: center;  /* center horizontally */
+    align-items: center; 
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 250px;
+    margin-bottom: 450PX;
+    text-align: center;
+    /* margin: 20px auto; */
+    font-family: Arial, sans-serif;
+}
+#login-box h3 {
+    color: black;
+}
+#login-box button {
+    padding: 10px 20px;
+    background-color: #34495e;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#login-box button:hover {
+    background-color: #34495e;
+}
+
+    /* Simple spinner */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ddd;
+      border-top-color: #34495e;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+        .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
+
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Popup Box */
+.popup {
+  background: white;
+  padding: 25px;
+  width: 280px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-in;
+}
+
+.popup-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  margin: 0 5px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.confirm {
+  background: #28a745;
+  color: white;
+}
+
+.cancel {
+  background: #dc3545;
+  color: white;
+}
+
+
+    .floating-btn {
+            position: fixed; /* Fixes the button to the screen */
+            bottom: 20px;    /* Distance from the bottom */
+            right: 20px;     /* Distance from the right */
+            background-color: #4CAF50; /* Green background */
+            color: white;    /* White text */
+            border: none;    /* No border */
+            padding: 15px 25px; /* Padding around the text */
+            font-size: 18px; /* Font size */
+            border-radius: 10px; /* Smooth edges with rounded corners */
+            cursor: pointer; /* Makes the cursor a pointer on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+        }
+
+        .floating-btn:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+  </style>
+</head>
+<body onload="fetchUserPhoneNumber()">
+
+<div class="titleBar">
+  <span class="titleText">Profile</span>
+</div>
+
+
+  <div id="loading">
+    <div class="spinner"></div>
+    Loading...
+  </div>
+
+  <!-- Error Section -->
+  <div id="error-box">
+    <h3>Something went wrong!</h3>
+    <p>Please try again.</p>
+    <button onclick="fetchUserPhoneNumber()">Retry</button>
+  </div>
+  <div id="login-box">
+    <h3>You are not logged in!</h3>
+    <p>Please log in to continue.</p>
+    <button onclick="goToLogin()">Login</button>
+</div>
+
+  <div class="container" id="main-content">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="username">User Name</div>
+      <div class="user-id" id="phone-number">Phone Number: Loading...</div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="settings-section">
+      <!-- <button class="button" onclick="window.location.href='Price_Calci.html'">Price Calculator</button> -->
+   
+      <button class="button" onclick="window.location.href='Current_Prices.html'">Current Prices</button>
+      <button class="button" onclick="window.location.href='Orders.html'">View Requests</button>
+      <button class="button" onclick="window.location.href='FAQ.html'">FAQS</button>
+      <button class="button" onclick="window.location.href='Help.html'">Help</button>
+    </div>
+
+    <!-- Logout Button -->
+    <div>
+      <button class="logout-button" onclick="openPopup()">Log Out</button>
+    </div>
+  </div>
+   <button class="floating-btn"  onclick="window.location.href='index.html';">Book a pickup</button>
+ <footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Your Company. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+        <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Services</a>
+        <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+    </div>
+</footer>
+<div id="popupOverlay" class="overlay">
+  <div class="popup">
+    <p class="popup-text">Are you sure?</p>
+
+    <div class="popup-buttons">
+      <button class="popup-btn confirm" onclick="confirmAction()">Logout</button>
+      <button class="popup-btn cancel" onclick="closePopup()">No</button>
+    </div>
+  </div>
+</div>
+  <script>
+    let count = 0;  
+    function goToLogin() {
+    // Redirect to your login page
+    window.location.href = "login.html"; 
+}
+
+function openPopup() {
+ // current_request = request;
+  document.getElementById("popupOverlay").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popupOverlay").style.display = "none";
+}
+
+function confirmAction() {
+      localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+  closePopup();
+  fetchUserPhoneNumber();
+//  handleCancelClick(current_request);
+ // alert("Confirmed!");  // Replace this with your custom action
+}
+
+
+
+
+       function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
+    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+}
+
+// Function to get cookie by name
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;  
+}
+    // Function to delete a cookie by name
+function deleteCookie(name) {
+    // Set the cookie's expiry date to a past date
+    setCookie(name, "", -1);  // This calls the setCookie function with a negative value for "days" to expire the cookie immediately
+}
+
+    // Fetch the user's phone number from the API
+    async function fetchUserPhoneNumber() {
+            document.getElementById("loading").style.display = "block";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+        document.getElementById("login-box").style.display = "none";
+
+     const accessToken = localStorage.getItem('accessToken');
+const refreshToken = localStorage.getItem('refreshToken');
+        if(!accessToken){
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+     document.getElementById("login-box").style.display = "block";
+     return;
+    }// Get the access token from localStorage
+      const apiUrl = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/verify-otp'; // Replace with your actual API URL
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Authorization': `${accessToken}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const phoneNumber = data.phone_number;
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+        document.getElementById("login-box").style.display = "none";
+
+          document.getElementById('phone-number').textContent = `Phone Number: ${phoneNumber || 'Not Available'}`;
+        } else {
+          console.error('Failed to fetch data:', response.statusText);
+                document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+        document.getElementById("login-box").style.display = "none";
+ if(count > 1){
+          goToLogin();
+        }
+        count++;
+         // alert('Failed to fetch user data. Please try again.');
+        //  window.location.href='login.html'
+        }
+      } catch (error) {
+      
+                document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+        document.getElementById("login-box").style.display = "none";
+        console.error('Error fetching data:', error);
+       /// alert('Network error. Please try again.');
+         if(count > 1){
+          goToLogin();
+        }
+        count++;
+       // window.location.href='login.html'
+      }
+    }
+
+    // Simulate navigation (for demo purposes)
+    function navigateTo(page) {
+      console.log(`Navigating to ${page}`);
+      // Actual navigation logic would go here (e.g., changing the page, showing new content, etc.)
+    }
+
+    // Simulate logout (for demo purposes)
+   async function logout() {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+      // window.location.href='login.html'
+     await fetchUserPhoneNumber()
+      alert('Logged out successfully');
+    }
+
+    // Call fetchUserPhoneNumber when the page loads
+   // window.onload = fetchUserPhoneNumber;
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -212,4 +728,4 @@ function deleteCookie(name) {
   </script>
 
 </body>
-</html>
+</html> -->
