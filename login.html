@@ -450,10 +450,13 @@ localStorage.setItem('refreshToken', data.refreshToken);
                 const previousPage = localStorage.getItem("previousPage");
 
         // If the previous page exists, redirect to it; otherwise, go to profile page
+      
+
+              // If the previous page exists, redirect to it; otherwise, go to profile page
         if (previousPage) {
-          window.location.href = previousPage;  // Go back to the original page
+          window.location.replace(previousPage);  // Use replace to avoid adding the login page to history
         } else {
-          window.location.href = "index.html";  // Fallback to the profile page if no previous page stored
+          window.location.replace("index.html");  // Fallback to the profile page if no previous page stored
         }
 // Replace with your actual redirect logic
         } else {
