@@ -291,6 +291,8 @@ padding-left: 20px;
       let current_request;  
        let count = 0;  
        function goToLogin() {
+         localStorage.setItem("previousPage", window.location.href);
+
     // Redirect to your login page
     window.location.href = "login.html"; 
 }
@@ -514,14 +516,3 @@ function confirmAction() {
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
