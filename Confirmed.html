@@ -1,4 +1,472 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+<title>Pickup Confirmed</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(29,77,97,0.15), #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #000;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 1em;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+
+  .badge-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px;
+  }
+
+  .pulse-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(29,77,97,0.3);
+    animation: pulse 2s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.3; }
+    100% { transform: scale(1.2); opacity: 0.0; }
+  }
+
+  .check-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1D4D61, #1D4D61);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 10px rgba(29,77,97,0.35);
+    transform: scale(0);
+    animation: pop 0.9s forwards;
+  }
+
+  .check-circle i {
+    color: white;
+    font-size: 44px;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.2) rotate(-15deg); }
+    80% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  .options {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .option-tile {
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .option-tile:hover {
+    transform: translateY(-2px);
+  }
+
+  .option-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #1D4D61;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-right: 14px;
+    font-size: 20px;
+  }
+
+  .option-text {
+    flex: 1;
+    text-align: left;
+  }
+
+  .option-title {
+    font-weight: 700;
+    color: #1D4D61;
+  }
+
+  .option-subtitle {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+  }
+
+.option-arrow {
+  color: #000026; /* or any valid hex code */
+  font-size: 16px;
+}
+
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h1>Pickup Confirmed</h1>
+  <div class="subtitle">Pickup scheduled successfully. Thanks for choosing us.</div>
+
+  <div class="badge-wrapper">
+    <div class="pulse-circle"></div>
+    <div class="check-circle"><i class="fas fa-check"></i></div>
+    <canvas id="confetti"></canvas>
+  </div>
+
+  <div class="options">
+    <div class="option-tile" onclick="alert('Go to Pickup History')">
+      <div class="option-icon"><i class="fas fa-truck"></i></div>
+      <div class="option-text">
+        <div class="option-title">Track Pickups</div>
+        <div class="option-subtitle">You can see the pickup history</div>
+      </div>
+      <div class="option-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <div class="option-tile" onclick="alert('Go to Help')">
+      <div class="option-icon"><i class="fas fa-question-circle"></i></div>
+      <div class="option-text">
+        <div class="option-title">Need Help?</div>
+        <div class="option-subtitle">Contact support or chat</div>
+      </div>
+      <div class="option-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class ConfettiParticle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height / 2;
+    this.size = Math.random() * 8 + 4;
+    this.speedY = Math.random() * 3 + 2;
+    this.speedX = Math.random() * 2 - 1;
+    this.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+  }
+  update() {
+    this.y += this.speedY;
+    this.x += this.speedX;
+    if (this.y > canvas.height) {
+      this.y = 0;
+      this.x = Math.random() * canvas.width;
+    }
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  }
+}
+
+let confettiArray = [];
+for(let i=0; i<50; i++) confettiArray.push(new ConfettiParticle());
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  confettiArray.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html> -->
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+<title>Pickup Confirmed</title>
+<style>
+  /* Resetting margin and padding */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body, html {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(29,77,97,0.15), #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    text-align: center;
+    padding: 20px;
+    z-index: 1;
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #000;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 1em;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+
+  .badge-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px;
+  }
+
+  .pulse-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(29,77,97,0.3);
+    animation: pulse 2s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.3; }
+    100% { transform: scale(1.2); opacity: 0.0; }
+  }
+
+  .check-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1D4D61, #1D4D61);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 10px rgba(29,77,97,0.35);
+    transform: scale(0);
+    animation: pop 0.9s forwards;
+  }
+
+  .check-circle i {
+    color: white;
+    font-size: 44px;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.2) rotate(-15deg); }
+    80% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+
+  .options {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .option-tile {
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .option-tile:hover {
+    transform: translateY(-2px);
+  }
+
+  .option-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #1D4D61;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-right: 14px;
+    font-size: 20px;
+  }
+
+  .option-text {
+    flex: 1;
+    text-align: left;
+  }
+
+  .option-title {
+    font-weight: 700;
+    color: #1D4D61;
+  }
+
+  .option-subtitle {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+  }
+
+.option-arrow {
+  color: #000026;
+  font-size: 16px;
+}
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0; /* Canvas is behind other content */
+  }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h1>Pickup Confirmed</h1>
+  <div class="subtitle">Pickup scheduled successfully. Thanks for choosing us.</div>
+
+  <div class="badge-wrapper">
+    <div class="pulse-circle"></div>
+    <div class="check-circle"><i class="fas fa-check"></i></div>
+    <canvas id="confetti"></canvas>
+  </div>
+
+  <div class="options">
+    <div class="option-tile"onclick="window.location.href='Orders.html';">
+      <div class="option-icon"><i class="fas fa-truck"></i></div>
+      <div class="option-text">
+        <div class="option-title">Track Pickups</div>
+        <div class="option-subtitle">You can see the pickup history</div>
+      </div>
+      <div class="option-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <div class="option-tile" onclick="window.location.href='Help.html';">
+      <div class="option-icon"><i class="fas fa-question-circle"></i></div>
+      <div class="option-text">
+        <div class="option-title">Need Help?</div>
+        <div class="option-subtitle">Contact support or chat</div>
+      </div>
+      <div class="option-arrow"><i class="fas fa-chevron-right"></i></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class ConfettiParticle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height / 2;
+    this.size = Math.random() * 8 + 4;
+    this.speedY = Math.random() * 3 + 2;
+    this.speedX = Math.random() * 2 - 1;
+    this.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+  }
+  update() {
+    this.y += this.speedY;
+    this.x += this.speedX;
+    if (this.y > canvas.height) {
+      this.y = 0;
+      this.x = Math.random() * canvas.width;
+    }
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  }
+}
+
+let confettiArray = [];
+for(let i=0; i<50; i++) confettiArray.push(new ConfettiParticle());
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  confettiArray.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -174,4 +642,4 @@
     }, 500);
   </script>
 </body>
-</html>
+</html> -->
