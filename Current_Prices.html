@@ -3,6 +3,307 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+  <title>Price List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #E8E8E8;
+ /* Light aqua color */
+      margin: 0;
+      padding-top: 50px;
+      padding: 0;
+    }
+        .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
+
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+    .container {
+      padding: 16px;
+      padding-top: 50px;
+    }
+
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      visibility: hidden;
+    }
+    .loading-container.show {
+      visibility: visible;
+    }
+    .loading-container img {
+      width: 50px;
+      height: 50px;
+    }
+    .card {
+      margin: 8px;
+      padding: 16px;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 8px;
+    }
+    .price-per-kg {
+      font-size: 16px;
+      color: #000;
+    }
+    .title-bar {
+      padding: 10px;
+      background-color: #FFCCBC; /* Gentle pink color */
+      border-radius: 8px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 16px;
+    }
+
+
+
+
+
+      .floating-btn {
+            position: fixed; /* Fixes the button to the screen */
+            bottom: 20px;    /* Distance from the bottom */
+            right: 20px;     /* Distance from the right */
+            background-color: #4CAF50; /* Green background */
+            color: white;    /* White text */
+            border: none;    /* No border */
+            padding: 15px 25px; /* Padding around the text */
+            font-size: 18px; /* Font size */
+            border-radius: 10px; /* Smooth edges with rounded corners */
+            cursor: pointer; /* Makes the cursor a pointer on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+        }
+
+        .floating-btn:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+      <div class="titleBar">
+  <span class="titleText">Current Prices</span>
+</div>
+
+    <div id="product-list"></div>
+  </div>
+
+  <div class="loading-container" id="loading-container">
+    <img src="https://i.imgur.com/llF5iyg.gif" alt="Loading..."> <!-- Placeholder loading spinner -->
+  </div>
+  <button class="floating-btn"  onclick="window.location.href='index.html';">Book a pickup</button>
+  <script>
+    const API_URL = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order'; // Replace with your actual API URL
+    const accessToken = 'yourAccessTokenHere'; // Replace with your actual access token
+
+    const productListElement = document.getElementById('product-list');
+    const loadingContainer = document.getElementById('loading-container');
+
+    async function fetchProducts() {
+      loadingContainer.classList.add('show'); // Show loading indicator
+      try {
+        const response = await fetch(API_URL, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        const data = await response.json();
+        if (data) {
+          displayProducts(data); // Assuming the response is an array
+        }
+      } catch (error) {
+        alert('Failed to fetch products. Please try again.');
+        console.error('FetchProductsError:', error);
+      } finally {
+        loadingContainer.classList.remove('show'); // Hide loading indicator
+      }
+    }
+
+    // function displayProducts(products) {
+    //   productListElement.innerHTML = ''; // Clear the previous list
+    //   products.forEach(product => {
+    //     const card = document.createElement('div');
+    //     card.classList.add('card');
+        
+    //     const productName = document.createElement('div');
+    //     productName.classList.add('product-name');
+    //     productName.textContent = product.product;
+        
+    //     const pricePerKg = document.createElement('div');
+    //     pricePerKg.classList.add('price-per-kg');
+    //     pricePerKg.textContent = `₹${product.pricePerKg} per kg`;
+        
+    //     card.appendChild(productName);
+    //     card.appendChild(pricePerKg);
+    //     productListElement.appendChild(card);
+    //   });
+    // }
+// function displayProducts(products) {
+//   productListElement.innerHTML = ''; // Clear previous list
+
+//   // Create category containers
+//   const generalContainer = document.createElement('div');
+//   const metalContainer = document.createElement('div');
+
+//   generalContainer.classList.add('category-container');
+//   metalContainer.classList.add('category-container');
+
+//   // Category titles
+//   const generalTitle = document.createElement('h2');
+//   generalTitle.textContent = "General Products";
+
+//   const metalTitle = document.createElement('h2');
+//   metalTitle.textContent = "Metal Products";
+
+//   generalContainer.appendChild(generalTitle);
+//   metalContainer.appendChild(metalTitle);
+
+//   // Separate products by category
+//   const generalProducts = products.filter(p => p.cat === 'general');
+//   const metalProducts = products.filter(p => p.cat === 'metal');
+
+//   // Function to add cards
+//   function createCards(list, container) {
+//     list.forEach(product => {
+//       const card = document.createElement('div');
+//       card.classList.add('card');
+
+//       const productName = document.createElement('div');
+//       productName.classList.add('product-name');
+//       productName.textContent = product.product;
+
+//       const pricePerKg = document.createElement('div');
+//       pricePerKg.classList.add('price-per-kg');
+//       pricePerKg.textContent = `₹${product.pricePerKg} per kg`;
+
+//       card.appendChild(productName);
+//       card.appendChild(pricePerKg);
+//       container.appendChild(card);
+//     });
+//   }
+
+//   // Build both lists
+//   createCards(generalProducts, generalContainer);
+//   createCards(metalProducts, metalContainer);
+
+//   // Add both sections to the page
+//   productListElement.appendChild(generalContainer);
+//   productListElement.appendChild(metalContainer);
+// }
+function displayProducts(products) {
+  productListElement.innerHTML = ''; // Clear previous list
+
+  // Create category containers
+  const generalContainer = document.createElement('div');
+  const metalContainer = document.createElement('div');
+  const ewasteContainer = document.createElement('div');
+
+  generalContainer.classList.add('category-container');
+  metalContainer.classList.add('category-container');
+  ewasteContainer.classList.add('category-container');
+
+  // Category titles
+  const generalTitle = document.createElement('h2');
+  generalTitle.textContent = "General Recycables";
+
+  const metalTitle = document.createElement('h2');
+  metalTitle.textContent = "Metal Recycables";
+
+  const ewasteTitle = document.createElement('h2');
+  ewasteTitle.textContent = "E-Waste Recycables";
+
+  generalContainer.appendChild(generalTitle);
+  metalContainer.appendChild(metalTitle);
+  ewasteContainer.appendChild(ewasteTitle);
+
+  // Separate products by category
+  const generalProducts = products.filter(p => p.cat === 'general');
+  const metalProducts = products.filter(p => p.cat === 'metal');
+  const ewasteProducts = products.filter(p => p.cat === 'ewaste');
+
+  // Function to add cards
+  function createCards(list, container) {
+    list.forEach(product => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const productName = document.createElement('div');
+      productName.classList.add('product-name');
+      productName.textContent = product.product;
+
+      const pricePerKg = document.createElement('div');
+      pricePerKg.classList.add('price-per-kg');
+      pricePerKg.textContent = `₹${product.pricePerKg}`;
+
+      card.appendChild(productName);
+      card.appendChild(pricePerKg);
+      container.appendChild(card);
+    });
+  }
+
+  // Build three lists
+  createCards(generalProducts, generalContainer);
+  createCards(metalProducts, metalContainer);
+  createCards(ewasteProducts, ewasteContainer);
+
+  // Add all sections to the page
+  productListElement.appendChild(generalContainer);
+  productListElement.appendChild(metalContainer);
+  productListElement.appendChild(ewasteContainer);
+}
+
+    // Fetch products when the page loads
+    window.onload = fetchProducts;
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="Logo.PNG" type="image/png">
   <title>Price List</title>
   <style>
@@ -129,4 +430,4 @@
   </script>
 
 </body>
-</html>
+</html> -->
