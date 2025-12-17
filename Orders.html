@@ -393,6 +393,35 @@ function confirmAction() {
       const requestList = document.getElementById('requestList');
       requestList.innerHTML = '';  // Clear previous requests
 
+
+const container = document.getElementById('requestList');
+
+container.innerHTML = ""; // clear previous content
+
+if (!requests || requests.length === 0) {
+    // Create "No orders found" message
+    const noOrders = document.createElement('div');
+    noOrders.classList.add('no-orders');
+    noOrders.innerHTML = `
+        <p style="
+            font-size: 18px;
+            font-weight: bold;
+           
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 450px;
+        ">
+            No orders found
+        </p>
+    `;
+
+    container.appendChild(noOrders);
+}
+
+
+
+
+
       requests.forEach(request => {
         const requestCard = document.createElement('div');
         requestCard.classList.add('request-card');
