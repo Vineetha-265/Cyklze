@@ -760,7 +760,7 @@ input, select, textarea, button {
       <div class="selectedDate" id="selectedDate">Selected Date: </div>
     </div>
 
-    <div class="timeRangeContainer">
+    <div class="timeRangeContainer"  id="timeRangeContainer">
       <div class="heading">Select the Time</div>
       <div class="radioGroup">
         <div class="radioButton" onclick="handleTimeRangeSelection('8 AM - 11 AM')">8 AM - 11 AM</div>
@@ -770,7 +770,12 @@ input, select, textarea, button {
       </div>
     </div>
 
-    <button class="confirmMassPickupButton" onclick="validateAndConfirmPickup()">Continue</button>
+ <button class="confirmMassPickupButton" 
+        onclick="validateAndConfirmPickup()" 
+       >
+    Continue
+</button>
+
 
     <!-- Close button -->
     <span class="closeBtn" onclick="closePopup()">&times;</span>
@@ -895,22 +900,45 @@ function decrement(type) {
 
   const today = new Date();
   const tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
-
+    const now = new Date();
+  const hours = now.getHours();
+  tomorrow.setDate(today.getDate());
+  let selectedTimeRange = null;
   const thirtyDaysFromTomorrow = new Date();
-  thirtyDaysFromTomorrow.setDate(tomorrow.getDate() + 30);
+  thirtyDaysFromTomorrow.setDate(tomorrow.getDate() + 1);
+   if (hours >= 14) {
+      datePicker.min = thirtyDaysFromTomorrow.toISOString().split('T')[0];
+  datePicker.max = thirtyDaysFromTomorrow.toISOString().split('T')[0];
+   }else{
 
   datePicker.min = tomorrow.toISOString().split('T')[0];
   datePicker.max = thirtyDaysFromTomorrow.toISOString().split('T')[0];
+   }
 
+ const timeRangeContainer = document.getElementById("timeRangeContainer");
   datePicker.addEventListener('change', (e) => {
     date = new Date(e.target.value);
+    const isToday =
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate();
+
+if (isToday) {
+   //  alert("You selected today's date!");
+   selectedTimeRange = "today"
+  timeRangeContainer.style.display = "none";
+}else{
+    selectedTimeRange = null
+    timeRangeContainer.style.display = "block";
+}
+     //if(date == today) document.getElementById("timeRangeContainer").style.display = "none";
     const selectedDate = document.getElementById('selectedDate');
-    if (selectedDate) selectedDate.textContent = `Selected Date: ${date.toLocaleDateString()}`;
+    if (selectedDate) selectedDate.textContent = `Selected Date: ${date.toISOString().split('T')[0]}`;
+    
   });
 
   // ---------- Time Range ----------
-  let selectedTimeRange = null;
+
   function handleTimeRangeSelection(timeRange, event) {
     selectedTimeRange = timeRange;
 
@@ -954,7 +982,7 @@ function decrement(type) {
   // Store data in localStorage instead of cookies
 await localStorage.setItem('items', generateItemString());       // Store items as string
 await localStorage.setItem('type', "General");                   // Store type
-await localStorage.setItem('date', date.toISOString());          // Store date in ISO format
+await localStorage.setItem('date', date.toISOString().split('T')[0]);          // Store date in ISO format
 await localStorage.setItem('time', selectedTimeRange);           // Store time
 
 
