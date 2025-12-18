@@ -205,13 +205,17 @@ padding-left: 20px;
 
   <script>
     // Cookie helpers
-    const address = localStorage.getItem("address");
+const address = localStorage.getItem("address");
 const btn = document.getElementById("addressBtn");
-
+  const block = document.getElementById("savedAddressBlock");
 if (address && btn) {
   btn.textContent = address;
   btn.onclick = useSavedAddress;
+   block.style.display = "block"; 
 }
+else {
+    block.style.display = "none";    // hide
+  }
     function setCookie(name, value, days) {
       const expires = new Date();
       expires.setTime(expires.getTime() + (days*24*60*60*1000));
