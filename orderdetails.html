@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      max-width: 700px;
+     
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 70px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section h3 {
+      margin-bottom: 10px;
+      color: #34495e;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .value {
+      color: #333;
+      text-align: right;
+      max-width: 60%;
+      word-wrap: break-word;
+    }
+
+    .status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #fff;
+      display: inline-block;
+    }
+     .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
+
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+    .status { background: #2ecc71; }
+    /* .status.pending { background: #f39c12; }
+    .status.cancelled { background: #e74c3c; }  */
+  </style>
+</head>
+<body>
+<div class="titleBar">
+  <span class="titleText">pickups</span>
+</div>
+  <div class="card">
+    <h2>Order Details</h2>
+    <div id="request-details"></div>
+  </div>
+<footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Cyklze. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+        <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Services</a>
+        <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
+    </div>
+</footer>
+  <script>
+    function safe(value) {
+      return value !== undefined && value !== null && value !== ""
+        ? value
+        : "—";
+    }
+
+    function renderRequestDetails(request) {
+      const container = document.getElementById("request-details");
+
+      if (!request) {
+        container.innerHTML = "<p>No order data found. Please go back and select an order.</p>";
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="section">
+          <h3>Order Info</h3>
+          <div class="row"><span class="label">Pickup Type</span><span class="value">${safe(request.Pickuptype)}</span></div>
+          <div class="row"><span class="label">Placed On</span><span class="value">${safe(request.time)}</span></div>
+          <div class="row">
+            <span class="label">Status</span>
+            <span class="value">
+              <span class="status ${safe(request.Status).toLowerCase()}">
+                ${safe(request.Status)}
+              </span>
+            </span>
+          </div>
+          <div class="row"><span class="label">Status Code</span><span class="value">${safe(request.Status_Code)}</span></div>
+        </div>
+
+        <div class="section">
+          <h3>Items & Payment</h3>
+          <div class="row"><span class="label">Selected Items</span><span class="value">${safe(request.Selected_items)}</span></div>
+          <div class="row"><span class="label">Cash Received</span><span class="value">${safe(request.Cash_received)}</span></div>
+        </div>
+
+        <div class="section">
+          <h3>Pickup Details</h3>
+          <div class="row"><span class="label">Address</span><span class="value">${safe(request.Address)}</span></div>
+          <div class="row"><span class="label">Pickup Date</span><span class="value">${safe(request.Set_date)}</span></div>
+        </div>
+
+        <div class="section">
+          <h3>Updates</h3>
+          <p>${safe(request.Status_comments)}</p>
+        </div>
+      `;
+    }
+
+    // ✅ SAFE LOCALSTORAGE READ
+    const stored = localStorage.getItem("requestData");
+
+    if (!stored) {
+      renderRequestDetails(null);
+    } else {
+      try {
+        const request = JSON.parse(stored);
+        renderRequestDetails(request);
+      } catch (e) {
+        console.error("Invalid request data:", e);
+        renderRequestDetails(null);
+      }
+    }
+  </script>
+
+</body>
+</html>
