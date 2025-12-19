@@ -304,8 +304,9 @@ console.log(items, type, date, time);
 
       const fullAddress = `${street}, ${area}, ${selectedCity}, ${postal}`;
      localStorage.setItem('address', fullAddress);
+window.location.replace("Confirm_Details.html");
 
-      window.location.href = "Confirm_Details.html";
+      // window.location.href = "Confirm_Details.html";
     });
 
         function saveAddressAndContinue() {
@@ -318,7 +319,9 @@ console.log(items, type, date, time);
   // localStorage.setItem("address", fullAddress);
 
   // Redirect
-  window.location.href = "Confirm_Details.html";
+          window.location.replace("Confirm_Details.html");
+
+  // window.location.href = "Confirm_Details.html";
 }
   </script>
 </body>
