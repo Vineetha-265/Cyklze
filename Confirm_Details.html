@@ -610,9 +610,10 @@ document.getElementById("date").textContent = localStorage.getItem('date') || ''
      // console.log("Status: Logged In (pending state)");
     
     } else { 
-   
+   window.location.replace("Confirmed.html");
+
       // Success → redirect to confirmation page
-      window.location.href = "Confirmed.html";
+     // window.location.href = "Confirmed.html";
     }
   } else {
      if(count > 1){
