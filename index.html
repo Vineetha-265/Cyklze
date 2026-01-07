@@ -303,9 +303,80 @@
       font-size: 22px;
     }
   }
+
+
+
+
+
+  /* === Intro Overlay === */
+  .intro {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .intro-text {
+    text-align: center;
+    color: white;
+    animation: fadeIn 1.2s ease forwards;
+  }
+
+  .intro-text h1 {
+    font-size: 3rem;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+
+  .intro-text p {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    opacity: 0.85;
+  }
+
+  /* Disperse animation */
+  .disperse {
+    animation: disperse 1.2s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes disperse {
+    to {
+      opacity: 0;
+      transform: scale(1.4) rotate(6deg);
+      filter: blur(10px);
+    }
+  }
+
+
 </style>
 </head>
 <body>
+
+
+<div class="intro" id="intro">
+  <div class="intro-text" id="introText">
+    <h1>Sell Your Recyclables</h1>
+    <p>simple as heaven</p>
+  </div>
+</div>
+
+
 
   <!-- Top Bar -->
   <div class="top-bar">
@@ -465,10 +536,23 @@
     fullContent.style.display = 'none';
     preview.style.display = 'block';
   });
+
+
+
+
+
+
+
+    setTimeout(() => {
+    document.getElementById("introText").classList.add("disperse");
+  }, 3000);
+
+  setTimeout(() => {
+    document.getElementById("intro").style.display = "none";
+  }, 4200);
 </script>
 </body>
 </html>
-
 
 
 
