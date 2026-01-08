@@ -120,6 +120,7 @@ input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
   margin-bottom: 20px;
 }
 
@@ -491,6 +492,47 @@ input, select, textarea, button {
 
 
 
+/* 
+
+.date-box {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+  }
+
+  .date-box h4 {
+    margin: 0 0 12px;
+    font-size: 16px;
+  }
+
+  .date-buttons button {
+    padding: 8px 12px;
+    margin-right: 8px;
+    border: 1px solid #333;
+    background: #f5f5f5;
+    cursor: pointer;
+  }
+
+  .date-buttons button:hover {
+    background: #ddd;
+  } */
+
+
+.date-btn {
+  padding: 8px 14px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.selected {
+  background: #1D4D61;
+  color: white;
+  border-color: #1D4D61;
+}
+
   </style>
 </head>
 <body>
@@ -764,12 +806,15 @@ input, select, textarea, button {
   <div class="popupContent">
 
     <!-- Popup Content -->
-    <div class="datePickerContainer">
+    <!-- <div class="datePickerContainer">
       <div class="dateText">Select Pickup Date</div>
       <input type="date" id="datePicker" class="dateButton" min="" max="">
       <div class="selectedDate" id="selectedDate">Selected Date: </div>
-    </div>
-
+    </div> -->
+<div class="date-box">
+  <h4>Select an available date</h4>
+  <div class="date-buttons" id="dateButtons"></div>
+</div>
     <div class="timeRangeContainer"  id="timeRangeContainer">
       <div class="heading">Select the Time</div>
       <div class="radioGroup">
@@ -795,6 +840,99 @@ input, select, textarea, button {
 
 
  <script>
+
+  function getISTDate() {
+    return new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+    );
+  }
+
+  function formatDate(date) {
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric"
+    });
+  }
+ let dat = null;
+let selectedButton = null;
+ let selectedTimeRange = null;
+ const timeRangeContainer = document.getElementById("timeRangeContainer");
+const buttonsContainer = document.getElementById("dateButtons");
+const istNow = getISTDate();
+const istHour = istNow.getHours();
+
+// Today button (only before 2 PM IST)
+if (istHour < 17) {
+  const todayBtn = document.createElement("button");
+  todayBtn.textContent = formatDate(istNow);
+  todayBtn.classList.add("date-btn");
+
+  todayBtn.addEventListener("click", () => {
+    handleSelection(todayBtn, istNow);
+    selectedTimeRange="today";
+   timeRangeContainer.style.display = "none";
+  });
+
+  buttonsContainer.appendChild(todayBtn);
+}
+
+// Tomorrow button (always)
+const tomorrow1 = new Date(istNow);
+tomorrow1.setDate(istNow.getDate() + 1);
+
+const tomorrowBtn = document.createElement("button");
+tomorrowBtn.textContent = formatDate(tomorrow1);
+tomorrowBtn.classList.add("date-btn");
+
+tomorrowBtn.addEventListener("click", () => {
+  handleSelection(tomorrowBtn, tomorrow1);
+   selectedTimeRange=null;
+   timeRangeContainer.style.display = "block";
+});
+
+buttonsContainer.appendChild(tomorrowBtn);
+
+// --------------------
+// Selection handler
+// --------------------
+function handleSelection(button, date) {
+  // Deselect if clicking same button again
+  if (selectedButton === button) {
+    button.classList.remove("selected");
+    selectedButton = null;
+    dat = null;
+    console.log("Deselected");
+    return;
+  }
+
+  // Remove selection from previous button
+  if (selectedButton) {
+    selectedButton.classList.remove("selected");
+  }
+
+  // Select new button
+  button.classList.add("selected");
+  selectedButton = button;
+  dat = formatDate(date);
+
+  console.log("Selected date:", dat);
+}
+
+// Functions
+function todays(date) {
+  dat = date;
+  console.log("Today's date selected:", dat);
+   timeRangeContainer.style.display = "none";
+}
+
+function tomorrows(date) {
+  dat = date;
+  console.log("Tomorrow's date selected:", dat);
+   timeRangeContainer.style.display = "block";
+}
+
+
 
 
 let plasticKg = 0;
@@ -913,7 +1051,7 @@ function decrement(type) {
     const now = new Date();
   const hours = now.getHours();
   tomorrow.setDate(today.getDate());
-  let selectedTimeRange = null;
+ 
   const thirtyDaysFromTomorrow = new Date();
   thirtyDaysFromTomorrow.setDate(tomorrow.getDate() + 1);
    if (hours >= 14) {
@@ -925,7 +1063,6 @@ function decrement(type) {
   datePicker.max = thirtyDaysFromTomorrow.toISOString().split('T')[0];
    }
 
- const timeRangeContainer = document.getElementById("timeRangeContainer");
   datePicker.addEventListener('change', (e) => {
     date = new Date(e.target.value);
     const isToday =
@@ -978,7 +1115,7 @@ if (isToday) {
       return;
     }
 
-    if (!date) {
+    if (!dat) {
       alert('Please select a date.');
       return;
     }
@@ -992,7 +1129,7 @@ if (isToday) {
   // Store data in localStorage instead of cookies
 await localStorage.setItem('items', generateItemString());       // Store items as string
 await localStorage.setItem('type', "General");                   // Store type
-await localStorage.setItem('date', date.toISOString().split('T')[0]);          // Store date in ISO format
+await localStorage.setItem('date', dat);          // Store date in ISO format
 await localStorage.setItem('time', selectedTimeRange);           // Store time
 
 
@@ -1040,7 +1177,6 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
 
 </body>
 </html>
-
 
 
 
