@@ -253,7 +253,7 @@ padding-left: 20px;
 
 
    .screen {
-               width: 100vw;
+               width: 100%;
     height: 100vh;
     display: flex;
     background: #34495e;
@@ -262,9 +262,10 @@ padding-left: 20px;
         }
 
         .login-box {
-               margin-left: 10px;
+               /* margin-left: 10px; */
     /* max-width: 420px; */
     width: 100%;
+    padding: 10px;
     background: #34495e;
     color: white;
         }
@@ -307,7 +308,34 @@ padding-left: 20px;
 
 
 
+.site-footer {
+    background-color: black;
+    width: 100%;
+    color: white;
+    text-align: center;
+    /* padding: 30px 20px; */
+    padding-bottom: 20px;
+    padding-top: 30px;
+    font-family: Arial, sans-serif;
+}
 
+.site-footer p {
+    margin: 8px 0;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
 </style>
 
 
@@ -372,7 +400,18 @@ padding-left: 20px;
 <!-- <div id="footer"></div> -->
 
 <!-- </div> -->
-<footer style="background-color: black;width: 100%; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+ <footer class="site-footer">
+    <p>&copy; 2025 Cyklze. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="Help.html">Contact</a>
+    </div>
+</footer>
+<!-- <footer style="background-color: black;width: 100%; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
     <p>&copy; 2025 Cyklze. All rights reserved.</p>
     <p>Cyklze - We Buy Recyclables</p>
     <p>Email: support@cyklze.com</p>
@@ -382,7 +421,7 @@ padding-left: 20px;
         
         <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
     </div>
-</footer>
+</footer> -->
 <script>
       let count = 0;  
     function goToLogin() {
