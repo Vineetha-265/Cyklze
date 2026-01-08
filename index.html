@@ -59,7 +59,27 @@
     --cta: #2e8b57;
     --support: #1D4D61;
   }
+  .sell-box {
+    width: 75px;
 
+    padding: 6px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+  }
+
+  .title-box {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+
+  .item-box {
+    font-size: 12px;
+    color: var(--support);
+    height: 16px;
+    overflow: hidden;
+  }
   body{
     margin:0;
     font-family: "Helvetica Neue", Arial, sans-serif;
@@ -371,7 +391,7 @@
 
 <div class="intro" id="intro">
   <div class="intro-text" id="introText">
-    <img src="Cyklze_ikn.png" style="width: 100px;height: 100px;">
+    <img src="Cyklze_playstore.png" style="width: 200px;height: 200px;">
     <h1>Sell Your Recyclables</h1>
     <p>simple as heaven</p>
   </div>
@@ -386,6 +406,11 @@
       What we buy?<br>
       <div class="sub-title">books</div>
     </div> -->
+    <div class="sell-box">
+  <div class="title-box">What we Buy?</div>
+  <div class="item-box" id="itemText">Iron</div>
+</div>
+
   </div>
 
   <!-- Booking card with truck on right -->
@@ -525,6 +550,18 @@
   const lessBtn = document.getElementById('about-less-btn');
   const fullContent = document.getElementById('about-full');
   const preview = document.getElementById('about-preview');
+
+
+
+  const items = ["Iron", "Plastic", "Cardboard","Paper","Books","Bottle","Ac","Fridge","E-Waste","Wire","Copper"];
+  let index = 0;
+
+  setInterval(() => {
+    index = (index + 1) % items.length;
+    document.getElementById("itemText").textContent = items[index];
+  }, 2000);
+
+
 
   moreBtn.addEventListener('click', function(e) {
     e.preventDefault();
