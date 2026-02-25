@@ -654,6 +654,55 @@ input, select, textarea, button {
   .option:not(.selected):hover {
     background-color: #f0f0f0;
   } */
+
+
+
+   .type-options-wrapper {
+    position: relative; /* Needed for the green line */
+    margin: 20px 0;
+  }
+
+  .type-options-container {
+    display: flex;
+    gap: 20px;
+  }
+
+  .type-option {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
+  }
+
+  .type-option.type-selected {
+    border-color: #4CAF50;
+    background-color: #f0fff0;
+  }
+
+  /* Green line at the bottom of the wrapper */
+  .type-options-wrapper::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #4CAF50;
+  }
+
+  .type-option h2 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+
+  .type-option p {
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    color: #555;
+  }
   </style>
 </head>
 <body>
@@ -682,6 +731,18 @@ input, select, textarea, button {
   </h1> -->
 
   <!-- Items Selection -->
+   <div class="type-options-wrapper">
+  <div class="type-options-container">
+    <div class="type-option type-selected" id="groceries">
+      <h2>Groceries</h2>
+      <p>Delivered in 10 min</p>
+    </div>
+    <div class="type-option" id="commercial">
+      <h2>Commercial Goods</h2>
+      <p>One day delivery</p>
+    </div>
+  </div>
+</div>
   <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">General Recyclables</div>
 
   <!-- Items Grid -->
