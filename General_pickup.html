@@ -239,7 +239,7 @@ input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
 /* ==============================
    ITEM BOXES
 =================================*/
-.itemBox {
+/* .itemBox {
   background: #fff;
   border-radius: 10px;
   padding: 8px;
@@ -248,12 +248,92 @@ input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   overflow: hidden;
 
-  display: flex;              /* enable flexbox */
-  flex-direction: column;     /* stack items vertically */
-  align-items: center;        /* center horizontally */
-  justify-content: center;    /* center vertically */
+  display: flex;              
+  flex-direction: column;     
+  align-items: center;       
+  justify-content: center;    
+} */
+.itemBox {
+  width: 220px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+.itemImageWrapper {
+  position: relative;
+  text-align: center;
+}
+
+.itemImageWrapper img {
+  width: 100%;
+  height: auto;
+}
+
+.addBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: #fff;
+  color: #ff2d6f;
+  border: 2px solid #ff2d6f;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.priceRow {
+  margin-top: 8px;
+}
+
+.currentPrice {
+  color: #2e7d32;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+  color: gray;
+  font-size: 14px;
+}
+
+.discount {
+  color: #2e7d32;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.itemTitle {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 6px 0;
+}
+
+.packSize {
+  font-size: 13px;
+  color: gray;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 8px;
+  background: #e0f2f1;
+  color: #00796b;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.rating {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #388e3c;
+}
 
 .itemValue {
   font-size: 12px;
@@ -553,103 +633,124 @@ input, select, textarea, button {
   <div class="itemsGrid">
 
     <!-- Plastic -->
-    <div class="itemBox">
-      <div class="itemImage">
-        <img src="plastic.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Plastic</div>
+<!-- Plastic -->
+<div class="itemBox">
+  <div class="itemImageWrapper">
+    <img src="plastic.jpg" alt="Plastic">
+    <button class="addBtn" onclick="addItem('plastic')">ADD</button>
+  </div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="plasticKg">0 kg</div>
+  <div class="priceRow">
+    <span class="currentPrice">₹25/kg</span>
+    <span class="oldPrice">₹30/kg</span>
+  </div>
+  <div class="discount">₹5 OFF</div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('plastic')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('plastic')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
+  <div class="itemTitle">Recyclable Plastic Waste</div>
+  <div class="packSize">Per Kg</div>
+  <div class="tag">Eco Friendly</div>
+  <div class="rating">⭐ 4.6 (1.2k)</div>
+</div>
 
-    <!-- Glass -->
-    <div class="itemBox">
-      <div class="itemImage">
-        <img src="glass.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Glass</div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="glassKg">0 kg</div>
+<!-- Glass -->
+<div class="itemBox">
+  <div class="itemImageWrapper">
+    <img src="glass.jpg" alt="Glass">
+    <button class="addBtn" onclick="addItem('glass')">ADD</button>
+  </div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('glass')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('glass')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
+  <div class="priceRow">
+    <span class="currentPrice">₹15/kg</span>
+    <span class="oldPrice">₹18/kg</span>
+  </div>
+  <div class="discount">₹3 OFF</div>
 
-    <!-- Paper -->
-    <div class="itemBox">
-      <div class="itemImage">
-        <img src="news.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Paper</div>
+  <div class="itemTitle">Glass Scrap Material</div>
+  <div class="packSize">Per Kg</div>
+  <div class="tag">Reusable</div>
+  <div class="rating">⭐ 4.4 (980)</div>
+</div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="paperKg">0 kg</div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('paper')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('paper')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
+<!-- Paper -->
+<div class="itemBox">
+  <div class="itemImageWrapper">
+    <img src="news.jpg" alt="Paper">
+    <button class="addBtn" onclick="addItem('paper')">ADD</button>
+  </div>
+
+  <div class="priceRow">
+    <span class="currentPrice">₹12/kg</span>
+    <span class="oldPrice">₹15/kg</span>
+  </div>
+  <div class="discount">₹3 OFF</div>
+
+  <div class="itemTitle">Old Newspaper & Paper</div>
+  <div class="packSize">Per Kg</div>
+  <div class="tag">Best Seller</div>
+  <div class="rating">⭐ 4.7 (2.3k)</div>
+</div>
 
     <!-- Metal -->
-    
-          <div class="itemBox">
-      <div class="itemImage">
-        <img src="books.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Books</div>
+  <!-- Books -->
+<div class="itemBox">
+  <div class="itemImageWrapper">
+    <img src="books.jpg" alt="Books">
+    <button class="addBtn" onclick="addItem('books')">ADD</button>
+  </div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="booksKg">0 kg</div>
+  <div class="priceRow">
+    <span class="currentPrice">₹20/kg</span>
+    <span class="oldPrice">₹25/kg</span>
+  </div>
+  <div class="discount">₹5 OFF</div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('books')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('books')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
-      <div class="itemBox">
-      <div class="itemImage">
-        <img src="ewaste.jpg" alt="item">
-      </div>
-      <div class="itemLabel">E-waste</div>
+  <div class="itemTitle">Old Books & Magazines</div>
+  <div class="packSize">Per Kg</div>
+  <div class="tag">High Value</div>
+  <div class="rating">⭐ 4.5 (860)</div>
+</div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="ewasteKg">0 kg</div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('ewaste')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('ewaste')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
-      <div class="itemBox">
-      <div class="itemImage">
-        <img src="cardboard.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Cardboard</div>
+<!-- E-waste -->
+<div class="itemBox">
+  <div class="itemImageWrapper">
+    <img src="ewaste.jpg" alt="E-waste">
+    <button class="addBtn" onclick="addItem('ewaste')">ADD</button>
+  </div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="cardKg">0 kg</div>
+  <div class="priceRow">
+    <span class="currentPrice">₹35/kg</span>
+    <span class="oldPrice">₹40/kg</span>
+  </div>
+  <div class="discount">₹5 OFF</div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('card')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('card')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
+  <div class="itemTitle">Electronic Waste Materials</div>
+  <div class="packSize">Per Kg</div>
+  <div class="tag">Eco Recycling</div>
+  <div class="rating">⭐ 4.7 (1.4k)</div>
+</div>
+
+
+<!-- Cardboard -->
+<div class="itemBox">
+  <div class="itemImageWrapper">
+    <img src="cardboard.jpg" alt="Cardboard">
+    <button class="addBtn" onclick="addItem('card')">ADD</button>
+  </div>
+
+  <div class="priceRow">
+    <span class="currentPrice">₹18/kg</span>
+    <span class="oldPrice">₹22/kg</span>
+  </div>
+  <div class="discount">₹4 OFF</div>
+
+  <div class="itemTitle">Corrugated Cardboard Scrap</div>
+  <div class="packSize">Per Kg</div>
+  <div class="tag">Best Rate</div>
+  <div class="rating">⭐ 4.6 (1k)</div>
+</div>
  </div> 
   <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">Metal Recyclables</div>
  <div class="itemsGrid">
@@ -700,20 +801,35 @@ input, select, textarea, button {
       </div>
     </div>
     <div class="itemBox">
-      <div class="itemImage">
-        <img src="silver.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Silver</div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="silverKg">0 kg</div>
+  <!-- Product Image with ADD button -->
+  <div class="itemImageWrapper">
+    <img src="silver.jpg" alt="Surf Excel">
+    <button class="addBtn" onclick="addItem('silver')">ADD</button>
+  </div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('silver')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('silver')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
+  <!-- Price Section -->
+  <div class="priceRow">
+    <span class="currentPrice">₹303</span>
+    <span class="oldPrice">₹374</span>
+  </div>
+  <div class="discount">₹71 OFF</div>
+
+  <!-- Product Name -->
+  <div class="itemTitle">
+    Surf Excel Matic Front Load Detergent Liquid Refill
+  </div>
+
+  <!-- Pack Size -->
+  <div class="packSize">1 pack (2 L)</div>
+
+  <!-- Tag -->
+  <div class="tag">Stain Removal</div>
+
+  <!-- Rating -->
+  <div class="rating">⭐ 4.8 (7.1k)</div>
+
+</div>
      <div class="itemBox">
       <div class="itemImage">
         <img src="brass.jpg" alt="item">
@@ -1177,7 +1293,6 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
 
 </body>
 </html>
-
 
 
 
