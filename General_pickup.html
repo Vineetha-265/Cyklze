@@ -763,100 +763,73 @@ input, select, textarea, button {
 
 </div>
   <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">Metal Recyclables</div>
- <div class="itemsGrid">
-   
-      <div class="itemBox">
-      <div class="itemImage">
-        <img src="iron.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Iron</div>
+<div class="itemsGrid">
 
-      <div class="itemCounter">
-        <div class="quantityText" id="metalKg">0 kg</div>
-
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('metal')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('metal')"><span>+</span></div>
-        </div>
+  <!-- Iron -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="iron.jpg" alt="Iron">
+      <div class="cartControl" id="metal-control">
+        <button class="addBtn" onclick="addItemCart('metal')">ADD</button>
       </div>
     </div>
-    <div class="itemBox">
-      <div class="itemImage">
-        <img src="wcopper.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Copper wire</div>
-
-      <div class="itemCounter">
-        <div class="quantityText" id="cwireKg">0 kg</div>
-
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('cwire')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('cwire')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="itemBox">
-      <div class="itemImage">
-        <img src="copper.jpg" alt="item">
-      </div>
-      <div class="itemLabel">Copper</div>
-
-      <div class="itemCounter">
-        <div class="quantityText" id="wireKg">0 kg</div>
-
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('wire')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('wire')"><span>+</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="itemBox">
-
-  <!-- Product Image with ADD button -->
-  <div class="itemImageWrapper">
-    <img src="silver.jpg" alt="Surf Excel">
-    <button class="addBtn" onclick="addItem('silver')">ADD</button>
+    <div class="itemLabel">Iron</div>
   </div>
 
-  <!-- Price Section -->
-  <div class="priceRow">
-    <span class="currentPrice">₹303</span>
-    <span class="oldPrice">₹374</span>
-  </div>
-  <div class="discount">₹71 OFF</div>
-
-  <!-- Product Name -->
-  <div class="itemTitle">
-    Surf Excel Matic Front Load Detergent Liquid Refill
-  </div>
-
-  <!-- Pack Size -->
-  <div class="packSize">1 pack (2 L)</div>
-
-  <!-- Tag -->
-  <div class="tag">Stain Removal</div>
-
-  <!-- Rating -->
-  <div class="rating">⭐ 4.8 (7.1k)</div>
-
-</div>
-     <div class="itemBox">
-      <div class="itemImage">
-        <img src="brass.jpg" alt="item">
+  <!-- Copper Wire -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="wcopper.jpg" alt="Copper Wire">
+      <div class="cartControl" id="cwire-control">
+        <button class="addBtn" onclick="addItemCart('cwire')">ADD</button>
       </div>
-      <div class="itemLabel">Brass</div>
+    </div>
+    <div class="itemLabel">Copper Wire</div>
+  </div>
 
-      <div class="itemCounter">
-        <div class="quantityText" id="brassKg">0 kg</div>
+  <!-- Copper -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="copper.jpg" alt="Copper">
+      <div class="cartControl" id="wire-control">
+        <button class="addBtn" onclick="addItemCart('wire')">ADD</button>
+      </div>
+    </div>
+    <div class="itemLabel">Copper</div>
+  </div>
 
-        <div class="counterRow">
-          <div class="counterBtn" onclick="decrement('brass')"><span>-</span></div>
-          <div class="counterBtn" onclick="increment('brass')"><span>+</span></div>
-        </div>
+  <!-- Silver -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="silver.jpg" alt="Silver">
+      <div class="cartControl" id="silver-control">
+        <button class="addBtn" onclick="addItemCart('silver')">ADD</button>
       </div>
     </div>
 
-  </div> <!-- END itemsGrid -->
+    <div class="priceRow">
+      <span class="currentPrice">₹303</span>
+      <span class="oldPrice">₹374</span>
+    </div>
+    <div class="discount">₹71 OFF</div>
+    <div class="itemTitle">Surf Excel Matic Front Load Detergent Liquid Refill</div>
+    <div class="packSize">1 pack (2 L)</div>
+    <div class="tag">Stain Removal</div>
+    <div class="rating">⭐ 4.8 (7.1k)</div>
+  </div>
+
+  <!-- Brass -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="brass.jpg" alt="Brass">
+      <div class="cartControl" id="brass-control">
+        <button class="addBtn" onclick="addItemCart('brass')">ADD</button>
+      </div>
+    </div>
+    <div class="itemLabel">Brass</div>
+  </div>
+
+</div> <!-- END itemsGrid -->
  <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">E-Waste </div>
  <div class="itemsGrid">
    
