@@ -633,131 +633,135 @@ input, select, textarea, button {
   <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">General Recyclables</div>
 
   <!-- Items Grid -->
-  <div class="itemsGrid">
+<div class="itemsGrid">
 
-    <!-- Plastic -->
-<!-- Plastic -->
-<div class="itemBox">
-  <div class="itemImageWrapper">
-    <img src="plastic.jpg" alt="Plastic">
-    <div class="cartControl" id="plastic-control">
-      <button class="addBtn" onclick="addItemCart('plastic')">ADD</button>
+  <!-- Plastic -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="plastic.jpg" alt="Plastic">
+      <div class="cartControl" id="plastic-control">
+        <button class="addBtn" onclick="addItemCart('plastic')">ADD</button>
+      </div>
     </div>
+
+    <div class="priceRow">
+      <span class="currentPrice">₹25/kg</span>
+      <span class="oldPrice">₹30/kg</span>
+    </div>
+
+    <div class="discount">₹5 OFF</div>
+    <div class="itemTitle">Recyclable Plastic Waste</div>
+    <div class="packSize">Per Kg</div>
+    <div class="tag">Eco Friendly</div>
+    <div class="rating">⭐ 4.6 (1.2k)</div>
   </div>
 
-  <div class="priceRow">
-    <span class="currentPrice">₹25/kg</span>
-    <span class="oldPrice">₹30/kg</span>
+  <!-- Glass -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="glass.jpg" alt="Glass">
+      <div class="cartControl" id="glass-control">
+        <button class="addBtn" onclick="addItemCart('glass')">ADD</button>
+      </div>
+    </div>
+
+    <div class="priceRow">
+      <span class="currentPrice">₹15/kg</span>
+      <span class="oldPrice">₹18/kg</span>
+    </div>
+
+    <div class="discount">₹3 OFF</div>
+    <div class="itemTitle">Glass Scrap Material</div>
+    <div class="packSize">Per Kg</div>
+    <div class="tag">Reusable</div>
+    <div class="rating">⭐ 4.4 (980)</div>
   </div>
 
-  <div class="discount">₹5 OFF</div>
+  <!-- Paper -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="news.jpg" alt="Paper">
+      <div class="cartControl" id="paper-control">
+        <button class="addBtn" onclick="addItemCart('paper')">ADD</button>
+      </div>
+    </div>
 
-  <div class="itemTitle">Recyclable Plastic Waste</div>
-  <div class="packSize">Per Kg</div>
-  <div class="tag">Eco Friendly</div>
-  <div class="rating">⭐ 4.6 (1.2k)</div>
-</div>
+    <div class="priceRow">
+      <span class="currentPrice">₹12/kg</span>
+      <span class="oldPrice">₹15/kg</span>
+    </div>
 
-
-<!-- Glass -->
-<div class="itemBox">
-  <div class="itemImageWrapper">
-    <img src="glass.jpg" alt="Glass">
-    <button class="addBtn" onclick="addItem('glass')">ADD</button>
+    <div class="discount">₹3 OFF</div>
+    <div class="itemTitle">Old Newspaper & Paper</div>
+    <div class="packSize">Per Kg</div>
+    <div class="tag">Best Seller</div>
+    <div class="rating">⭐ 4.7 (2.3k)</div>
   </div>
 
-  <div class="priceRow">
-    <span class="currentPrice">₹15/kg</span>
-    <span class="oldPrice">₹18/kg</span>
-  </div>
-  <div class="discount">₹3 OFF</div>
-
-  <div class="itemTitle">Glass Scrap Material</div>
-  <div class="packSize">Per Kg</div>
-  <div class="tag">Reusable</div>
-  <div class="rating">⭐ 4.4 (980)</div>
-</div>
-
-
-<!-- Paper -->
-<div class="itemBox">
-  <div class="itemImageWrapper">
-    <img src="news.jpg" alt="Paper">
-    <button class="addBtn" onclick="addItem('paper')">ADD</button>
-  </div>
-
-  <div class="priceRow">
-    <span class="currentPrice">₹12/kg</span>
-    <span class="oldPrice">₹15/kg</span>
-  </div>
-  <div class="discount">₹3 OFF</div>
-
-  <div class="itemTitle">Old Newspaper & Paper</div>
-  <div class="packSize">Per Kg</div>
-  <div class="tag">Best Seller</div>
-  <div class="rating">⭐ 4.7 (2.3k)</div>
-</div>
-
-    <!-- Metal -->
   <!-- Books -->
-<div class="itemBox">
-  <div class="itemImageWrapper">
-    <img src="books.jpg" alt="Books">
-    <button class="addBtn" onclick="addItem('books')">ADD</button>
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="books.jpg" alt="Books">
+      <div class="cartControl" id="books-control">
+        <button class="addBtn" onclick="addItemCart('books')">ADD</button>
+      </div>
+    </div>
+
+    <div class="priceRow">
+      <span class="currentPrice">₹20/kg</span>
+      <span class="oldPrice">₹25/kg</span>
+    </div>
+
+    <div class="discount">₹5 OFF</div>
+    <div class="itemTitle">Old Books & Magazines</div>
+    <div class="packSize">Per Kg</div>
+    <div class="tag">High Value</div>
+    <div class="rating">⭐ 4.5 (860)</div>
   </div>
 
-  <div class="priceRow">
-    <span class="currentPrice">₹20/kg</span>
-    <span class="oldPrice">₹25/kg</span>
-  </div>
-  <div class="discount">₹5 OFF</div>
+  <!-- E-waste -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="ewaste.jpg" alt="E-waste">
+      <div class="cartControl" id="ewaste-control">
+        <button class="addBtn" onclick="addItemCart('ewaste')">ADD</button>
+      </div>
+    </div>
 
-  <div class="itemTitle">Old Books & Magazines</div>
-  <div class="packSize">Per Kg</div>
-  <div class="tag">High Value</div>
-  <div class="rating">⭐ 4.5 (860)</div>
+    <div class="priceRow">
+      <span class="currentPrice">₹35/kg</span>
+      <span class="oldPrice">₹40/kg</span>
+    </div>
+
+    <div class="discount">₹5 OFF</div>
+    <div class="itemTitle">Electronic Waste Materials</div>
+    <div class="packSize">Per Kg</div>
+    <div class="tag">Eco Recycling</div>
+    <div class="rating">⭐ 4.7 (1.4k)</div>
+  </div>
+
+  <!-- Cardboard -->
+  <div class="itemBox">
+    <div class="itemImageWrapper">
+      <img src="cardboard.jpg" alt="Cardboard">
+      <div class="cartControl" id="card-control">
+        <button class="addBtn" onclick="addItemCart('card')">ADD</button>
+      </div>
+    </div>
+
+    <div class="priceRow">
+      <span class="currentPrice">₹18/kg</span>
+      <span class="oldPrice">₹22/kg</span>
+    </div>
+
+    <div class="discount">₹4 OFF</div>
+    <div class="itemTitle">Corrugated Cardboard Scrap</div>
+    <div class="packSize">Per Kg</div>
+    <div class="tag">Best Rate</div>
+    <div class="rating">⭐ 4.6 (1k)</div>
+  </div>
+
 </div>
-
-
-<!-- E-waste -->
-<div class="itemBox">
-  <div class="itemImageWrapper">
-    <img src="ewaste.jpg" alt="E-waste">
-    <button class="addBtn" onclick="addItem('ewaste')">ADD</button>
-  </div>
-
-  <div class="priceRow">
-    <span class="currentPrice">₹35/kg</span>
-    <span class="oldPrice">₹40/kg</span>
-  </div>
-  <div class="discount">₹5 OFF</div>
-
-  <div class="itemTitle">Electronic Waste Materials</div>
-  <div class="packSize">Per Kg</div>
-  <div class="tag">Eco Recycling</div>
-  <div class="rating">⭐ 4.7 (1.4k)</div>
-</div>
-
-
-<!-- Cardboard -->
-<div class="itemBox">
-  <div class="itemImageWrapper">
-    <img src="cardboard.jpg" alt="Cardboard">
-    <button class="addBtn" onclick="addItem('card')">ADD</button>
-  </div>
-
-  <div class="priceRow">
-    <span class="currentPrice">₹18/kg</span>
-    <span class="oldPrice">₹22/kg</span>
-  </div>
-  <div class="discount">₹4 OFF</div>
-
-  <div class="itemTitle">Corrugated Cardboard Scrap</div>
-  <div class="packSize">Per Kg</div>
-  <div class="tag">Best Rate</div>
-  <div class="rating">⭐ 4.6 (1k)</div>
-</div>
- </div> 
   <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">Metal Recyclables</div>
  <div class="itemsGrid">
    
