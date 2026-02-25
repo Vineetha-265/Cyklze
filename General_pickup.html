@@ -657,51 +657,62 @@ input, select, textarea, button {
 
 
 
-   .type-options-wrapper {
-    position: relative; /* Needed for the green line */
+
+  .type-tabs-wrapper {
     margin: 20px 0;
   }
 
-  .type-options-container {
+  .type-tabs {
+    position: relative;
     display: flex;
-    gap: 20px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 6px;
   }
 
-  .type-option {
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 15px 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  .type-tab {
     flex: 1;
     text-align: center;
+    padding: 12px 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    z-index: 2;
   }
 
-  .type-option.type-selected {
-    border-color: #4CAF50;
-    background-color: #f0fff0;
+  .type-title {
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
   }
 
-  /* Green line at the bottom of the wrapper */
-  .type-options-wrapper::after {
-    content: "";
+  .type-sub {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 3px;
+  }
+
+  .type-tab:hover .type-title {
+    color: #2e7d32;
+  }
+
+  .type-tab.active .type-title {
+    color: #2e7d32;
+  }
+
+  /* Sliding green indicator */
+  .type-indicator {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: #4CAF50;
-  }
-
-  .type-option h2 {
-    margin: 0;
-    font-size: 1.5em;
-  }
-
-  .type-option p {
-    margin: 5px 0 0;
-    font-size: 0.9em;
-    color: #555;
+    bottom: 6px;
+    left: 6px;
+    width: calc(50% - 6px);
+    height: calc(100% - 12px);
+    background: #e8f5e9;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    z-index: 1;
   }
   </style>
 </head>
@@ -731,16 +742,19 @@ input, select, textarea, button {
   </h1> -->
 
   <!-- Items Selection -->
-   <div class="type-options-wrapper">
-  <div class="type-options-container">
-    <div class="type-option type-selected" id="groceries">
-      <h2>Groceries</h2>
-      <p>Delivered in 10 min</p>
+  <div class="type-tabs-wrapper">
+  <div class="type-tabs">
+    <div class="type-tab active" id="groceries">
+      <span class="type-title">Groceries</span>
+      <span class="type-sub">Delivered in 10 min</span>
     </div>
-    <div class="type-option" id="commercial">
-      <h2>Commercial Goods</h2>
-      <p>One day delivery</p>
+    <div class="type-tab" id="commercial">
+      <span class="type-title">Commercial Goods</span>
+      <span class="type-sub">One day delivery</span>
     </div>
+
+    <!-- Sliding Indicator -->
+    <div class="type-indicator"></div>
   </div>
 </div>
   <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">General Recyclables</div>
