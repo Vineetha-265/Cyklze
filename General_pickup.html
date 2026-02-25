@@ -615,7 +615,44 @@ input, select, textarea, button {
   cursor: pointer;
   font-weight: bold;
 }
+  .options-container {
+    display: flex;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 500px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
 
+  .option {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .option.selected {
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .option h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .option p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: inherit;
+  }
+
+  .option:not(.selected):hover {
+    background-color: #f0f0f0;
+  }
   </style>
 </head>
 <body>
@@ -623,6 +660,16 @@ input, select, textarea, button {
   <span class="appTitle">Pickup Details</span>
 </div>
 
+<div class="options-container">
+  <div class="option selected" id="groceries">
+    <h2>Groceries</h2>
+    <p>Delivered in 10 min</p>
+  </div>
+  <div class="option" id="commercial">
+    <h2>Commercial Goods</h2>
+    <p>One day delivery</p>
+  </div>
+</div>
 <div class="container">
   <!-- General Pickup Heading -->
   <!-- <h1 style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 20px;">
@@ -1350,6 +1397,14 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
   // ----------------------------
   // CART CONTROL (ADD / − / +)
   // ----------------------------
+    const options = document.querySelectorAll('.option');
+
+  options.forEach(option => {
+    option.addEventListener('click', () => {
+      options.forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+    });
+  });
   let cart = {};
 
   // Determine step based on pack size (kg → 10, unit → 1)
