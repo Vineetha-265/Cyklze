@@ -1467,6 +1467,14 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
   // ----------------------------
   // CART CONTROL (ADD / − / +)
   // ----------------------------
+    const tabs = document.querySelectorAll(".type-tab");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+    });
+  });
     const options = document.querySelectorAll('.option');
 
   options.forEach(option => {
