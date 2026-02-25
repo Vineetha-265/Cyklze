@@ -964,32 +964,39 @@ input, select, textarea, button {
   // Store quantities
 let cart = {};
 
-// ADD button → start with 10kg
+// ADD → start with 10kg
 function addItem(item) {
   cart[item] = 10;
-  updateUI(item);
+  renderControl(item);
 }
 
-// + button → add 10kg
+// + → add 10kg
 function increment(item) {
+  if (!cart[item]) {
+    cart[item] = 0;
+  }
   cart[item] += 10;
-  updateUI(item);
+  renderControl(item);
 }
 
-// - button → minus 10kg
+// − → subtract 10kg
 function decrement(item) {
+  if (!cart[item]) return;
+
   cart[item] -= 10;
 
   if (cart[item] <= 0) {
     delete cart[item];
   }
 
-  updateUI(item);
+  renderControl(item);
 }
 
-// Update Button UI
-function updateUI(item) {
+// Update UI
+function renderControl(item) {
   const control = document.getElementById(item + "-control");
+
+  if (!control) return;
 
   if (!cart[item]) {
     control.innerHTML =
@@ -999,23 +1006,6 @@ function updateUI(item) {
       `<div class="quantityBox">
           <button class="qtyBtn" onclick="decrement('${item}')">−</button>
           <span>${cart[item]} kg</span>
-          <button class="qtyBtn" onclick="increment('${item}')">+</button>
-       </div>`;
-  }
-}
-
-// Update Button UI
-function updateUI(item) {
-  const control = document.getElementById(item + "-control");
-
-  if (!cart[item] || cart[item] <= 0) {
-    control.innerHTML =
-      `<button class="addBtn" onclick="addItem('${item}')">ADD</button>`;
-  } else {
-    control.innerHTML =
-      `<div class="quantityBox">
-          <button class="qtyBtn" onclick="decrement('${item}')">-</button>
-          <span>${cart[item]}kg</span>
           <button class="qtyBtn" onclick="increment('${item}')">+</button>
        </div>`;
   }
