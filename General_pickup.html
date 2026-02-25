@@ -593,6 +593,29 @@ input, select, textarea, button {
   border-color: #1D4D61;
 }
 
+.quantityBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ff2d6f;
+  color: white;
+  border-radius: 8px;
+  padding: 4px 8px;
+  width: 90px;
+  font-weight: bold;
+}
+
+.qtyBtn {
+  background: white;
+  color: #ff2d6f;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
   </style>
 </head>
 <body>
@@ -617,7 +640,9 @@ input, select, textarea, button {
 <div class="itemBox">
   <div class="itemImageWrapper">
     <img src="plastic.jpg" alt="Plastic">
-    <button class="addBtn" onclick="addItem('plastic')">ADD</button>
+   <div class="cartControl" id="plastic-control">
+  <button class="addBtn" onclick="addItem('plastic')">ADD</button>
+</div>
   </div>
 
   <div class="priceRow">
@@ -936,6 +961,48 @@ input, select, textarea, button {
 
 
  <script>
+  // Store quantities
+let cart = {};
+
+// When ADD is clicked
+function addItem(item) {
+  cart[item] = 10; // default 10 kg
+  updateUI(item);
+}
+
+// Increase
+function increment(item) {
+  cart[item] += 10;
+  updateUI(item);
+}
+
+// Decrease
+function decrement(item) {
+  cart[item] -= 10;
+
+  if (cart[item] <= 0) {
+    delete cart[item];
+  }
+
+  updateUI(item);
+}
+
+// Update Button UI
+function updateUI(item) {
+  const control = document.getElementById(item + "-control");
+
+  if (!cart[item] || cart[item] <= 0) {
+    control.innerHTML =
+      `<button class="addBtn" onclick="addItem('${item}')">ADD</button>`;
+  } else {
+    control.innerHTML =
+      `<div class="quantityBox">
+          <button class="qtyBtn" onclick="decrement('${item}')">-</button>
+          <span>${cart[item]}kg</span>
+          <button class="qtyBtn" onclick="increment('${item}')">+</button>
+       </div>`;
+  }
+}
 
   function getISTDate() {
     return new Date(
