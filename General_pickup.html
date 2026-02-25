@@ -1352,24 +1352,48 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
   // ----------------------------
   let cart = {};
 
+  // Determine step based on pack size (kg → 10, unit → 1)
+  function getStep(item) {
+    const box = document.getElementById(item + "-control")?.closest(".itemBox");
+    if (!box) return 10; // default
+    const pack = box.querySelector(".packSize")?.textContent.toLowerCase() || "";
+    return pack.includes("unit") ? 1 : 10;
+  }
+
+  // Add item to cart
   function addItemCart(item) {
-    cart[item] = 10;
+    if (!cart[item]) {
+      cart[item] = getStep(item);
+    }
+    kg[item] = cart[item]; // sync with kg system
     renderCartControl(item);
+    updateQuantity(item);
   }
 
+  // Increment quantity
   function incrementCart(item) {
-    if (!cart[item]) cart[item] = 0;
-    cart[item] += 10;
+    if (!cart[item]) cart[item] = getStep(item);
+    cart[item] += getStep(item);
+    kg[item] = cart[item]; // sync with kg system
     renderCartControl(item);
+    updateQuantity(item);
   }
 
+  // Decrement quantity
   function decrementCart(item) {
     if (!cart[item]) return;
-    cart[item] -= 10;
-    if (cart[item] <= 0) delete cart[item];
+    cart[item] -= getStep(item);
+    if (cart[item] <= 0) {
+      delete cart[item];
+      kg[item] = 0; // sync with kg system
+    } else {
+      kg[item] = cart[item]; // sync
+    }
     renderCartControl(item);
+    updateQuantity(item);
   }
 
+  // Render the cart control UI
   function renderCartControl(item) {
     const control = document.getElementById(item + "-control");
     if (!control) return;
@@ -1377,17 +1401,18 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     if (!cart[item]) {
       control.innerHTML = `<button class="addBtn" onclick="addItemCart('${item}')">ADD</button>`;
     } else {
+      const step = getStep(item);
       control.innerHTML = `
         <div class="quantityBox">
           <button class="qtyBtn" onclick="decrementCart('${item}')">−</button>
-          <span>${cart[item]} kg</span>
+          <span>${cart[item]} ${step === 1 ? 'unit' : 'kg'}</span>
           <button class="qtyBtn" onclick="incrementCart('${item}')">+</button>
         </div>`;
     }
   }
 
   // ----------------------------
-  // EXISTING KG QUANTITY SYSTEM
+  // KG QUANTITY SYSTEM (all items)
   // ----------------------------
   let kg = {
     plastic: 0,
@@ -1406,11 +1431,11 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     mixed: 0
   };
 
+  // Manual increment/decrement for kg/unit
   function increment(type) {
     let step = (type === "ac" || type === "fridge") ? 1 : 100;
     if (kg[type] + step <= 4000) kg[type] += step;
-    const fab = document.getElementById("fab");
-    if (fab) { fab.classList.add("show"); fab.style.display = "block"; }
+    cart[type] = kg[type]; // sync with cart
     updateQuantity(type);
   }
 
@@ -1418,21 +1443,20 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     let step = (type === "ac" || type === "fridge") ? 1 : 100;
     if (kg[type] - step >= 0) kg[type] -= step;
     else kg[type] = 0;
-
-    const allZero = Object.values(kg).every(value => value === 0);
-    const fab = document.getElementById("fab");
-    if (allZero && fab) fab.style.display = "none";
-
+    if (cart[type]) cart[type] = kg[type]; // sync cart
     updateQuantity(type);
   }
 
   function updateQuantity(type) {
     const element = document.getElementById(type + "Kg");
-    if (element) element.textContent = kg[type] + " kg";
+    if (element) {
+      const step = getStep(type);
+      element.textContent = kg[type] + (step === 1 ? ' unit' : ' kg');
+    }
   }
 
   // ----------------------------
-  // DATE PICKER FIX
+  // DATE PICKER
   // ----------------------------
   const datePicker = document.getElementById('datePicker');
   if (datePicker) {
@@ -1470,6 +1494,7 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
 
       const selectedDate = document.getElementById('selectedDate');
       if (selectedDate) selectedDate.textContent = `Selected Date: ${date.toISOString().split('T')[0]}`;
+      dat = date.toISOString().split('T')[0];
     });
   }
 
@@ -1483,17 +1508,11 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
   const buttonsContainer = document.getElementById("dateButtons");
 
   function getISTDate() {
-    return new Date(
-      new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
-    );
+    return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   }
 
   function formatDate(date) {
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    });
+    return date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
   }
 
   const istNow = getISTDate();
@@ -1547,7 +1566,7 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
   function generateItemString() {
     let itemString = '';
     for (const [key, value] of Object.entries(kg)) {
-      if (value > 0) itemString += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value} kg, `;
+      if (value > 0) itemString += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value} ${getStep(key) === 1 ? 'unit' : 'kg'}, `;
     }
     return itemString.endsWith(', ') ? itemString.slice(0, -2) : itemString;
   }
