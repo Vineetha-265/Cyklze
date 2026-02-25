@@ -188,49 +188,39 @@ input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
 =================================*//* ==============================
    RESPONSIVE GRID
 =================================*/
+/* ==============================
+   RESPONSIVE GRID
+=================================*/
+
 .itemsGrid {
   display: grid;
   gap: 14px;
-  padding: 8px;
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
 
-  /* Mobile default */
-  grid-template-columns: repeat(3, 1fr);
+  /* 📱 Mobile (default) */
+  grid-template-columns: repeat(2, 1fr);
 }
 
 /* 📟 Tablet */
 @media (min-width: 600px) {
   .itemsGrid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* 💻 Desktop */
-@media (min-width: 992px) {
-  .itemsGrid {
-    grid-template-columns: repeat(7, 1fr);
-  }
-}
-
-/* Small mobile adjustment */
-@media (max-width: 420px) {
-  .itemsGrid {
-    gap: 8px;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 310px) {
-  .itemsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Mid-range phones */
-@media (min-width: 488px) and (max-width: 599px) {
+/* 💻 Small Laptop */
+@media (min-width: 900px) {
   .itemsGrid {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 🖥 Desktop */
+@media (min-width: 1200px) {
+  .itemsGrid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
