@@ -656,18 +656,16 @@ input, select, textarea, button {
   } */
 
 
-
-
   .type-tabs-wrapper {
     margin: 20px 0;
   }
 
   .type-tabs {
-    position: relative;
     display: flex;
-    background: #f8f8f8;
+    background: #ffffff;
     border-radius: 12px;
-    padding: 6px;
+    padding: 4px;
+    border: 1px solid #e0e0e0;
   }
 
   .type-tab {
@@ -676,49 +674,39 @@ input, select, textarea, button {
     padding: 12px 10px;
     cursor: pointer;
     border-radius: 10px;
-    transition: all 0.3s ease;
-    z-index: 2;
+    transition: all 0.25s ease;
+    background: #ffffff;
   }
 
+  /* Default (Not Selected) */
   .type-title {
     display: block;
     font-weight: 600;
     font-size: 16px;
-    color: #333;
+    color: #222;
   }
 
   .type-sub {
     display: block;
     font-size: 12px;
-    color: #777;
+    color: #666;
     margin-top: 3px;
   }
 
-  .type-tab:hover .type-title {
-    color: #2e7d32;
+  /* Selected Tab */
+  .type-tab.active {
+    background: #1b5e20; /* Dark green */
   }
 
-  .type-tab.active .type-title {
-    color: #2e7d32;
+  .type-tab.active .type-title,
+  .type-tab.active .type-sub {
+    color: #ffffff;
   }
 
-  /* Sliding green indicator */
-  .type-indicator {
-    position: absolute;
-    bottom: 6px;
-    left: 6px;
-    width: calc(50% - 6px);
-    height: calc(100% - 12px);
-    background: #e8f5e9;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    z-index: 1;
+  /* Hover Effect */
+  .type-tab:hover:not(.active) {
+    background: #f5f5f5;
   }
-  .type-divider {
-  width: 100%;
-  height: 1px;
-  background-color: #4CAF50; /* green */
-}
   </style>
 </head>
 <body>
@@ -747,7 +735,7 @@ input, select, textarea, button {
   </h1> -->
 
   <!-- Items Selection -->
-  <div class="type-tabs-wrapper">
+ <div class="type-tabs-wrapper">
   <div class="type-tabs">
     <div class="type-tab active" id="groceries">
       <span class="type-title">Groceries</span>
@@ -757,9 +745,6 @@ input, select, textarea, button {
       <span class="type-title">Commercial Goods</span>
       <span class="type-sub">One day delivery</span>
     </div>
-<div class="type-divider"></div>
-    <!-- Sliding Indicator -->
-    <div class="type-indicator"></div>
   </div>
 </div>
   <div class="itemsSelectionText" style="display: inline-block; padding-top: 10px;">General Recyclables</div>
