@@ -185,51 +185,50 @@ input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
 
 /* ==============================
    RESPONSIVE GRID FOR ITEMS
+=================================*//* ==============================
+   RESPONSIVE GRID
 =================================*/
 .itemsGrid {
   display: grid;
   gap: 14px;
-  padding: 4px;
+  padding: 8px;
   width: 100%;
   box-sizing: border-box;
-}
-.itemBox {
-  min-width: 0;
-}
-.itemLabel {
-  width: auto;
-  max-width: 100%;
-}
 
-/* 📱 Mobile (default): 3 per row */
-.itemsGrid {
+  /* Mobile default */
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* 📟 Tablet (min-width: 600px): 5 per row */
+/* 📟 Tablet */
 @media (min-width: 600px) {
   .itemsGrid {
     grid-template-columns: repeat(5, 1fr);
   }
 }
 
-/* 💻 Laptop/Desktop (min-width: 992px): 7 per row */
+/* 💻 Desktop */
 @media (min-width: 992px) {
   .itemsGrid {
     grid-template-columns: repeat(7, 1fr);
   }
 }
+
+/* Small mobile adjustment */
 @media (max-width: 420px) {
   .itemsGrid {
     gap: 8px;
   }
 }
+
+/* Extra small screens */
 @media (max-width: 310px) {
   .itemsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (min-width: 488px) and (max-width: 600px) {
+
+/* Mid-range phones */
+@media (min-width: 488px) and (max-width: 599px) {
   .itemsGrid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -237,31 +236,19 @@ input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
 
 
 /* ==============================
-   ITEM BOXES
+   ITEM BOX
 =================================*/
-/* .itemBox {
-  background: #fff;
-  border-radius: 10px;
-  padding: 8px;
-  text-align: center;
-  box-sizing: border-box;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  overflow: hidden;
-
-  display: flex;              
-  flex-direction: column;     
-  align-items: center;       
-  justify-content: center;    
-} */
 .itemBox {
-  width: 220px;
+  width: 100%;              /* ✅ Let grid control width */
   background: #fff;
   border-radius: 12px;
-  padding: 12px;
+  padding: 10px;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-sizing: border-box;
 }
 
+/* Image */
 .itemImageWrapper {
   position: relative;
   text-align: center;
@@ -270,18 +257,21 @@ input, select, textarea, button, .counterBtn, .radioButton, .itemBox, .sellBtn {
 .itemImageWrapper img {
   width: 100%;
   height: auto;
+  object-fit: contain;
 }
 
+/* ADD Button */
 .addBtn {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  right: 8px;
+  bottom: 8px;
   background: #fff;
   color: #ff2d6f;
   border: 2px solid #ff2d6f;
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 8px;
   font-weight: bold;
+  font-size: 12px;
   cursor: pointer;
 }
 
