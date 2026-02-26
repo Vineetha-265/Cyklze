@@ -114,6 +114,36 @@
         .container { width: 100%; }
         .dates { flex-direction: column; }
     }
+    /* Floating Continue Button */
+.floating-continue {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: not-allowed;
+    background: #cfcfcf;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.floating-continue.enabled {
+    background: linear-gradient(135deg, #4CAF50, #43a047);
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(76, 175, 80, 0.4);
+}
+
+.floating-continue.enabled:hover {
+    transform: translateX(-50%) scale(1.02);
+}
 </style>
 </head>
 
@@ -153,7 +183,9 @@
 
         <img id="imagePreview" />
     </div>
-
+<button id="continueBtn" class="floating-continue" disabled>
+    Continue
+</button>
 </div>
 
 <script>
@@ -257,6 +289,31 @@ cameraUpload.addEventListener('change', function() {
 galleryUpload.addEventListener('change', function() {
     handleImageUpload(this);
 });
+
+const continueBtn = document.getElementById('continueBtn');
+
+function handleImageUpload(input) {
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please select a valid image");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block';
+
+        // ✅ Enable Continue button
+        continueBtn.disabled = false;
+        continueBtn.classList.add("enabled");
+    };
+
+    reader.readAsDataURL(file);
+}
 </script>
 
 </body>
