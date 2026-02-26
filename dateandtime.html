@@ -134,10 +134,22 @@
         <h2>Select an Image</h2>
         <div class="subheading">Add an apt image</div>
 
-        <label class="upload-btn">
-    Upload
-    <input type="file" id="imageUpload" accept="image/*" capture="environment">
-</label>
+     <div style="display:flex; gap:15px; flex-wrap:wrap;">
+
+    <!-- Camera Button -->
+    <label class="upload-btn">
+        📷 Take Photo
+        <input type="file" id="cameraUpload" accept="image/*" capture="environment">
+    </label>
+
+    <!-- Gallery Button -->
+    <label class="upload-btn" style="background:#2196F3;">
+        🖼 Choose from Gallery
+        <input type="file" id="galleryUpload" accept="image/*">
+    </label>
+
+</div>
+
 
         <img id="imagePreview" />
     </div>
@@ -215,19 +227,14 @@ function showError() {
 // Call on page load
 fetchDates();
 
-// Image preview logic
-const imageUpload = document.getElementById('imageUpload');
+// Image preview logicconst cameraUpload = document.getElementById('cameraUpload');
+const galleryUpload = document.getElementById('galleryUpload');
 const imagePreview = document.getElementById('imagePreview');
 
-imageUpload.addEventListener('change', function () {
+function handleImageUpload(input) {
+    if (!input.files || input.files.length === 0) return;
 
-    if (!this.files || this.files.length === 0) {
-        // If user denied camera or cancelled
-        fallbackToGallery();
-        return;
-    }
-
-    const file = this.files[0];
+    const file = input.files[0];
 
     if (!file.type.startsWith("image/")) {
         alert("Please select a valid image");
@@ -239,17 +246,17 @@ imageUpload.addEventListener('change', function () {
         imagePreview.src = e.target.result;
         imagePreview.style.display = 'block';
     };
+
     reader.readAsDataURL(file);
+}
+
+cameraUpload.addEventListener('change', function() {
+    handleImageUpload(this);
 });
 
-
-function fallbackToGallery() {
-    // Remove capture so it opens gallery instead
-    imageUpload.removeAttribute("capture");
-
-    // Trigger file picker again
-    imageUpload.click();
-}
+galleryUpload.addEventListener('change', function() {
+    handleImageUpload(this);
+});
 </script>
 
 </body>
