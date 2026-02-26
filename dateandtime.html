@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Select Date & Image</title>
 
-<!-- Google Poppins Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -18,9 +17,7 @@
         justify-content: center;
     }
 
-    .container {
-        width: 600px;
-    }
+    .container { width: 600px; }
 
     .section {
         background: #ffffff;
@@ -39,14 +36,13 @@
     .subheading {
         color: #777;
         font-size: 14px;
-        font-weight: 400;
         margin-bottom: 22px;
     }
 
-    /* Date Selection */
     .dates {
         display: flex;
         gap: 15px;
+        flex-wrap: wrap;
     }
 
     .date-option {
@@ -59,6 +55,7 @@
         transition: all 0.25s ease;
         font-weight: 500;
         font-size: 14px;
+        min-width: 120px;
     }
 
     .date-option.selected {
@@ -71,23 +68,18 @@
         border-color: #4CAF50;
     }
 
-    /* Image Upload */
     .upload-btn {
         display: inline-block;
         padding: 10px 22px;
         background: #4CAF50;
         color: white;
-        border: none;
         border-radius: 8px;
         cursor: pointer;
         font-size: 14px;
         font-weight: 500;
-        transition: 0.3s;
     }
 
-    .upload-btn:hover {
-        background: #43a047;
-    }
+    .upload-btn:hover { background: #43a047; }
 
     #imagePreview {
         margin-top: 20px;
@@ -97,18 +89,30 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    input[type="file"] {
-        display: none;
+    input[type="file"] { display: none; }
+
+    .center {
+        text-align: center;
+        padding: 30px 0;
     }
 
-    /* Responsive */
+    .retry-btn {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: #ff5252;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .retry-btn:hover {
+        background: #e53935;
+    }
+
     @media (max-width: 640px) {
-        .container {
-            width: 100%;
-        }
-        .dates {
-            flex-direction: column;
-        }
+        .container { width: 100%; }
+        .dates { flex-direction: column; }
     }
 </style>
 </head>
@@ -117,18 +121,15 @@
 
 <div class="container">
 
-    <!-- Section 1 -->
-    <div class="section">
-        <h2>Select a Date</h2>
-        <div class="subheading">This is the closest date available</div>
-
-        <div class="dates">
-            <div class="date-option selected">26 Feb 2026</div>
-            <div class="date-option">27 Feb 2026</div>
-        </div>
+    <!-- Date Section -->
+    <div class="section" id="dateSection">
+        <h2 id="heading">Loading...</h2>
+        <div class="subheading" id="subheading">Please wait while we fetch available dates</div>
+        <div class="dates" id="datesContainer"></div>
+        <div class="center" id="errorContainer" style="display:none;"></div>
     </div>
 
-    <!-- Section 2 -->
+    <!-- Image Section -->
     <div class="section">
         <h2>Select an Image</h2>
         <div class="subheading">Add an apt image</div>
@@ -144,31 +145,86 @@
 </div>
 
 <script>
-    // Date selection toggle
-    const dateOptions = document.querySelectorAll('.date-option');
+const API_URL = "https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/dateandaddress";
 
-    dateOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            dateOptions.forEach(o => o.classList.remove('selected'));
-            option.classList.add('selected');
+const heading = document.getElementById("heading");
+const subheading = document.getElementById("subheading");
+const datesContainer = document.getElementById("datesContainer");
+const errorContainer = document.getElementById("errorContainer");
+
+async function fetchDates() {
+    // Show loading state
+    heading.textContent = "Loading...";
+    subheading.textContent = "Please wait while we fetch available dates";
+    datesContainer.innerHTML = "";
+    errorContainer.style.display = "none";
+
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) throw new Error("Network error");
+
+        const data = await response.json();
+
+        // Success UI
+        heading.textContent = data.message || "Select a Date";
+        subheading.textContent = "This is the closest date available";
+
+        renderDates(data.dates);
+
+    } catch (error) {
+        showError();
+    }
+}
+
+function renderDates(dates) {
+    datesContainer.innerHTML = "";
+
+    dates.forEach((date, index) => {
+        const div = document.createElement("div");
+        div.className = "date-option";
+        div.textContent = date;
+
+        if (index === 0) div.classList.add("selected");
+
+        div.addEventListener("click", () => {
+            document.querySelectorAll(".date-option")
+                .forEach(d => d.classList.remove("selected"));
+            div.classList.add("selected");
         });
+
+        datesContainer.appendChild(div);
     });
+}
 
-    // Image upload preview
-    const imageUpload = document.getElementById('imageUpload');
-    const imagePreview = document.getElementById('imagePreview');
+function showError() {
+    heading.textContent = "OOps";
+    subheading.textContent = "Something went wrong";
 
-    imageUpload.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-            }
-            reader.readAsDataURL(file);
+    errorContainer.style.display = "block";
+    errorContainer.innerHTML = `
+        <button class="retry-btn" onclick="fetchDates()">Retry</button>
+    `;
+}
+
+// Call on page load
+fetchDates();
+
+// Image preview logic
+const imageUpload = document.getElementById('imageUpload');
+const imagePreview = document.getElementById('imagePreview');
+
+imageUpload.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
         }
-    });
+        reader.readAsDataURL(file);
+    }
+});
 </script>
 
 </body>
