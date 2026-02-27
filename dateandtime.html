@@ -314,6 +314,37 @@ function handleImageUpload(input) {
 
     reader.readAsDataURL(file);
 }
+
+
+continueBtn.addEventListener("click", function () {
+
+    // 1️⃣ Get selected date
+    const selectedDateEl = document.querySelector(".date-option.selected");
+
+    if (!selectedDateEl) {
+        alert("Please select a date");
+        return;
+    }
+
+    const selectedDate = selectedDateEl.textContent;
+
+    // 2️⃣ Get image (base64)
+    const imageData = imagePreview.src;
+
+    if (!imageData) {
+        alert("Please upload an image");
+        return;
+    }
+
+    // ✅ Save separately
+    localStorage.setItem("selectedDate", selectedDate);
+    localStorage.setItem("selectedImage", imageData);
+
+    console.log("Date Saved:", selectedDate);
+    console.log("Image Saved:", imageData);
+
+});
+
 </script>
 
 </body>
