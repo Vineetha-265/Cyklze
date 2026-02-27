@@ -1752,12 +1752,12 @@ function loadAllPickupData() {
     return pickupData;
 }
   async function validateAndConfirmPickup() {
-    const anySelected = cart.values(kg).some(value => value > 0);
-    if (!anySelected) { alert('Please add at least one recyclable item.'); return; }
-    if (!dat) { alert('Please select a date.'); return; }
-    if (!selectedTimeRange) { alert('Please select a time range.'); return; }
+    // const anySelected = cart.values(kg).some(value => value > 0);
+    // if (!anySelected) { alert('Please add at least one recyclable item.'); return; }
+    // if (!dat) { alert('Please select a date.'); return; }
+    // if (!selectedTimeRange) { alert('Please select a time range.'); return; }
 
-    await localStorage.setItem('items', generateItemString());
+    await localStorage.setItem('items', cart);
     await localStorage.setItem('type', "General");
     await localStorage.setItem('date', "fate");
     await localStorage.setItem('time', "time");
