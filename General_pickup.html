@@ -1743,7 +1743,7 @@ function toggleConfirmButton() {
 function loadAllPickupData() {
     const pickupData = {
        // cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
-        items: localStorage.getItem('items'),
+        items: JSON.parse(localStorage.getItem("cart")),
         type: localStorage.getItem('type'),
         date: localStorage.getItem('date'),
         time: localStorage.getItem('time')
