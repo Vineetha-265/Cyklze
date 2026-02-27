@@ -1742,7 +1742,7 @@ function toggleConfirmButton() {
   }
 function loadAllPickupData() {
     const pickupData = {
-        cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
+       // cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
         items: localStorage.getItem('items'),
         type: localStorage.getItem('type'),
         date: localStorage.getItem('date'),
@@ -1757,7 +1757,7 @@ function loadAllPickupData() {
     // if (!dat) { alert('Please select a date.'); return; }
     // if (!selectedTimeRange) { alert('Please select a time range.'); return; }
 
-    await localStorage.setItem('items', cart);
+    await localStorage.setItem('items', JSON.stringify(cart));
     await localStorage.setItem('type', "General");
     await localStorage.setItem('date', "fate");
     await localStorage.setItem('time', "time");
