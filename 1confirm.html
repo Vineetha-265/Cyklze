@@ -27,20 +27,28 @@
     }
 
     h2 {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         font-weight: 600;
     }
 
-    .date-text {
-        font-size: 16px;
-        margin-bottom: 20px;
-        color: #555;
+    .detail-card {
+        background: #f9f9f9;
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        text-align: left;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    .detail-card strong {
+        color: #333;
     }
 
     img {
         max-width: 100%;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        margin-top: 10px;
     }
 
     .empty {
@@ -51,13 +59,14 @@
 
     .back-btn {
         margin-top: 25px;
-        padding: 10px 20px;
+        padding: 12px 25px;
         border: none;
         border-radius: 8px;
         background: #4CAF50;
         color: white;
         cursor: pointer;
         font-weight: 500;
+        transition: background 0.3s;
     }
 
     .back-btn:hover {
@@ -65,7 +74,7 @@
     }
 
     @media (max-width: 640px) {
-        .container { width: 100%; }
+        .container { width: 100%; padding: 20px; }
     }
 </style>
 </head>
@@ -81,21 +90,45 @@
 </div>
 
 <script>
+    // Get all saved details from localStorage
     const savedDate = localStorage.getItem("selectedDate");
     const savedImage = localStorage.getItem("selectedImage");
+    const items = localStorage.getItem("items");
+    const type = localStorage.getItem("type");
+    const address = localStorage.getItem("address");
 
     const contentDiv = document.getElementById("content");
 
-    if (savedDate && savedImage) {
-        contentDiv.innerHTML = `
-            <div class="date-text"><strong>Selected Date:</strong> ${savedDate}</div>
-            <img src="${savedImage}" alt="Uploaded Image" />
-        `;
+    // If any detail exists, display it in a card
+    if (items || type || address || savedDate || savedImage) {
+        let html = "";
+
+        if (items) {
+            html += `<div class="detail-card"><strong>Selected Items:</strong> ${items}</div>`;
+        }
+
+        if (type) {
+            html += `<div class="detail-card"><strong>Pickup Type:</strong> ${type}</div>`;
+        }
+
+        if (address) {
+            html += `<div class="detail-card"><strong>Address:</strong> ${address}</div>`;
+        }
+
+        if (savedDate) {
+            html += `<div class="detail-card"><strong>Selected Date:</strong> ${savedDate}</div>`;
+        }
+
+        if (savedImage) {
+            html += `<div class="detail-card"><strong>Uploaded Image:</strong><br><img src="${savedImage}" alt="Uploaded Image" /></div>`;
+        }
+
+        contentDiv.innerHTML = html;
     } else {
         contentDiv.innerHTML = `
             <div class="empty">
                 No order data found.<br>
-                Please go back and select date & image.
+                Please go back and select your details.
             </div>
         `;
     }
