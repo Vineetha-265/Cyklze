@@ -708,6 +708,21 @@ input, select, textarea, button {
   .type-tab:hover:not(.active) {
     background: #f5f5f5;
   }
+
+  #confirmBtn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 18px;
+  background: #1D4D61;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  display: none;
+  z-index: 1000;
+}
   </style>
 </head>
 <body>
@@ -1024,6 +1039,9 @@ input, select, textarea, button {
 
 </div>
   <!-- Floating Button -->
+   <button id="confirmBtn" class="fab" onclick="validateAndConfirmPickup()">
+  Continue
+</button>
 <button id="fab" onclick="openPopup()" class="fab hidden">
   Continue to Address
 </button>
@@ -1071,6 +1089,7 @@ input, select, textarea, button {
        >
     Continue
 </button>
+
 
 
     <!-- Close button -->
@@ -1502,6 +1521,7 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     kg[item] = cart[item]; // sync with kg system
     renderCartControl(item);
     updateQuantity(item);
+    toggleConfirmButton();
   }
 
   // Increment quantity
@@ -1511,6 +1531,9 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     kg[item] = cart[item]; // sync with kg system
     renderCartControl(item);
     updateQuantity(item);
+    toggleConfirmButton();
+    console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+    console.log(cart);
   }
 
   // Decrement quantity
@@ -1525,8 +1548,16 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     }
     renderCartControl(item);
     updateQuantity(item);
+    toggleConfirmButton();
   }
+function toggleConfirmButton() {
+  const confirmBtn = document.getElementById("confirmBtn");
+  if (!confirmBtn) return;
 
+  const anySelected = Object.values(kg).some(value => value > 0);
+
+  confirmBtn.style.display = anySelected ? "block" : "none";
+}
   // Render the cart control UI
   function renderCartControl(item) {
     const control = document.getElementById(item + "-control");
@@ -1571,6 +1602,9 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     if (kg[type] + step <= 4000) kg[type] += step;
     cart[type] = kg[type]; // sync with cart
     updateQuantity(type);
+    toggleConfirmButton();
+      console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+    console.log(cart);
   }
 
   function decrement(type) {
@@ -1579,6 +1613,7 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     else kg[type] = 0;
     if (cart[type]) cart[type] = kg[type]; // sync cart
     updateQuantity(type);
+    toggleConfirmButton();
   }
 
   function updateQuantity(type) {
@@ -1587,6 +1622,7 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
       const step = getStep(type);
       element.textContent = kg[type] + (step === 1 ? ' unit' : ' kg');
     }
+    toggleConfirmButton();
   }
 
   // ----------------------------
@@ -1704,19 +1740,30 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
     }
     return itemString.endsWith(', ') ? itemString.slice(0, -2) : itemString;
   }
-
+function loadAllPickupData() {
+    const pickupData = {
+        cartItems: JSON.parse(localStorage.getItem('cartItems') || '[]'),
+        items: localStorage.getItem('items'),
+        type: localStorage.getItem('type'),
+        date: localStorage.getItem('date'),
+        time: localStorage.getItem('time')
+    };
+    
+    return pickupData;
+}
   async function validateAndConfirmPickup() {
-    const anySelected = Object.values(kg).some(value => value > 0);
+    const anySelected = cart.values(kg).some(value => value > 0);
     if (!anySelected) { alert('Please add at least one recyclable item.'); return; }
     if (!dat) { alert('Please select a date.'); return; }
     if (!selectedTimeRange) { alert('Please select a time range.'); return; }
 
     await localStorage.setItem('items', generateItemString());
     await localStorage.setItem('type', "General");
-    await localStorage.setItem('date', dat);
-    await localStorage.setItem('time', selectedTimeRange);
-
-    window.location.href = "Address.html";
+    await localStorage.setItem('date', "fate");
+    await localStorage.setItem('time', "time");
+const pickupDetails = loadAllPickupData();
+console.log(pickupDetails);
+    // window.location.href = "Address.html";
   }
 </script>
 </body>
