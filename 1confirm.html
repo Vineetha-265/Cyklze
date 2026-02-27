@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Preview</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        width: 600px;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 14px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .date-text {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    img {
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .empty {
+        color: #999;
+        font-size: 15px;
+        padding: 40px 0;
+    }
+
+    .back-btn {
+        margin-top: 25px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        background: #4CAF50;
+        color: white;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .back-btn:hover {
+        background: #43a047;
+    }
+
+    @media (max-width: 640px) {
+        .container { width: 100%; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Order Preview</h2>
+
+    <div id="content"></div>
+
+    <button class="back-btn" onclick="goBack()">Back</button>
+</div>
+
+<script>
+    const savedDate = localStorage.getItem("selectedDate");
+    const savedImage = localStorage.getItem("selectedImage");
+
+    const contentDiv = document.getElementById("content");
+
+    if (savedDate && savedImage) {
+        contentDiv.innerHTML = `
+            <div class="date-text"><strong>Selected Date:</strong> ${savedDate}</div>
+            <img src="${savedImage}" alt="Uploaded Image" />
+        `;
+    } else {
+        contentDiv.innerHTML = `
+            <div class="empty">
+                No order data found.<br>
+                Please go back and select date & image.
+            </div>
+        `;
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>
