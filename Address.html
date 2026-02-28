@@ -234,7 +234,7 @@ function getCookie(name) {
 
 // Check if token is expired
 const isTokenExpired = async () => {
-  const accessToken = getCookie('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
 
   if (!accessToken) return true;
 
@@ -267,7 +267,7 @@ const isTokenExpired = async () => {
 
 // Check token and redirect if needed
 async function checkTokenAndNavigate() {
-  const accessToken = getCookie('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
 
   if (!accessToken) {
     alert('Please log in');
