@@ -291,15 +291,15 @@ window.onload = async function () {
   await checkTokenAndNavigate();
 
   // Then continue page logic
-  const items = localStorage.getItem('items');
-  const type = localStorage.getItem('type');
-  const date = localStorage.getItem('date');
-  const time = localStorage.getItem('time');
+  // const items = localStorage.getItem('items');
+  // const type = localStorage.getItem('type');
+  // const date = localStorage.getItem('date');
+  // const time = localStorage.getItem('time');
 
-  if (!items || !date || !type || !time) {
-    window.location.href = "index.html";
-    return;
-  }
+  // if (!items || !date || !type || !time) {
+  //   window.location.href = "index.html";
+  //   return;
+  // }
 
   console.log(items, type, date, time);
 };
