@@ -1189,392 +1189,272 @@ input, select, textarea, button {
   </div> <!-- END popupContent -->
 </div> <!-- END popupOverlay -->
 
+<script>
+/* =====================================================
+   TAB SWITCH (Groceries / Commercial)
+===================================================== */
 
- <!-- <script>
-  // Store quantities
+const tabs = document.querySelectorAll(".type-tab");
+
 let cart = {};
+let kg = {}; // required for confirm button logic
 
-// ADD → start with 10kg
-function addItem(item) {
-  cart[item] = 10;
-  renderControl(item);
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+
+    // activate tab
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+
+    const selectedType = tab.id; // groceries or commercial
+
+    // RESET CART WHEN SWITCHING TYPE
+    cart = {};
+    kg = {};
+
+    // update prices for all items
+    const allItems = document.querySelectorAll(".itemBox");
+
+    allItems.forEach(item => {
+
+      const priceElement = item.querySelector(".currentPrice");
+      const oldPriceElement = item.querySelector(".oldPrice");
+      const discountElement = item.querySelector(".discount");
+
+      const groceryPrice = parseInt(priceElement.dataset.grocery);
+      const commercialPrice = parseInt(priceElement.dataset.commercial);
+
+      const newPrice =
+        selectedType === "groceries"
+          ? groceryPrice
+          : commercialPrice;
+
+      const oldPrice = newPrice + 5;
+      const discount = oldPrice - newPrice;
+
+      const unit = priceElement.dataset.unit || "kg";
+
+      priceElement.textContent = `₹${newPrice}/${unit}`;
+      oldPriceElement.textContent = `₹${oldPrice}/${unit}`;
+      discountElement.textContent = `₹${discount} OFF`;
+    });
+
+    // reset UI controls
+    document.querySelectorAll(".cartControl").forEach(control => {
+      const item = control.id.replace("-control", "");
+      renderCartControl(item);
+    });
+
+    toggleConfirmButton();
+  });
+});
+
+
+/* =====================================================
+   CART SYSTEM
+===================================================== */
+
+// Step size (kg items = 10, unit items = 1)
+function getStep(item) {
+  const box = document.getElementById(item + "-control")
+    ?.closest(".itemBox");
+
+  if (!box) return 10;
+
+  const pack =
+    box.querySelector(".packSize")?.textContent.toLowerCase() || "";
+
+  return pack.includes("unit") ? 1 : 10;
 }
 
-// + → add 10kg
-function increment(item) {
+
+// ADD ITEM
+function addItemCart(item) {
   if (!cart[item]) {
-    cart[item] = 0;
+    cart[item] = getStep(item);
   }
-  cart[item] += 10;
-  renderControl(item);
+
+  kg[item] = cart[item];
+
+  renderCartControl(item);
+  toggleConfirmButton();
 }
 
-// − → subtract 10kg
-function decrement(item) {
+
+// INCREMENT
+function incrementCart(item) {
+  if (!cart[item]) cart[item] = getStep(item);
+
+  cart[item] += getStep(item);
+  kg[item] = cart[item];
+
+  renderCartControl(item);
+  toggleConfirmButton();
+}
+
+
+// DECREMENT
+function decrementCart(item) {
   if (!cart[item]) return;
 
-  cart[item] -= 10;
+  cart[item] -= getStep(item);
 
   if (cart[item] <= 0) {
     delete cart[item];
+    delete kg[item];
   }
 
-  renderControl(item);
+  renderCartControl(item);
+  toggleConfirmButton();
 }
 
-// Update UI
-function renderControl(item) {
-  const control = document.getElementById(item + "-control");
 
+// SHOW / HIDE CONTINUE BUTTON
+function toggleConfirmButton() {
+  const confirmBtn = document.getElementById("confirmBtn");
+
+  const anySelected =
+    Object.values(kg).some(value => value > 0);
+
+  confirmBtn.style.display =
+    anySelected ? "block" : "none";
+}
+
+
+/* =====================================================
+   RENDER ADD / COUNTER UI
+===================================================== */
+
+function renderCartControl(item) {
+
+  const control = document.getElementById(item + "-control");
   if (!control) return;
 
+  // show ADD button
   if (!cart[item]) {
     control.innerHTML =
-      `<button class="addBtn" onclick="addItem('${item}')">ADD</button>`;
-  } else {
-    control.innerHTML =
-      `<div class="quantityBox">
-          <button class="qtyBtn" onclick="decrement('${item}')">−</button>
-          <span>${cart[item]} kg</span>
-          <button class="qtyBtn" onclick="increment('${item}')">+</button>
-       </div>`;
-  }
-}
-
-  function getISTDate() {
-    return new Date(
-      new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
-    );
-  }
-
-  function formatDate(date) {
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    });
-  }
- let dat = null;
-let selectedButton = null;
- let selectedTimeRange = null;
- const timeRangeContainer = document.getElementById("timeRangeContainer");
-const buttonsContainer = document.getElementById("dateButtons");
-const istNow = getISTDate();
-const istHour = istNow.getHours();
-
-// Today button (only before 2 PM IST)
-if (istHour < 17) {
-  const todayBtn = document.createElement("button");
-  todayBtn.textContent = formatDate(istNow);
-  todayBtn.classList.add("date-btn");
-
-  todayBtn.addEventListener("click", () => {
-    handleSelection(todayBtn, istNow);
-    selectedTimeRange="today";
-   timeRangeContainer.style.display = "none";
-  });
-
-  buttonsContainer.appendChild(todayBtn);
-}
-
-// Tomorrow button (always)
-const tomorrow1 = new Date(istNow);
-tomorrow1.setDate(istNow.getDate() + 1);
-
-const tomorrowBtn = document.createElement("button");
-tomorrowBtn.textContent = formatDate(tomorrow1);
-tomorrowBtn.classList.add("date-btn");
-
-tomorrowBtn.addEventListener("click", () => {
-  handleSelection(tomorrowBtn, tomorrow1);
-   selectedTimeRange=null;
-   timeRangeContainer.style.display = "block";
-});
-
-buttonsContainer.appendChild(tomorrowBtn);
-
-// --------------------
-// Selection handler
-// --------------------
-function handleSelection(button, date) {
-  // Deselect if clicking same button again
-  if (selectedButton === button) {
-    button.classList.remove("selected");
-    selectedButton = null;
-    dat = null;
-    console.log("Deselected");
+      `<button class="addBtn"
+          onclick="addItemCart('${item}')">
+          ADD
+       </button>`;
     return;
   }
 
-  // Remove selection from previous button
-  if (selectedButton) {
-    selectedButton.classList.remove("selected");
-  }
+  // show quantity selector
+  control.innerHTML = `
+    <div class="quantityBox">
+      <button class="qtyBtn"
+        onclick="decrementCart('${item}')">−</button>
 
-  // Select new button
-  button.classList.add("selected");
-  selectedButton = button;
-  dat = formatDate(date);
+      <span>${cart[item]}</span>
 
-  console.log("Selected date:", dat);
-}
-
-// Functions
-function todays(date) {
-  dat = date;
-  console.log("Today's date selected:", dat);
-   timeRangeContainer.style.display = "none";
-}
-
-function tomorrows(date) {
-  dat = date;
-  console.log("Tomorrow's date selected:", dat);
-   timeRangeContainer.style.display = "block";
+      <button class="qtyBtn"
+        onclick="incrementCart('${item}')">+</button>
+    </div>
+  `;
 }
 
 
-
-
-let plasticKg = 0;
-let glassKg = 0;
-let paperKg = 0;
-let metalKg = 0;
-let ewasteKg = 0;
-
-let cardKg = 0;
-let booksKg = 0;
-let cwireKg = 0;
-let wireKg = 0;
-
-let silverKg = 0;
-let brassKg = 0;
-
-let fridgeKg = 0;
-let acKg = 0;
-
-let mixedKg = 0;
-  // ---------- Cookie Functions ----------
-  function setCookie(name, value, days) {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
-  }
-
-  function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i].trim();
-      if (c.indexOf(nameEQ) === 0) {
-        return c.substring(nameEQ.length, c.length);
-      }
-    }
-    return null;
-  }
-
-  // ---------- Quantity Handling ----------
-let kg = {
-  plastic: 0,
-  glass: 0,
-  paper: 0,
-  metal: 0,
-  ewaste: 0,
-  card: 0,
-  books: 0,
-  cwire: 0,
-  wire: 0,
-  silver: 0,
-  brass: 0,
-  fridge: 0,
-  ac: 0,
-  mixed: 0
-};
+/* =====================================================
+   POPUP CONTROLS
+===================================================== */
 
 function openPopup() {
-  const popup = document.getElementById("pickupPopup");
-  if (popup) popup.style.display = "flex";
+  document.getElementById("pickupPopup").style.display = "flex";
 }
 
-  function closePopup() {
-     const popup = document.getElementById("pickupPopup");
-  if (popup) popup.style.display = "none";
-     // document.getElementById('myPopup').style.display = 'none';
-    }
-
-function increment(type) {
-  let step = (type === "ac" || type === "fridge") ? 1 : 100;
-
-  if (kg[type] + step <= 4000) {
-    kg[type] += step;
-  }
-
-  const fab = document.getElementById("fab");
-  if (fab) {
-    fab.classList.add("show");
-    fab.style.display = "block";
-  }
-
-  updateQuantity(type);
-}
-
-function decrement(type) {
-  let step = (type === "ac" || type === "fridge") ? 1 : 100;
-
-  if (kg[type] - step >= 0) {
-    kg[type] -= step;
-  } else {
-    kg[type] = 0;
-  }
-
-  const allZero = Object.values(kg).every(value => value === 0);
-  const fab = document.getElementById("fab");
-
-  if (allZero && fab) {
-    fab.style.display = "none";
-  }
-
-  updateQuantity(type);
+function closePopup() {
+  document.getElementById("pickupPopup").style.display = "none";
 }
 
 
-  function updateQuantity(type) {
-    const element = document.getElementById(type + "Kg");
-    if (element) element.textContent = kg[type] + " kg";
+/* =====================================================
+   DATE GENERATION (NEXT 3 DAYS)
+===================================================== */
+
+const dateButtons = document.getElementById("dateButtons");
+let selectedDate = "";
+let selectedTime = "";
+
+function generateDates() {
+
+  dateButtons.innerHTML = "";
+
+  for (let i = 0; i < 3; i++) {
+
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+
+    const btn = document.createElement("button");
+    btn.className = "date-btn";
+
+    btn.innerText = date.toDateString();
+
+    btn.onclick = () => {
+
+      document
+        .querySelectorAll(".date-btn")
+        .forEach(b => b.classList.remove("selected"));
+
+      btn.classList.add("selected");
+
+      selectedDate = date.toISOString().split("T")[0];
+
+      document.getElementById("timeRangeContainer").style.display = "block";
+    };
+
+    dateButtons.appendChild(btn);
   }
-
-  // ---------- Date Picker ----------
-  const datePicker = document.getElementById('datePicker');
-  let date = null;
-
-  const today = new Date();
-  const tomorrow = new Date();
-    const now = new Date();
-  const hours = now.getHours();
-  tomorrow.setDate(today.getDate());
- 
-  const thirtyDaysFromTomorrow = new Date();
-  thirtyDaysFromTomorrow.setDate(tomorrow.getDate() + 1);
-   if (hours >= 14) {
-      datePicker.min = thirtyDaysFromTomorrow.toISOString().split('T')[0];
-  datePicker.max = thirtyDaysFromTomorrow.toISOString().split('T')[0];
-   }else{
-
-  datePicker.min = tomorrow.toISOString().split('T')[0];
-  datePicker.max = thirtyDaysFromTomorrow.toISOString().split('T')[0];
-   }
-
-  datePicker.addEventListener('change', (e) => {
-    date = new Date(e.target.value);
-    const isToday =
-    date.getFullYear() === today.getFullYear() &&
-    date.getMonth() === today.getMonth() &&
-    date.getDate() === today.getDate();
-
-if (isToday) {
-   //  alert("You selected today's date!");
-   selectedTimeRange = "today"
-  timeRangeContainer.style.display = "none";
-}else{
-    selectedTimeRange = null
-    timeRangeContainer.style.display = "block";
 }
-     //if(date == today) document.getElementById("timeRangeContainer").style.display = "none";
-    const selectedDate = document.getElementById('selectedDate');
-    if (selectedDate) selectedDate.textContent = `Selected Date: ${date.toISOString().split('T')[0]}`;
-    
-  });
 
-  // ---------- Time Range ----------
+generateDates();
 
-  function handleTimeRangeSelection(timeRange, event) {
-    selectedTimeRange = timeRange;
 
-    const buttons = document.querySelectorAll('.radioButton');
-    buttons.forEach(button => button.classList.remove('selected'));
+/* =====================================================
+   TIME SLOT SELECTION
+===================================================== */
 
-    if (event && event.currentTarget) {
-      event.currentTarget.classList.add('selected');
-    }
+function handleTimeRangeSelection(time) {
+
+  selectedTime = time;
+
+  document.querySelectorAll(".radioButton")
+    .forEach(btn => btn.classList.remove("selected"));
+
+  event.target.classList.add("selected");
+}
+
+
+/* =====================================================
+   FINAL VALIDATION
+===================================================== */
+
+function validateAndConfirmPickup() {
+
+  if (!Object.keys(cart).length) {
+    alert("Please select at least one item.");
+    return;
   }
 
-  // ---------- Generate Item String ----------
-  function generateItemString() {
-    let itemString = '';
-    for (const [key, value] of Object.entries(kg)) {
-      if (value > 0) itemString += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value} kg, `;
-    }
-    return itemString.endsWith(', ') ? itemString.slice(0, -2) : itemString;
+  if (!selectedDate) {
+    alert("Please select pickup date.");
+    return;
   }
 
-  // ---------- Validate and Confirm Pickup ----------
- async function validateAndConfirmPickup() {
-    const anySelected = Object.values(kg).some(value => value > 0);
-
-    if (!anySelected) {
-      alert('Please add at least one recyclable item.');
-      return;
-    }
-
-    if (!dat) {
-      alert('Please select a date.');
-      return;
-    }
-
-    if (!selectedTimeRange) {
-      alert('Please select a time range.');
-      return;
-    }
-
-    // Set cookies
-  // Store data in localStorage instead of cookies
-await localStorage.setItem('items', generateItemString());       // Store items as string
-await localStorage.setItem('type', "General");                   // Store type
-await localStorage.setItem('date', dat);          // Store date in ISO format
-await localStorage.setItem('time', selectedTimeRange);           // Store time
-
-
-    // Redirect
-    window.location.href = "Address.html";
+  if (!selectedTime) {
+    alert("Please select pickup time.");
+    return;
   }
 
-  // ---------- Token Check ----------
-  async function isTokenExpired() {
-    const accessToken = getCookie('accessToken');
-    if (!accessToken) return true;
+  console.log("ORDER DATA:");
+  console.log(cart);
+  console.log(selectedDate, selectedTime);
 
-    try {
-      const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${accessToken}`,
-        },
-        body: JSON.stringify({ accessToken }),
-      });
-      if (!response.ok) throw new Error('Failed to check token expiration');
+  alert("Pickup confirmed successfully!");
+}
+</script>
 
-      const data = await response.json();
-      return data.message === 'Token has expired';
-    } catch (error) {
-      console.error(error);
-      return true;
-    }
-  }
-
-  async function checkTokenAndNavigate() {
-    const expired = await isTokenExpired();
-    if (expired) {
-      alert('Please log in');
-      window.location.href = 'login.html';
-    }
-  }
-
-  // Run token check on page load
-//   window.addEventListener('DOMContentLoaded', () => {
-//     checkTokenAndNavigate();
-//   });
-</script> -->
-<script>
+<!-- <script>
   // ----------------------------
   // CART CONTROL (ADD / − / +)
   // ----------------------------
@@ -1892,7 +1772,7 @@ const pickupDetails = loadAllPickupData();
 console.log(pickupDetails);
     window.location.href = "dateandtime.html";
   }
-</script>
+</script> -->
 </body>
 </html>
 
