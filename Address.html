@@ -271,7 +271,9 @@ async function checkTokenAndNavigate() {
 
   if (!accessToken) {
     alert('Please log in');
+    localStorage.setItem("previousPage", window.location.href);
     window.location.href = 'login.html';
+
     return;
   }
 
@@ -279,6 +281,7 @@ async function checkTokenAndNavigate() {
 
   if (isExpired) {
     alert('Session expired. Please log in again.');
+    localStorage.setItem("previousPage", window.location.href);
     window.location.href = 'login.html';
   }
 }
