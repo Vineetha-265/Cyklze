@@ -1516,6 +1516,8 @@ const priceElement = document.querySelector(".currentPrice");
 const oldPriceElement = document.querySelector(".oldPrice");
 const discountElement = document.querySelector(".discount");
 
+
+
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
 
@@ -1523,26 +1525,34 @@ tabs.forEach(tab => {
     tabs.forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
 
-    // Get prices from data attributes
-    const groceryPrice = parseInt(priceElement.dataset.grocery);
-    const commercialPrice = parseInt(priceElement.dataset.commercial);
+    const selectedType = tab.id; // groceries or commercial
 
-    let newPrice;
+    // Select ALL items
+    const allItems = document.querySelectorAll(".itemBox");
 
-    if (tab.id === "groceries") {
-      newPrice = groceryPrice;
-    } else {
-      newPrice = commercialPrice;
-    }
+    allItems.forEach(item => {
 
-    // Example old price logic (add ₹5)
-    const oldPrice = newPrice + 5;
-    const discount = oldPrice - newPrice;
+      const priceElement = item.querySelector(".currentPrice");
+      const oldPriceElement = item.querySelector(".oldPrice");
+      const discountElement = item.querySelector(".discount");
 
-    // Update UI
-    priceElement.textContent = `₹${newPrice}/kg`;
-    oldPriceElement.textContent = `₹${oldPrice}/kg`;
-    discountElement.textContent = `₹${discount} OFF`;
+      const groceryPrice = parseInt(priceElement.dataset.grocery);
+      const commercialPrice = parseInt(priceElement.dataset.commercial);
+
+      let newPrice = selectedType === "groceries"
+        ? groceryPrice
+        : commercialPrice;
+
+      const oldPrice = newPrice + 5;
+      const discount = oldPrice - newPrice;
+
+      // Update UI
+      priceElement.textContent = `₹${newPrice}/kg`;
+      oldPriceElement.textContent = `₹${oldPrice}/kg`;
+      discountElement.textContent = `₹${discount} OFF`;
+
+    });
+
   });
 });
     const options = document.querySelectorAll('.option');
