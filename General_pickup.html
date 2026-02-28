@@ -777,10 +777,14 @@ input, select, textarea, button {
       </div>
     </div>
 
-    <div class="priceRow">
-      <span class="currentPrice">₹25/kg</span>
-      <span class="oldPrice">₹30/kg</span>
-    </div>
+   <div class="priceRow">
+  <span class="currentPrice" 
+        data-grocery="35" 
+        data-commercial="20">
+        ₹35/kg
+  </span>
+  <span class="oldPrice">₹40/kg</span>
+</div>
 
     <div class="discount">₹5 OFF</div>
     <div class="itemTitle">Recyclable Plastic Waste</div>
@@ -798,10 +802,14 @@ input, select, textarea, button {
       </div>
     </div>
 
-    <div class="priceRow">
-      <span class="currentPrice">₹15/kg</span>
-      <span class="oldPrice">₹18/kg</span>
-    </div>
+   <div class="priceRow">
+  <span class="currentPrice" 
+        data-grocery="35" 
+        data-commercial="20">
+        ₹35/kg
+  </span>
+  <span class="oldPrice">₹40/kg</span>
+</div>
 
     <div class="discount">₹3 OFF</div>
     <div class="itemTitle">Glass Scrap Material</div>
@@ -820,9 +828,13 @@ input, select, textarea, button {
     </div>
 
     <div class="priceRow">
-      <span class="currentPrice">₹12/kg</span>
-      <span class="oldPrice">₹15/kg</span>
-    </div>
+  <span class="currentPrice" 
+        data-grocery="35" 
+        data-commercial="20">
+        ₹35/kg
+  </span>
+  <span class="oldPrice">₹40/kg</span>
+</div>
 
     <div class="discount">₹3 OFF</div>
     <div class="itemTitle">Old Newspaper & Paper</div>
@@ -840,10 +852,14 @@ input, select, textarea, button {
       </div>
     </div>
 
-    <div class="priceRow">
-      <span class="currentPrice">₹20/kg</span>
-      <span class="oldPrice">₹25/kg</span>
-    </div>
+  <div class="priceRow">
+  <span class="currentPrice" 
+        data-grocery="35" 
+        data-commercial="20">
+        ₹35/kg
+  </span>
+  <span class="oldPrice">₹40/kg</span>
+</div>
 
     <div class="discount">₹5 OFF</div>
     <div class="itemTitle">Old Books & Magazines</div>
@@ -861,10 +877,14 @@ input, select, textarea, button {
       </div>
     </div>
 
-    <div class="priceRow">
-      <span class="currentPrice">₹35/kg</span>
-      <span class="oldPrice">₹40/kg</span>
-    </div>
+  <div class="priceRow">
+  <span class="currentPrice" 
+        data-grocery="35" 
+        data-commercial="20">
+        ₹35/kg
+  </span>
+  <span class="oldPrice">₹40/kg</span>
+</div>
 
     <div class="discount">₹5 OFF</div>
     <div class="itemTitle">Electronic Waste Materials</div>
@@ -882,10 +902,14 @@ input, select, textarea, button {
       </div>
     </div>
 
-    <div class="priceRow">
-      <span class="currentPrice">₹18/kg</span>
-      <span class="oldPrice">₹22/kg</span>
-    </div>
+  <div class="priceRow">
+  <span class="currentPrice" 
+        data-grocery="35" 
+        data-commercial="20">
+        ₹35/kg
+  </span>
+  <span class="oldPrice">₹40/kg</span>
+</div>
 
     <div class="discount">₹4 OFF</div>
     <div class="itemTitle">Corrugated Cardboard Scrap</div>
@@ -1487,14 +1511,40 @@ await localStorage.setItem('time', selectedTimeRange);           // Store time
   // ----------------------------
   // CART CONTROL (ADD / − / +)
   // ----------------------------
-    const tabs = document.querySelectorAll(".type-tab");
+const tabs = document.querySelectorAll(".type-tab");
+const priceElement = document.querySelector(".currentPrice");
+const oldPriceElement = document.querySelector(".oldPrice");
+const discountElement = document.querySelector(".discount");
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-    });
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+
+    // Toggle active tab
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+
+    // Get prices from data attributes
+    const groceryPrice = parseInt(priceElement.dataset.grocery);
+    const commercialPrice = parseInt(priceElement.dataset.commercial);
+
+    let newPrice;
+
+    if (tab.id === "groceries") {
+      newPrice = groceryPrice;
+    } else {
+      newPrice = commercialPrice;
+    }
+
+    // Example old price logic (add ₹5)
+    const oldPrice = newPrice + 5;
+    const discount = oldPrice - newPrice;
+
+    // Update UI
+    priceElement.textContent = `₹${newPrice}/kg`;
+    oldPriceElement.textContent = `₹${oldPrice}/kg`;
+    discountElement.textContent = `₹${discount} OFF`;
   });
+});
     const options = document.querySelectorAll('.option');
 
   options.forEach(option => {
