@@ -220,7 +220,8 @@ const date = localStorage.getItem('selectedDate');
 const time = date // ✅ FIXED
 const items = JSON.parse(localStorage.getItem('items')) || [];
 const address = localStorage.getItem('address');
-
+console.log(items);
+console.log(localStorage.getItem('items_dummy'));
 /* ------------------ DISPLAY DATA ------------------ */
 document.getElementById("pickupDate").textContent = date || "Not selected";
 document.getElementById("pickupTime").textContent = time || "Not selected";
