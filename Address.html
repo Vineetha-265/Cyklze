@@ -3,149 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Address and Location</title>
+  <!-- <link rel="icon" href="Logo.PNG" type="image/png"> -->
+     <link rel="icon" href="Cyklze_ikn.png" type="image/png">
+  <title>Address</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* General Styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 60px;   /* space for title bar */
 
-    .container {
-      padding: 20px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+font-family: 'Poppins', sans-serif;
+  background-color: #f5f5f5;
 
-    .card {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      padding: 20px;
-    }
+  display: flex;
+  flex-direction: column;
+}
 
-    .gradientCard {
-      background: linear-gradient(to right, #FFFFFF, #F1F1F1);
-      border-radius: 10px;
-      padding: 20px;
-    }
+html, body {
+  height: 100%;
+}
 
-    .Loctitle {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
+footer {
+  margin-top: auto; /* pushes footer to bottom */
+}
 
-    .sectionTitle {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
+    .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
 
-    .toggleButton {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      text-align: center;
-      margin-top: 10px;
-    }
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
 
-    .toggleButtonText {
-      font-size: 16px;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
 
-    .locationRow {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
 
-    .locationText {
-      font-size: 16px;
-    }
+/* body {
+  margin: 0;
+  padding-top: 60px;
+ 
+} */
 
-    .iconButton {
-      background-color: #2196f3;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    .container { padding: 20px; max-width: 600px; margin: 0 auto; }
+    .card { background-color: white; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; padding: 20px; }
+    .gradientCard { background: linear-gradient(to right,#FFFFFF,#F1F1F1); border-radius: 10px; padding: 20px;   }
+    .hidden {
+  display: none;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
 
-    .errorText {
-      color: red;
-      font-size: 14px;
-      margin-top: 10px;
-    }
+/* Popup box */
+.popupContent {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 450px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+}
 
-    .divider {
-      height: 1px;
-      background-color: #ddd;
-      margin: 20px 0;
-    }
+/* Close button */
+.closeBtn {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-size: 26px;
+  cursor: pointer;
+}
 
-    .inputLabel {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
+.actionBtn {
+  padding: 12px 22px;
+  border: none;
+  background: #1D4D61;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+}
+    .Loctitle { font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+    .sectionTitle { font-size: 16px; margin-bottom: 10px; }
+    .toggleButton { background-color: #1D4D61; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; text-align: center; margin-top: 10px; }
+    .inputLabel { font-size: 16px; margin-bottom: 5px; }
+    .input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px; font-size: 16px; }
+    .dropdown { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px; cursor: pointer; background-color: #f9f9f9; }
+    .dropdownMenu { border: 1px solid #ddd; border-radius: 5px; margin-top: -10px; margin-bottom: 15px; display:none; }
+    .dropdownItem { padding: 10px; cursor: pointer; }
+    .dropdownItem:hover { background-color: #f1f1f1; }
+    .button { background-color: #1D4D61; color: white; border: none; padding: 15px 20px; border-radius: 5px; cursor: pointer; width: 100%; text-align: center; font-size: 16px; }
+    .button:hover { background-color: #1D4D61; }
+    .errorText { color: red; font-size: 14px; margin-top: 10px; }
+      .saved-address {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+font-family: 'Poppins', sans-serif;
+}
 
-    .input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      font-size: 16px;
-    }
+.saved-address h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
 
-    .dropdown {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      cursor: pointer;
-      background-color: #f9f9f9;
-    }
+.saved-address button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1D4D61;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
 
-    .dropdownMenu {
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-top: -10px;
-      margin-bottom: 15px;
-    }
+.saved-address button:hover {
+  background-color: #333;
+}
 
-    .dropdownItem {
-      padding: 10px;
-      cursor: pointer;
-    }
-
-    .dropdownItem:hover {
-      background-color: #f1f1f1;
-    }
-
-    .button {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 15px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-      text-align: center;
-      font-size: 16px;
-    }
-
-    .button:hover {
-      background-color: #388e3c;
-    }
 
 
 
@@ -259,380 +260,586 @@
   </style>
 </head>
 <body>
-  <div class="container" id="main-content">
-    <!-- Address Details Section -->
-    <h1>Enter Address</h1>
-    <div class="card gradientCard">
-      <div class="Loctitle">Details</div>
-      <div class="sectionTitle" id="selectedItems">Selected Items: </div>
-      <div class="sectionTitle" id="pickupType">Pickup Type: </div>
-      <div class="sectionTitle" id="chosenDate">Chosen Date: </div>
-      <div class="sectionTitle" id="chosenTime">Chosen Time: </div>
-    </div>
+  <div class="container">
+   <div class="titleBar">
+  <span class="titleText">Enter Address</span>
+</div>
 
-    <!-- Continue with Saved Address Section -->
-    <div id="savedAddressCard" class="card" style="display: none;">
+<!-- Button that opens popup -->
+
+
+<!-- <button onclick="showDetails()" class="actionBtn">Show Details</button> -->
+
+<div id="savedAddressBlock" class="saved-address">
+  <h3>Continue with saved address</h3>
+<button id="addressBtn" onclick="saveAddressAndContinue()"></button>
+
+</div>
+    <!-- <div id="savedAddressCard" class="card" style="display: none;">
       <div class="Loctitle">Continue with Saved Address</div>
       <button class="toggleButton" id="savedAddressButton">
         <span id="savedAddressText"></span>
       </button>
-    </div>
+    </div> -->
 
-    <!-- Location Section -->
-    <div class="card">
-      <div class="Loctitle">Enable Location</div>
-      <div class="locationRow">
-        <div class="locationText">Enable location for optimized services</div>
-        <button class="iconButton" id="enableLocationButton">Enable</button>
-      </div>
-      <div id="locationInfo" style="display: none;">
-        <button class="toggleButton" id="fetchedAddressButton">
-          <span id="fetchedAddressText">Fetching address...</span>
-        </button>
-      </div>
-      <div id="locationError" class="errorText" style="display: none;"></div>
-      <div id="enteradd" class="locationText" style="display: none;"></div>
-      <div class="divider"></div>
-      <div class="locationText">Or</div>
-      <button class="toggleButton" id="toggleAddressFormButton">Enter Address</button>
-      <div class="divider"></div>
-    </div>
-
-    <!-- Address Input Section -->
-    <div id="addressForm" class="card" style="display: none;">
+    <div id="addressForm" class="card">
       <div class="Loctitle">Enter Address</div>
 
-      <!-- Street Address -->
       <div class="inputLabel">Street Address:</div>
       <input type="text" class="input" id="streetAddress" placeholder="House no/Flat no/Road no">
 
-      <!-- Colony/Area -->
       <div class="inputLabel">Colony/Area:</div>
       <input type="text" class="input" id="colonyArea" placeholder="Colony/Area">
 
-      <!-- City Dropdown -->
       <div class="inputLabel">City:</div>
       <div class="dropdown" id="cityDropdown">
         <span id="selectedCity">Select City</span>
       </div>
-      <div id="dropdownMenu" class="dropdownMenu" style="display: none;">
-        <!-- Cities will be dynamically populated here -->
-      </div>
+      <div id="dropdownMenu" class="dropdownMenu">
+  <input type="text" id="citySearch" placeholder="Search city..." 
+         style="width:100%; padding:8px; border:none; border-bottom:1px solid #ddd; outline:none;">
+  <div id="cityList"></div>
+</div>
+<div class="inputLabel">Locality:</div>
+<div class="dropdown" id="localityDropdown">
+  <span id="selectedLocality">Select Locality</span>
+</div>
 
-      <!-- Postal Code -->
+<div id="localityDropdownMenu" class="dropdownMenu">
+  <input type="text" id="localitySearch" placeholder="Search locality..." 
+         style="width:100%; padding:8px; border:none; border-bottom:1px solid #ddd; outline:none;">
+  <div id="localityList"></div>
+</div>
+
       <div class="inputLabel">Postal Code:</div>
       <input type="text" class="input" id="postalCode" placeholder="Postal Code">
 
-      <!-- Confirm Address Button -->
       <button class="button" id="confirmAddressButton">Confirm Address</button>
     </div>
   </div>
-  <div id="loading">
-    <div class="spinner"></div>
-    Loading...
-  </div>
-<div class="screen" id="login-box">
-        <div class="login-box">
-            <h1>Cyklze</h1>
-            <h2>Login</h2>
-            <h3>Login required to continue placing order</h3>
-            <button class="login-btn" onclick="goToLogin()">Login</button>
-        </div>
+  <footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+    <p>&copy; 2025 Cyklze. All rights reserved.</p>
+    <p>Cyklze - We Buy Recyclables</p>
+    <p>Email: support@cyklze.com</p>
+    <div style="margin-top: 10px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
+        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
+      
+        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
     </div>
+</footer>
 
-  <div id="error-box">
-    <h3>Something went wrong!</h3>
-    <p>Please try again.</p>
-    <button onclick="checkTokenAndNavigate()">Retry</button>
-  </div>
-  <script>
-       function goToLogin() {
-         localStorage.setItem("previousPage", window.location.href);
+<script>
+/* ================= TOKEN CHECK FUNCTIONALITY ================= */
 
-    // Redirect to your login page
-     window.location.replace("login.html");
+// Cookie helpers
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i].trim();
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+  }
+  return null;
 }
-       const isTokenExpired = async () => {
-    const accessToken = getCookie('accessToken'); // Assuming the token is stored in localStorage
-    try {
-      const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
+
+// Check if token is expired
+const isTokenExpired = async () => {
+  const accessToken = localStorage.getItem('accessToken');
+
+  if (!accessToken) return true;
+
+  try {
+    const response = await fetch(
+      'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration',
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `${accessToken}`,
+          Authorization: accessToken,
         },
         body: JSON.stringify({ accessToken }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to check token expiration');
       }
+    );
 
-      const responseData = await response.json();
-      const message = responseData.message;
-
-      if (message === 'Token has expired') {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error('Error checking token expiration:', error);
-         document.getElementById("loading").style.display = "none";
+    if (!response.ok) {
+      throw new Error('Failed to check token expiration');
+        document.getElementById("loading").style.display = "none";
       document.getElementById("error-box").style.display = "block";
       document.getElementById("main-content").style.display = "none";
         document.getElementById("login-box").style.display = "none";
-      alert('Failed to check token expiration. Please try again.');
-      return true;
-    }
-  };
-
-  async function checkTokenAndNavigate() {
-       document.getElementById("loading").style.display = "block";
-      document.getElementById("error-box").style.display = "none";
-      document.getElementById("main-content").style.display = "none";
-        document.getElementById("login-box").style.display = "none";
-    const accessToken = getCookie('accessToken');
-
-    if (accessToken) {
-      const isExpired = await isTokenExpired();
-      if (isExpired) {
-        alert('Please log in');
-        window.location.href = 'login.html';
-      } else {
-        // Token is not expired, you can add your next steps here if needed.
-           document.getElementById("loading").style.display = "none";
+    }else{
+          document.getElementById("loading").style.display = "none";
       document.getElementById("error-box").style.display = "none";
       document.getElementById("main-content").style.display = "block";
         document.getElementById("login-box").style.display = "none";
-      }
-    } else {
-         document.getElementById("loading").style.display = "none";
+    }
+
+    const responseData = await response.json();
+    const message = responseData.message;
+
+    return false;
+  } catch (error) {
+    console.error('Error checking token expiration:', error);
+      document.getElementById("loading").style.display = "none";
       document.getElementById("error-box").style.display = "block";
       document.getElementById("main-content").style.display = "none";
         document.getElementById("login-box").style.display = "none";
-      alert('Please log in');
-    }
-  }   
-  
-  // window.onload = function() {
-  //   checkTokenAndNavigate();
-  // };
-    // Function to set cookies
-function setCookie(name, value, days) {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));  // Set expiry time
-    document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`; // Set cookie with expiry
+    return true;
+  }
+};
+
+// Check token and redirect if needed
+async function checkTokenAndNavigate() {
+  const accessToken = localStorage.getItem('accessToken');
+    document.getElementById("loading").style.display = "block";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+        document.getElementById("login-box").style.display = "none";
+
+  if (!accessToken) {
+    alert('Please log in');
+    localStorage.setItem("previousPage", window.location.href);
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+        document.getElementById("login-box").style.display = "block";
+    window.location.href = 'login.html';
+
+    return;
+  }
+
+  const isExpired = await isTokenExpired();
+
+  if (isExpired) {
+    alert('Session expired. Please log in again.');
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+        document.getElementById("login-box").style.display = "none";
+    localStorage.setItem("previousPage", window.location.href);
+    window.location.href = 'login.html';
+  }else{
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+        document.getElementById("login-box").style.display = "none";
+  }
 }
 
-// Function to get cookie by name
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1, c.length);
-        }
-        if (c.indexOf(nameEQ) === 0) {
-            return c.substring(nameEQ.length, c.length);
-        }
-    }
-    return null;  // If cookie not found
+/* ================= PAGE LOAD ================= */
+
+window.onload = async function () {
+
+  // 🔐 FIRST: Check token before anything else
+  await checkTokenAndNavigate();
+
+  // Then continue page logic
+  // const items = localStorage.getItem('items');
+  // const type = localStorage.getItem('type');
+  // const date = localStorage.getItem('date');
+  // const time = localStorage.getItem('time');
+
+  // if (!items || !date || !type || !time) {
+  //   window.location.href = "index.html";
+  //   return;
+  // }
+
+  console.log(items, type, date, time);
+};
+
+
+/* ================= SAVED ADDRESS BLOCK ================= */
+
+const address = localStorage.getItem("address");
+const btn = document.getElementById("addressBtn");
+const block = document.getElementById("savedAddressBlock");
+
+if (address && btn) {
+  btn.textContent = address;
+  btn.onclick = saveAddressAndContinue;
+  block.style.display = "block";
+} else {
+  block.style.display = "none";
 }
 
 
+/* ================= LOCALITY DROPDOWN ================= */
 
-    // JavaScript for Functionality
-    const items = getCookie('items');
-    
-    const type = getCookie('type');
-    const date = getCookie('date');
-    const time = getCookie('time');
-    const token = getCookie('accessToken');
-    // if(!items || !token || !type || !date || !time){
-    //   window.location.href = 'login.html'
-    // }
-    document.getElementById('selectedItems').textContent = `Selected Items: ${items}`;
-    
-    document.getElementById('pickupType').textContent = `Selected Pickup Type: ${type}`;
-    document.getElementById('chosenDate').textContent = `Selected Date: ${date}`;
-    
-    document.getElementById('chosenTime').textContent = `Selected Time: ${time}`;
-    // Sample Data
-    const Tier1Cities = [
-      { value: 'New York', label: 'New York' },
-      { value: 'Los Angeles', label: 'Los Angeles' },
-      { value: 'Chicago', label: 'Chicago' },
-      { value: 'Houston', label: 'Houston' },
-       { value: 'Hyderabad', label: 'Hyderabad' },
-    ];
+const Localities = [
+  { value: 'Kukatpally', label: 'Kukatpally' },
+  { value: 'KBHP', label: 'KBHP' },
+  { value: 'Tirumalagirri', label: 'Tirumalagirri' },
+  { value: 'Bollaram', label: 'Bollaram' }
+];
 
-    // State Variables
-    let savedAddress = ''; // Replace with actual saved address
-    let showAddressForm = false;
-    let selectedCity = 'Select City';
-    let address = {
-      street: '',
-      area: '',
-      city: '',
-      postalCode: '',
+let selectedLocality = 'Select Locality';
+
+const localityDropdown = document.getElementById('localityDropdown');
+const localityDropdownMenu = document.getElementById('localityDropdownMenu');
+const localityList = document.getElementById('localityList');
+const localitySearch = document.getElementById('localitySearch');
+
+function populateLocalityDropdown(filter = "") {
+  const filtered = Localities.filter(loc =>
+    loc.label.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  localityList.innerHTML = filtered.map(loc =>
+    `<div class="dropdownItem" onclick="selectLocality('${loc.value}')">${loc.label}</div>`
+  ).join('');
+}
+
+function selectLocality(locality) {
+  selectedLocality = locality;
+  document.getElementById('selectedLocality').textContent = locality;
+  localityDropdownMenu.style.display = 'none';
+  localitySearch.value = "";
+}
+
+localityDropdown.addEventListener('click', function () {
+  const isOpen = localityDropdownMenu.style.display === 'block';
+  localityDropdownMenu.style.display = isOpen ? 'none' : 'block';
+
+  if (!isOpen) {
+    populateLocalityDropdown();
+    localitySearch.focus();
+  }
+});
+
+localitySearch.addEventListener('input', function () {
+  populateLocalityDropdown(this.value);
+});
+
+
+/* ================= CITY DROPDOWN ================= */
+
+const Tier1Cities = [
+  { value: 'Hyderabad', label: 'Hyderabad' },
+  { value: 'Mumbai', label: 'Mumbai' },
+  { value: 'Delhi', label: 'Delhi' },
+  { value: 'Chennai', label: 'Chennai' },
+  { value: 'Bangalore', label: 'Bangalore' }
+];
+
+let selectedCity = 'Select City';
+
+const cityDropdown = document.getElementById('cityDropdown');
+const dropdownMenu = document.getElementById('dropdownMenu');
+const cityList = document.getElementById('cityList');
+const citySearch = document.getElementById('citySearch');
+
+function populateDropdown(filter = "") {
+  const filteredCities = Tier1Cities.filter(city =>
+    city.label.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  cityList.innerHTML = filteredCities.map(city =>
+    `<div class="dropdownItem" onclick="selectCity('${city.value}')">${city.label}</div>`
+  ).join('');
+}
+
+function selectCity(city) {
+  selectedCity = city;
+  document.getElementById('selectedCity').textContent = city;
+  dropdownMenu.style.display = 'none';
+  citySearch.value = "";
+}
+
+cityDropdown.addEventListener('click', function () {
+  const isOpen = dropdownMenu.style.display === 'block';
+  dropdownMenu.style.display = isOpen ? 'none' : 'block';
+
+  if (!isOpen) {
+    populateDropdown();
+    citySearch.focus();
+  }
+});
+
+citySearch.addEventListener('input', function () {
+  populateDropdown(this.value);
+});
+
+
+/* ================= CONFIRM ADDRESS ================= */
+
+const confirmAddressButton = document.getElementById('confirmAddressButton');
+
+confirmAddressButton.addEventListener('click', function () {
+
+  const street = document.getElementById('streetAddress').value.trim();
+  const area = document.getElementById('colonyArea').value.trim();
+  const postal = document.getElementById('postalCode').value.trim();
+
+  if (!street || !area || selectedCity === 'Select City' || selectedLocality === 'Select Locality' || !postal) {
+    alert('Please fill all fields.');
+    return;
+  }
+
+  const pattern = /^5000(0[1-9]|[1-9][0-9])$/;
+
+  if (!pattern.test(postal)) {
+    alert("We don't serve this postal code.");
+    return;
+  }
+
+  const fullAddress = `${street}, ${area}, ${selectedLocality}, ${selectedCity}, ${postal}`;
+  localStorage.setItem('address', fullAddress);
+
+  window.location.replace("1confirm.html");
+});
+
+
+function saveAddressAndContinue() {
+  window.location.replace("1confirm.html");
+}
+
+</script>
+
+  <!-- <script>
+    // Cookie helpers
+const address = localStorage.getItem("address");
+const btn = document.getElementById("addressBtn");
+  const block = document.getElementById("savedAddressBlock");
+if (address && btn) {
+  btn.textContent = address;
+  btn.onclick = useSavedAddress;
+   block.style.display = "block"; 
+}
+else {
+    block.style.display = "none";    // hide
+  }
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + (days*24*60*60*1000));
+      document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
+    }
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for(let i=0;i<ca.length;i++) {
+        let c = ca[i].trim();
+        if(c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+      }
+      return null;
+    }
+
+    // Populate page from cookies
+    window.onload = function() {
+    const items = localStorage.getItem('items');
+const type = localStorage.getItem('type');
+const date = new Date(localStorage.getItem('date'));  // convert back to Date
+const time = localStorage.getItem('time');
+// function openPopup() {
+//   document.getElementById("detailsPopup").classList.remove("hidden");
+// }
+
+  const accessToken = localStorage.getItem('accessToken');
+     if (!items || !date || !type || !time) {
+        window.location.href = "index.html";
+        return;
+      }
+
+// function closePopup() {
+//   document.getElementById("detailsPopup").classList.add("hidden");
+// }
+
+console.log(items, type, date, time);
+
+
+      if (items) document.getElementById('selectedItems').textContent = `Selected Items: ${items}`;
+      if (type) document.getElementById('pickupType').textContent = `Selected Pickup Type: ${type}`;
+      if (date) document.getElementById('chosenDate').textContent = `Chosen Date: ${date}`;
+      if (time) document.getElementById('chosenTime').textContent = `Selected Time: ${time}`;
     };
 
-    // DOM Elements
-    const savedAddressCard = document.getElementById('savedAddressCard');
-    const savedAddressText = document.getElementById('savedAddressText');
-    const enableLocationButton = document.getElementById('enableLocationButton');
-    const locationInfo = document.getElementById('locationInfo');
-    const fetchedAddressText = document.getElementById('fetchedAddressText');
-    const locationError = document.getElementById('locationError');
-    const toggleAddressFormButton = document.getElementById('toggleAddressFormButton');
-    const addressForm = document.getElementById('addressForm');
-    const cityDropdown = document.getElementById('cityDropdown');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const fetchedAddressBtn = document.getElementById('fetchedAddressButton');
-    const confirmAddressButton = document.getElementById('confirmAddressButton');
-    
-    const enteradd = document.getElementById('enteradd');
-
-    // Event Listeners
-    fetchedAddressBtn.addEventListener('click',fetchedAddressBtnn)
-    enableLocationButton.addEventListener('click', requestLocationPermission);
-    toggleAddressFormButton.addEventListener('click', toggleAddressForm);
-    cityDropdown.addEventListener('click', toggleDropdown);
-    confirmAddressButton.addEventListener('click', handleConfirmAddress);
-
-    // Functions
-    function fetchedAddressBtnn() {
-      
-      sessionStorage.setItem('address',fetchedAddressText.textContent);
-      window.location.href = "Confirm_Details.html";
-    }
-    // Toggle Address Form
-    function toggleAddressForm() {
-      showAddressForm = !showAddressForm;
-      addressForm.style.display = showAddressForm ? 'block' : 'none';
-      toggleAddressFormButton.textContent = showAddressForm ? 'Hide Address Form' : 'Enter Address';
-    }
-
-    // Toggle Dropdown
-    function toggleDropdown() {
-      const isOpen = dropdownMenu.style.display === 'block';
-      dropdownMenu.style.display = isOpen ? 'none' : 'block';
-      if (!isOpen) {
-        populateDropdown();
-      }
-    }
-
-    // Populate Dropdown
-    function populateDropdown() {
-      dropdownMenu.innerHTML = Tier1Cities.map(city => `
-        <div class="dropdownItem" onclick="selectCity('${city.value}')">${city.label}</div>
-      `).join('');
-    }
-
-    // Select City
-    function selectCity(city) {
-      selectedCity = city;
-      document.getElementById('selectedCity').textContent = city;
-      dropdownMenu.style.display = 'none';
-    }
-
-    // async function requestLocationPermission() {
-    //         if (navigator.geolocation) {
-    //             try {
-    //                 navigator.geolocation.getCurrentPosition(
-    //                     async (position) => {
-    //                         const { latitude, longitude } = position.coords;
-    //                         locationStatus.textContent = "Location permission granted!";
-    //                         locationError.style.display = 'none';
-    //                         await fetchAddress(latitude, longitude);
-    //                     },
-    //                     (error) => {
-    //                         locationError.textContent = 'Error fetching location: ' + error.message;
-    //                         locationError.style.display = 'block';
-    //                     }
-    //                 );
-    //             } catch (error) {
-    //                 locationError.textContent = 'An unexpected error occurred: ' + error.message;
-    //                 locationError.style.display = 'block';
-    //             }
-    //         } else {
-    //             locationError.textContent = 'Geolocation is not supported by this browser.';
-    //             locationError.style.display = 'block';
-    //         }
-    //     }
 
 
-  //  Request Location Permission
-   async function requestLocationPermission() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-        async  (position) => {
-            const { latitude, longitude } = position.coords;
-           await fetchAddress(latitude, longitude);
-          },
-          (error) => {
-            locationError.textContent = 'Error fetching location: ' + error.message;
-            locationError.style.display = 'block';
-            enteradd.textContent = 'Location Services are Blocked.<br>Please enter address';
-            enteradd.style.display = 'block';
-          }
-        );
-      } else {
-        locationError.textContent = 'Geolocation is not supported by this browser.';
-        locationError.style.display = 'block';
-      }
-    }
+// Localities
+const Localities = [
+  { value: 'Kukatpally', label: 'Kukatpally' },
+  { value: 'KBHP', label: 'KBHP' },
+  { value: 'Tirumalagirri', label: 'Tirumalagirri' },
+  { value: 'Bollaram', label: 'Bollaram' }
+];
 
-    // Fetch Address from Coordinates
-    async function fetchAddress(latitude, longitude) {
-  const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+let selectedLocality = 'Select Locality';
 
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data && data.display_name) {
-        const address = data.display_name;
-        fetchedAddressText.textContent = `Address: ${address}`;
-        locationInfo.style.display = 'block';
-        setCookie('address',address,1);
-       // sessionStorage.setItem('address', address+'.');
-        window.location.href = "Confirm_Details.html";
-      } else {
-        locationError.textContent = 'Unable to fetch address.';
-        locationError.style.display = 'block';
-      }
-    })
-    .catch(error => {
-      locationError.textContent = 'Error fetching address: ' + error.message;
-      locationError.style.display = 'block';
-    });
+const localityDropdown = document.getElementById('localityDropdown');
+const localityDropdownMenu = document.getElementById('localityDropdownMenu');
+const localityList = document.getElementById('localityList');
+const localitySearch = document.getElementById('localitySearch');
+
+// Populate locality dropdown
+function populateLocalityDropdown(filter = "") {
+  const filtered = Localities.filter(loc =>
+    loc.label.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  localityList.innerHTML = filtered.map(loc =>
+    `<div class="dropdownItem" onclick="selectLocality('${loc.value}')">${loc.label}</div>`
+  ).join('');
 }
 
+// Select locality
+function selectLocality(locality) {
+  selectedLocality = locality;
+  document.getElementById('selectedLocality').textContent = locality;
+  localityDropdownMenu.style.display = 'none';
+  localitySearch.value = "";
+}
 
-    // Handle Confirm Address
-    function handleConfirmAddress() {
-      address.street = document.getElementById('streetAddress').value;
-      address.area = document.getElementById('colonyArea').value;
-      address.city = selectedCity;
-      address.postalCode = document.getElementById('postalCode').value;
+// Toggle locality dropdown
+localityDropdown.addEventListener('click', function () {
+  const isOpen = localityDropdownMenu.style.display === 'block';
+  localityDropdownMenu.style.display = isOpen ? 'none' : 'block';
 
-      if (address.street && address.area && address.city && address.postalCode) {
-        setCookie('address', address.street+ ','+address.area+','+address.city+','+address.postalCode+'.',1);
-        window.location.href = "Confirm_Details.html";
-        // Navigate or perform further actions
-      } else {
-        alert('Please fill all fields.');
-      }
+  if (!isOpen) {
+    populateLocalityDropdown();
+    localitySearch.focus();
+  }
+});
+
+// Search filter
+localitySearch.addEventListener('input', function () {
+  populateLocalityDropdown(this.value);
+});
+
+
+
+
+
+
+
+// Cities
+const Tier1Cities = [
+  { value: 'Hyderabad', label: 'Hyderabad' },
+  { value: 'Mumbai', label: 'Mumbai' },
+  { value: 'Delhi', label: 'Delhi' },
+  { value: 'Chennai', label: 'Chennai' },
+  { value: 'Bangalore', label: 'Bangalore' }
+];
+
+let selectedCity = 'Select City';
+
+const cityDropdown = document.getElementById('cityDropdown');
+const dropdownMenu = document.getElementById('dropdownMenu');
+const cityList = document.getElementById('cityList');
+const citySearch = document.getElementById('citySearch');
+
+// Populate dropdown list
+function populateDropdown(filter = "") {
+  const filteredCities = Tier1Cities.filter(city =>
+    city.label.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  cityList.innerHTML = filteredCities.map(city =>
+    `<div class="dropdownItem" onclick="selectCity('${city.value}')">${city.label}</div>`
+  ).join('');
+}
+btn.onclick = saveAddressAndContinue;
+
+// Select city
+function selectCity(city) {
+  selectedCity = city;
+  document.getElementById('selectedCity').textContent = city;
+  dropdownMenu.style.display = 'none';
+  citySearch.value = "";
+}
+
+// Toggle dropdown
+cityDropdown.addEventListener('click', function () {
+  const isOpen = dropdownMenu.style.display === 'block';
+  dropdownMenu.style.display = isOpen ? 'none' : 'block';
+
+  if (!isOpen) {
+    populateDropdown();
+    citySearch.focus();
+  }
+});
+
+// Search filtering
+citySearch.addEventListener('input', function () {
+  populateDropdown(this.value);
+});
+
+
+
+
+
+
+
+    // // Cities
+    // const Tier1Cities = [{ value: 'Hyderabad', label: 'Hyderabad' }];
+    // let selectedCity = 'Select City';
+
+    // const cityDropdown = document.getElementById('cityDropdown');
+    // const dropdownMenu = document.getElementById('dropdownMenu');
+    // const confirmAddressButton = document.getElementById('confirmAddressButton');
+
+    // // Populate dropdown
+    // function populateDropdown() {
+    //   dropdownMenu.innerHTML = Tier1Cities.map(city => 
+    //     `<div class="dropdownItem" onclick="selectCity('${city.value}')">${city.label}</div>`).join('');
+    // }
+
+    // function selectCity(city) {
+    //   selectedCity = city;
+    //   document.getElementById('selectedCity').textContent = city;
+    //   dropdownMenu.style.display = 'none';
+    // }
+
+    // cityDropdown.addEventListener('click', function() {
+    //   dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+    //   if (dropdownMenu.style.display === 'block') populateDropdown();
+    // });
+
+    // Handle confirm
+    const confirmAddressButton = document.getElementById('confirmAddressButton');
+    confirmAddressButton.addEventListener('click', function() {
+      const street = document.getElementById('streetAddress').value.trim();
+      const area = document.getElementById('colonyArea').value.trim();
+      const postal = document.getElementById('postalCode').value.trim();
+
+    if (!street || !area || 
+    selectedCity === 'Select City' || 
+    selectedLocality === 'Select Locality' || 
+    !postal) {
+  alert('Please fill all fields.');
+  return;
+}
+          const pattern = /^5000(0[1-9]|[1-9][0-9])$/;
+
+    if (!pattern.test(postal)) {
+        alert("We don't serve this postal code.");
+        return;
     }
 
-    // Initialize Saved Address
-    if (savedAddress) {
-      savedAddressCard.style.display = 'block';
-      savedAddressText.textContent = savedAddress;
-    }
-    // window.onload = requestLocationPermission;
-  </script>
+   const fullAddress = `${street}, ${area}, ${selectedLocality}, ${selectedCity}, ${postal}`;
+     localStorage.setItem('address', fullAddress);
+window.location.replace("1confirm.html");
+
+      // window.location.href = "Confirm_Details.html";
+    });
+
+        function saveAddressAndContinue() {
+
+
+
+  // const fullAddress = `${street}, ${area}, ${selectedCity}, ${postal}`;
+
+  // // Save to localStorage
+  // localStorage.setItem("address", fullAddress);
+
+  // Redirect
+          window.location.replace("1confirm.html");
+
+  // window.location.href = "Confirm_Details.html";
+}
+  </script> -->
 </body>
 </html>
+
+
+
+
