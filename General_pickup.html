@@ -1429,7 +1429,7 @@ function handleTimeRangeSelection(time) {
    FINAL VALIDATION
 ===================================================== */
 
-function validateAndConfirmPickup() {
+async function validateAndConfirmPickup()  {
 
   if (!Object.keys(cart).length) {
     alert("Please select at least one item.");
@@ -1440,7 +1440,14 @@ function validateAndConfirmPickup() {
   //   alert("Please select pickup date.");
   //   return;
   // }
-
+  const result = Object.entries(cart).map(
+  ([key, value]) => `${key}: ${value}`
+);
+ console.log("cart");
+ console.log(result);
+  console.log("cart");
+// await localStorage.setItem('items',result);
+await localStorage.setItem('items', JSON.stringify(result));
   // if (!selectedTime) {
   //   alert("Please select pickup time.");
   //   return;
