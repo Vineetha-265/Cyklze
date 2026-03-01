@@ -132,6 +132,11 @@ body{
     cursor:pointer;
 }
 
+.confirm-btn:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+}
+
 /* Bottom Section */
 .bottom{
     text-align:center;
@@ -139,12 +144,25 @@ body{
     color:#555;
     font-size:14px;
 }
+
+/* Toast */
+.toast{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#333;
+    color:white;
+    padding:10px 18px;
+    border-radius:8px;
+    display:none;
+    z-index:999;
+}
 </style>
 </head>
 
 <body>
 
-<!-- Top Bar -->
 <div class="app-bar">
     <span onclick="goBack()">←</span>
     Confirm Pickup
@@ -152,7 +170,6 @@ body{
 
 <div class="container">
 
-    <!-- Pickup Summary -->
     <div class="card">
         <div class="section-title">
             Pickup Summary
@@ -162,45 +179,186 @@ body{
         <div class="divider"></div>
 
         <strong>Items</strong><br>
-        <div class="chip">Fridge: 4 Qty</div>
+        <div id="itemsContainer"></div>
 
         <div class="divider"></div>
 
         <strong>Pickup Details</strong>
         <div style="margin-top:8px;font-size:14px;color:#444;">
-            📅 28 Feb<br>
-            ⏰ 28 Feb
+            📅 <span id="pickupDate"></span><br>
+            ⏰ <span id="pickupTime"></span>
         </div>
     </div>
 
-    <!-- Address Section -->
     <div>
         <div class="address-title">Pickup Address</div>
         <div class="sub-text">This is the address selected for the pickup.</div>
 
         <div class="address-row">
             <span>🏠</span>
-            <div>1-33-116, rtc colony, Hyderabad, 500018</div>
+            <div id="pickupAddress"></div>
         </div>
     </div>
 
-    <!-- Confirm Section -->
     <div class="card confirm-card">
         <p>Ready to confirm your pickup?</p>
-        <button class="confirm-btn">✔ Confirm Pickup</button>
+        <button class="confirm-btn" id="confirmBtn">✔ Confirm Pickup</button>
     </div>
 
-    <!-- Bottom Message -->
     <div class="bottom">
         Everything looks great!
     </div>
 
 </div>
 
+<div id="toast" class="toast"></div>
+
 <script>
+
+/* ------------------ GET DATA ------------------ */
+const date = localStorage.getItem('selectedDate');
+const time = localStorage.getItem('selectedTime');
+const items = JSON.parse(localStorage.getItem('items')) || {};
+const address = localStorage.getItem('address');
+
+/* ------------------ DISPLAY DATA ------------------ */
+document.getElementById("pickupDate").textContent = date || "Not selected";
+document.getElementById("pickupTime").textContent = time || "Not selected";
+document.getElementById("pickupAddress").textContent = address || "No address selected";
+
+const itemsContainer = document.getElementById("itemsContainer");
+Object.entries(items).forEach(([key, value]) => {
+    const chip = document.createElement("div");
+    chip.className = "chip";
+    chip.textContent = `${key}: ${value} Qty`;
+    itemsContainer.appendChild(chip);
+});
+
+/* ------------------ HELPERS ------------------ */
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function showToast(message){
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.display = "block";
+    setTimeout(()=> toast.style.display="none", 3000);
+}
+
 function goBack(){
     window.history.back();
 }
+
+/* ------------------ TOKEN CHECK ------------------ */
+
+async function isTokenExpired() {
+    const accessToken = localStorage.getItem('accessToken');
+
+    try {
+        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': accessToken
+            },
+            body: JSON.stringify({ accessToken })
+        });
+
+        if (!response.ok) return true;
+
+        const data = await response.json();
+        return data.message === "Token has expired";
+
+    } catch (error) {
+        console.error("Token check error:", error);
+        return true;
+    }
+}
+
+async function checkTokenAndNavigate(){
+    const accessToken = localStorage.getItem('accessToken');
+
+    if(!accessToken){
+        alert("Please log in");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const expired = await isTokenExpired();
+    if(expired){
+        alert("Session expired. Please log in again.");
+        window.location.href = "login.html";
+    }
+}
+
+window.onload = checkTokenAndNavigate;
+
+/* ------------------ CONFIRM PICKUP ------------------ */
+
+document.getElementById("confirmBtn").addEventListener("click", handleConfirm);
+
+async function handleConfirm(){
+
+    if (!address || !date || !time) {
+        showToast("Missing pickup details");
+        return;
+    }
+
+    if (address.toLowerCase().indexOf("hyderabad") === -1) {
+        alert("The address must contain 'Hyderabad'.");
+        return;
+    }
+
+    const button = document.getElementById("confirmBtn");
+    button.disabled = true;
+    button.textContent = "Processing...";
+
+    try {
+        const accessToken = localStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            showToast("Authentication failed. Please login.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': accessToken
+            },
+            body: JSON.stringify({
+                address,
+                date,
+                time,
+                items,
+                type: "pickup"
+            })
+        });
+
+        const data = await response.json();
+
+        if(response.ok){
+            window.location.href = "Confirmed.html";
+        } else {
+            showToast(data.message || "Something went wrong");
+            window.location.href = "login.html";
+        }
+
+    } catch(error){
+        console.error(error);
+        showToast("Failed to connect. Try again later.");
+    } finally {
+        button.disabled = false;
+        button.textContent = "✔ Confirm Pickup";
+    }
+}
+
 </script>
 
 </body>
