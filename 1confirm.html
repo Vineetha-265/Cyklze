@@ -217,8 +217,8 @@ body{
 
 /* ------------------ GET DATA ------------------ */
 const date = localStorage.getItem('selectedDate');
-const time = localStorage.getItem('selectedTime');
-const items = JSON.parse(localStorage.getItem('items')) || {};
+const time = date // ✅ FIXED
+const items = JSON.parse(localStorage.getItem('items')) || [];
 const address = localStorage.getItem('address');
 
 /* ------------------ DISPLAY DATA ------------------ */
@@ -226,21 +226,21 @@ document.getElementById("pickupDate").textContent = date || "Not selected";
 document.getElementById("pickupTime").textContent = time || "Not selected";
 document.getElementById("pickupAddress").textContent = address || "No address selected";
 
+/* ------------------ DISPLAY ITEMS ------------------ */
 const itemsContainer = document.getElementById("itemsContainer");
-Object.entries(items).forEach(([key, value]) => {
-    const chip = document.createElement("div");
-    chip.className = "chip";
-    chip.textContent = `${key}: ${value} Qty`;
-    itemsContainer.appendChild(chip);
-});
+
+if (Array.isArray(items) && items.length > 0) {
+    items.forEach(item => {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.textContent = item; // Shows "plastic: 10"
+        itemsContainer.appendChild(chip);
+    });
+} else {
+    itemsContainer.textContent = "No items selected";
+}
 
 /* ------------------ HELPERS ------------------ */
-
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
 
 function showToast(message){
     const toast = document.getElementById("toast");
@@ -259,14 +259,17 @@ async function isTokenExpired() {
     const accessToken = localStorage.getItem('accessToken');
 
     try {
-        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': accessToken
-            },
-            body: JSON.stringify({ accessToken })
-        });
+        const response = await fetch(
+            'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': accessToken
+                },
+                body: JSON.stringify({ accessToken })
+            }
+        );
 
         if (!response.ok) return true;
 
@@ -308,7 +311,7 @@ async function handleConfirm(){
         return;
     }
 
-    if (address.toLowerCase().indexOf("hyderabad") === -1) {
+    if (!address.toLowerCase().includes("hyderabad")) {
         alert("The address must contain 'Hyderabad'.");
         return;
     }
@@ -326,20 +329,32 @@ async function handleConfirm(){
             return;
         }
 
-        const response = await fetch('https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': accessToken
-            },
-            body: JSON.stringify({
-                address,
-                date,
-                time,
-                items,
-                type: "pickup"
-            })
+        // ✅ Convert ['plastic: 10'] → structured format
+        const structuredItems = items.map(item => {
+            const [name, qty] = item.split(":");
+            return {
+                name: name.trim(),
+                quantity: Number(qty.trim())
+            };
         });
+
+        const response = await fetch(
+            'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': accessToken
+                },
+                body: JSON.stringify({
+                    address,
+                    date,
+                    time,
+                    items: structuredItems,
+                    type: "pickup"
+                })
+            }
+        );
 
         const data = await response.json();
 
@@ -347,7 +362,6 @@ async function handleConfirm(){
             window.location.href = "Confirmed.html";
         } else {
             showToast(data.message || "Something went wrong");
-            window.location.href = "login.html";
         }
 
     } catch(error){
