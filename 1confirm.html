@@ -360,7 +360,13 @@ async function handleConfirm(){
         const data = await response.json();
 
         if(response.ok){
-            window.location.href = "Confirmed.html";
+         if (data.message && data.message.toLowerCase() === "pending") {
+            alert("Your recent order is still pending. You cannot schedule another pickup.");
+            return;
+        }else{
+  window.location.href = "Confirmed.html";
+        }
+          
         } else {
             showToast(data.message || "Something went wrong");
         }
