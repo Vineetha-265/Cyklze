@@ -220,13 +220,15 @@ const date = localStorage.getItem('selectedDate');
 const time = date // ✅ FIXED
 const items = JSON.parse(localStorage.getItem('items')) || [];
 const address = localStorage.getItem('address');
+const storedImage = localStorage.getItem("selectedImage");
+//   selectedImage
 console.log(items);
 console.log(localStorage.getItem('items_dummy'));
 /* ------------------ DISPLAY DATA ------------------ */
 document.getElementById("pickupDate").textContent = date || "Not selected";
 document.getElementById("pickupTime").textContent = time || "Not selected";
 document.getElementById("pickupAddress").textContent = address || "No address selected";
-
+const imageToSend = storedImage && storedImage.trim() !== "" ? storedImage : "no";
 /* ------------------ DISPLAY ITEMS ------------------ */
 const itemsContainer = document.getElementById("itemsContainer");
 
@@ -347,13 +349,14 @@ async function handleConfirm(){
                     'Content-Type': 'application/json',
                     'Authorization': accessToken
                 },
-                body: JSON.stringify({
-                    address,
-                    date,
-                    time,
-                    items: structuredItems,
-                    type: "pickup"
-                })
+              body: JSON.stringify({
+    address,
+    date,
+    time,
+    items: structuredItems,
+    type: "pickup",
+    image: imageToSend
+})
             }
         );
 
