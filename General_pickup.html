@@ -1446,7 +1446,7 @@ async function validateAndConfirmPickup()  {
  console.log("cart");
  console.log(result);
   console.log("cart");
-// await localStorage.setItem('items',result);
+await localStorage.setItem('items_dummy',result);
 await localStorage.setItem('items', JSON.stringify(result));
   // if (!selectedTime) {
   //   alert("Please select pickup time.");
