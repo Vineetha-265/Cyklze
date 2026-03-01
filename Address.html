@@ -392,6 +392,7 @@ const isTokenExpired = async () => {
 // Check token and redirect if needed
 async function checkTokenAndNavigate() {
   const accessToken = localStorage.getItem('accessToken');
+  console.log(accessToken);
     document.getElementById("loading").style.display = "block";
       document.getElementById("error-box").style.display = "none";
       document.getElementById("main-content").style.display = "none";
