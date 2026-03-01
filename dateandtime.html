@@ -316,9 +316,12 @@ function handleImageUpload(input) {
 }
 
 
+
+
+
 continueBtn.addEventListener("click", function () {
 
-    // 1️⃣ Get selected date
+    /* ------------------ 1️⃣ Get Selected Date ------------------ */
     const selectedDateEl = document.querySelector(".date-option.selected");
 
     if (!selectedDateEl) {
@@ -328,7 +331,7 @@ continueBtn.addEventListener("click", function () {
 
     const selectedDate = selectedDateEl.textContent;
 
-    // 2️⃣ Get image (base64)
+    /* ------------------ 2️⃣ Get Image (Base64) ------------------ */
     const imageData = imagePreview.src;
 
     if (!imageData) {
@@ -336,15 +339,52 @@ continueBtn.addEventListener("click", function () {
         return;
     }
 
-    // ✅ Save separately
+    /* ------------------ 3️⃣ Convert to Pure Base64 ------------------ */
+    // Remove data URL prefix (if present) to match Flutter base64Encode style
+    const pureBase64 = imageData.includes(",") ? imageData.split(",")[1] : imageData;
+
+    /* ------------------ 4️⃣ Save to localStorage ------------------ */
     localStorage.setItem("selectedDate", selectedDate);
-    localStorage.setItem("selectedImage", imageData);
+    localStorage.setItem("selectedImage", pureBase64);
 
     console.log("Date Saved:", selectedDate);
-    console.log("Image Saved:", imageData);
-     window.location.href = "Address.html";
+    console.log("Image Saved (Base64):", pureBase64);
 
+    /* ------------------ 5️⃣ Navigate to Next Page ------------------ */
+    window.location.href = "Address.html";
 });
+
+
+
+// continueBtn.addEventListener("click", function () {
+
+//     // 1️⃣ Get selected date
+//     const selectedDateEl = document.querySelector(".date-option.selected");
+
+//     if (!selectedDateEl) {
+//         alert("Please select a date");
+//         return;
+//     }
+
+//     const selectedDate = selectedDateEl.textContent;
+
+//     // 2️⃣ Get image (base64)
+//     const imageData = imagePreview.src;
+
+//     if (!imageData) {
+//         alert("Please upload an image");
+//         return;
+//     }
+
+//     // ✅ Save separately
+//     localStorage.setItem("selectedDate", selectedDate);
+//     localStorage.setItem("selectedImage", imageData);
+
+//     console.log("Date Saved:", selectedDate);
+//     console.log("Image Saved:", imageData);
+//      window.location.href = "Address.html";
+
+// });
 
 </script>
 
