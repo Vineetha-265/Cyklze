@@ -306,7 +306,19 @@ window.onload = checkTokenAndNavigate;
 /* ------------------ CONFIRM PICKUP ------------------ */
 
 document.getElementById("confirmBtn").addEventListener("click", handleConfirm);
+window.onload = function () {
+  myFunction();
+};
 
+function myFunction() {
+  const items = localStorage.getItem("items");
+  const image = localStorage.getItem("selectedImage");
+    const date = localStorage.getItem("selectedDate");
+  // Check for null OR empty string
+  if (!items || items === "[]" || !image || image === "[]" ||!date || date === "[]") {
+    window.location.replace("index.html");
+  }
+}
 async function handleConfirm(){
 
     if (!address || !date || !time) {
