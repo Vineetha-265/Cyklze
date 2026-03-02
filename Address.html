@@ -336,7 +336,7 @@ font-family: 'Poppins', sans-serif;
     <p>Please try again.</p>
     <button onclick="checkTokenAndNavigate()">Retry</button>
   </div>
-  <footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
+  <!-- <footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
     <p>&copy; 2025 Cyklze. All rights reserved.</p>
     <p>Cyklze - We Buy Recyclables</p>
     <p>Email: support@cyklze.com</p>
@@ -346,7 +346,7 @@ font-family: 'Poppins', sans-serif;
       
         <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
     </div>
-</footer>
+</footer> -->
 
 <script>
 /* ================= TOKEN CHECK FUNCTIONALITY ================= */
@@ -581,6 +581,19 @@ citySearch.addEventListener('input', function () {
 });
 
 
+window.onload = function () {
+  myFunction();
+};
+
+function myFunction() {
+  const items = localStorage.getItem("items");
+  const image = localStorage.getItem("selectedImage");
+    const date = localStorage.getItem("selectedDate");
+  // Check for null OR empty string
+  if (!items || items === "[]" || !image || image === "[]" ||!date || date === "[]") {
+    window.location.replace("index.html");
+  }
+}
 /* ================= CONFIRM ADDRESS ================= */
 
 const confirmAddressButton = document.getElementById('confirmAddressButton');
@@ -620,7 +633,6 @@ function saveAddressAndContinue() {
 
 </body>
 </html>
-
 
 
 
