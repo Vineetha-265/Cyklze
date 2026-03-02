@@ -259,6 +259,18 @@ function showError() {
 // Call on page load
 fetchDates();
 
+window.onload = function () {
+  myFunction();
+};
+
+function myFunction() {
+  const items = localStorage.getItem("items");
+
+  // Check for null OR empty string
+  if (!items || items === "[]") {
+    window.location.replace("index.html");
+  }
+}
 // Image preview logicconst cameraUpload = document.getElementById('cameraUpload');
 const galleryUpload = document.getElementById('galleryUpload');
 const imagePreview = document.getElementById('imagePreview');
