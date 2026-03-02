@@ -158,6 +158,120 @@ body{
     display:none;
     z-index:999;
 }
+
+
+
+
+
+
+
+
+
+
+    
+    #loading {
+      
+       margin-left: 20px;
+     margin-right: 20px;
+     margin-bottom: 400px;
+     margin-top: 300px;
+     padding: 20px;
+      font-size: 20px;
+      display: none;
+    }
+
+    #error-box {
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+      justify-content: center;  /* center horizontally */
+    align-items: center; 
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-top: 250px;
+    margin-bottom: 450PX;
+    text-align: center;
+    /* margin: 20px auto; */
+    font-family: Arial, sans-serif;
+    }
+
+    #error-box button {
+      background: #34495e;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+
+
+
+
+
+
+    
+        .login-box {
+               /* margin-left: 10px; */
+    /* max-width: 420px; */
+   
+    padding: 10px;
+    background: #34495e;
+    color: white;
+        }
+
+        .login-box h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .login-box h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .login-box h3 {
+            font-size: 16px;
+            font-weight: normal;
+            margin-bottom: 35px;
+            color: #ccc;
+        }
+
+        .login-btn {
+              padding: 14px 42px;
+    font-size: 16px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+        }
+
+        .login-btn:hover {
+            background: #e0e0e0;
+        }
+
+
+   .screen {
+               width: 100%;
+    height: 100vh;
+    display: flex;
+    background: #34495e;
+    align-items: start;
+    padding-top: 100px;
+        }
+
+        #loading,
+#login-box,
+#error-box {
+    display: none;
+}
 </style>
 </head>
 
@@ -168,7 +282,7 @@ body{
     Confirm Pickup
 </div>
 
-<div class="container">
+<div class="container" id="main-content">
 
     <div class="card">
         <div class="section-title">
@@ -211,6 +325,25 @@ body{
 
 </div>
 
+
+   <div id="loading">
+    <div class="spinner"></div>
+    Loading...
+  </div>
+<div class="screen" id="login-box">
+        <div class="login-box">
+            <h1>Cyklze</h1>
+            <h2>Login</h2>
+            <h3>Login required to continue placing order</h3>
+            <button class="login-btn" onclick="goToLogin()">Login</button>
+        </div>
+    </div>
+
+  <div id="error-box">
+    <h3>Something went wrong!</h3>
+    <p>Please try again.</p>
+    <button onclick="checkTokenAndNavigate()">Retry</button>
+  </div>
 <div id="toast" class="toast"></div>
 
 <script>
@@ -260,6 +393,10 @@ function goBack(){
 
 async function isTokenExpired() {
     const accessToken = localStorage.getItem('accessToken');
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("login-box").style.display = "none";
 
     try {
         const response = await fetch(
@@ -277,9 +414,13 @@ async function isTokenExpired() {
         if (!response.ok) return true;
 
         const data = await response.json();
-        return data.message === "Token has expired";
+        return false;
 
     } catch (error) {
+         document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("login-box").style.display = "none";
         console.error("Token check error:", error);
         return true;
     }
@@ -289,15 +430,24 @@ async function checkTokenAndNavigate(){
     const accessToken = localStorage.getItem('accessToken');
 
     if(!accessToken){
-        alert("Please log in");
-        window.location.href = "login.html";
+        document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("login-box").style.display = "block";
         return;
     }
 
     const expired = await isTokenExpired();
     if(expired){
-        alert("Session expired. Please log in again.");
-        window.location.href = "login.html";
+        document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("login-box").style.display = "none";
+    }else{
+ document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+      document.getElementById("login-box").style.display = "none";
     }
 }
 
@@ -309,6 +459,12 @@ document.getElementById("confirmBtn").addEventListener("click", handleConfirm);
 window.onload = function () {
   myFunction();
 };
+    function goToLogin() {
+    // Redirect to your login page
+     localStorage.setItem("previousPage", window.location.href);
+  window.location.replace("login.html");
+
+}
 
 function myFunction() {
   const items = localStorage.getItem("items");
@@ -326,10 +482,10 @@ async function handleConfirm(){
         return;
     }
 
-    if (!address.toLowerCase().includes("hyderabad")) {
-        alert("The address must contain 'Hyderabad'.");
-        return;
-    }
+    // if (!address.toLowerCase().includes("hyderabad")) {
+    //     alert("The address must contain 'Hyderabad'.");
+    //     return;
+    // }
 
     const button = document.getElementById("confirmBtn");
     button.disabled = true;
@@ -339,8 +495,10 @@ async function handleConfirm(){
         const accessToken = localStorage.getItem('accessToken');
 
         if (!accessToken) {
-            showToast("Authentication failed. Please login.");
-            window.location.href = "login.html";
+             document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "none";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("login-box").style.display = "block";
             return;
         }
 
@@ -383,12 +541,18 @@ async function handleConfirm(){
         }
           
         } else {
-            showToast(data.message || "Something went wrong");
+              document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("login-box").style.display = "none";
         }
 
     } catch(error){
         console.error(error);
-        showToast("Failed to connect. Try again later.");
+         document.getElementById("loading").style.display = "none";
+      document.getElementById("error-box").style.display = "block";
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("login-box").style.display = "none";
     } finally {
         button.disabled = false;
         button.textContent = "✔ Confirm Pickup";
