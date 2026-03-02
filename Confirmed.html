@@ -221,6 +221,11 @@ animate();
 
 </body>
 </html> -->
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -250,11 +255,12 @@ body {
   min-height: 100vh;
 }
 
-  .container {
-    text-align: center;
-    padding: 20px;
-    z-index: 1;
-  }
+.container {
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+}
 
   h1 {
     font-size: 2em;
@@ -269,12 +275,14 @@ body {
     margin-bottom: 40px;
   }
 
-  .badge-wrapper {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 20px;
-  }
+.badge-wrapper {
+  position: relative;
+  width: 40vw;
+  max-width: 160px;
+  min-width: 120px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 20px;
+}
 
   .pulse-circle {
     position: absolute;
@@ -371,13 +379,14 @@ body {
   font-size: 16px;
 }
 
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 0; /* Canvas is behind other content */
-  }
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -417,26 +426,40 @@ body {
 <script>
 const canvas = document.getElementById('confetti');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resizeCanvas() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 class ConfettiParticle {
   constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height / 2;
-    this.size = Math.random() * 8 + 4;
-    this.speedY = Math.random() * 3 + 2;
-    this.speedX = Math.random() * 2 - 1;
-    this.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+    this.reset();
   }
+
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * -canvas.height;
+    this.size = Math.random() * 6 + 3;
+    this.speedY = Math.random() * 2 + 1;
+    this.speedX = Math.random() * 1.5 - 0.75;
+    this.color = `hsl(${Math.random() * 360}, 70%, 55%)`;
+  }
+
   update() {
     this.y += this.speedY;
     this.x += this.speedX;
+
     if (this.y > canvas.height) {
+      this.reset();
       this.y = 0;
-      this.x = Math.random() * canvas.width;
     }
   }
+
   draw() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.size, this.size);
@@ -444,13 +467,26 @@ class ConfettiParticle {
 }
 
 let confettiArray = [];
-for(let i=0; i<50; i++) confettiArray.push(new ConfettiParticle());
+const confettiCount = 40;
+
+function createConfetti() {
+  confettiArray = [];
+  for (let i = 0; i < confettiCount; i++) {
+    confettiArray.push(new ConfettiParticle());
+  }
+}
+
+createConfetti();
 
 function animate() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  confettiArray.forEach(p => { p.update(); p.draw(); });
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  confettiArray.forEach(p => {
+    p.update();
+    p.draw();
+  });
   requestAnimationFrame(animate);
 }
+
 animate();
 </script>
 
