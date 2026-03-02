@@ -473,7 +473,7 @@ const refreshToken = localStorage.getItem('refreshToken');
      document.getElementById("login-box").style.display = "block";
      return;
     }// Get the access token from localStorage
-      const apiUrl = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/userdata'; // Replace with your actual API URL
+      const apiUrl = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/users'; // Replace with your actual API URL
 
       try {
         const response = await fetch(apiUrl, {
