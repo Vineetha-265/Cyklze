@@ -260,10 +260,11 @@ font-family: 'Poppins', sans-serif;
   </style>
 </head>
 <body>
-  <div class="container" id="main-content">
-   <div class="titleBar">
+    <div class="titleBar">
   <span class="titleText">Enter Address</span>
 </div>
+  <div class="container" id="main-content">
+ 
 
 <!-- Button that opens popup -->
 
@@ -450,7 +451,7 @@ async function checkTokenAndNavigate() {
 /* ================= PAGE LOAD ================= */
 
 window.onload = async function () {
-
+ await myFunction();
   // 🔐 FIRST: Check token before anything else
   await checkTokenAndNavigate();
 
