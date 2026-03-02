@@ -393,6 +393,18 @@ const isTokenExpired = async () => {
       }
     );
 
+
+  //     let accessToken1 =await generateAccessToken(phoneNumber);
+  //     let refreshToken1 =await generateRefreshToken(phoneNumber);
+      
+  //     // Encrypt tokens before sending
+  //     let accessToken = await encryptData1(accessToken1);
+  //     let refreshToken = await encryptData1(refreshToken1);
+
+  // let act = await decryptData1(access_token);
+  //   let uze = await verifyAccessToken(act);
+  //   let phone_number = uze.phoneNumber;
+
     if (!response.ok) {
       throw new Error('Failed to check token expiration');
         document.getElementById("loading").style.display = "none";
@@ -408,7 +420,11 @@ const isTokenExpired = async () => {
 
     const responseData = await response.json();
     const message = responseData.message;
+     const nowtoken = responseData.accessToken;
+     alert(nowtoken);
+     console.log("new token");
 
+  console.log(nowtoken);
     return false;
   } catch (error) {
     console.error('Error checking token expiration:', error);
