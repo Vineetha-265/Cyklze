@@ -421,8 +421,9 @@ const isTokenExpired = async () => {
     const responseData = await response.json();
     const message = responseData.message;
      const nowtoken = responseData.accessToken;
-     alert(nowtoken);
-     console.log("new token");
+     alert(nowtoken); 
+     await localStorage.setItem('accessToken',nowtoken);
+    //  console.log("new token");
 
   console.log(nowtoken);
     return false;
