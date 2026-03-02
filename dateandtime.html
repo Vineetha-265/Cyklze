@@ -8,113 +8,115 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: #f4f6f9;
-        margin: 0;
-        padding: 40px;
-        display: flex;
-        justify-content: center;
-    }
+   body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f8fa;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
 
-    .container { width: 600px; }
+.container { width: 600px; }
 
-    .section {
-        background: #ffffff;
-        padding: 28px;
-        margin-bottom: 25px;
-        border-radius: 14px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    }
+.section {
+    background: #ffffff;
+    padding: 28px;
+    margin-bottom: 25px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(29,77,97,0.08);
+}
 
-    h2 {
-        margin: 0 0 6px;
-        font-weight: 600;
-        font-size: 20px;
-    }
+h2 {
+    margin: 0 0 6px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #1D4D61;
+}
 
-    .subheading {
-        color: #777;
-        font-size: 14px;
-        margin-bottom: 22px;
-    }
+.subheading {
+    color: #5f7c88;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
 
-    .dates {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
+.dates {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
-    .date-option {
-        flex: 1;
-        padding: 16px;
-        text-align: center;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        font-weight: 500;
-        font-size: 14px;
-        min-width: 120px;
-    }
+.date-option {
+    flex: 1;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid #d6e3ea;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-weight: 500;
+    font-size: 14px;
+    min-width: 120px;
+    background: #ffffff;
+}
 
-    .date-option.selected {
-        border-color: #4CAF50;
-        background: #e8f5e9;
-        color: #2e7d32;
-    }
+.date-option.selected {
+    border-color: #1D4D61;
+    background: #e6f0f4;
+    color: #1D4D61;
+}
 
-    .date-option:hover {
-        border-color: #4CAF50;
-    }
+.date-option:hover {
+    border-color: #1D4D61;
+    background: #f0f7fa;
+}
 
-    .upload-btn {
-        display: inline-block;
-        padding: 10px 22px;
-        background: #4CAF50;
-        color: white;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-    }
+.upload-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #1D4D61;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
 
-    .upload-btn:hover { background: #43a047; }
+.upload-btn:hover { 
+    background: #163b4a;
+}
 
-    #imagePreview {
-        margin-top: 20px;
-        max-width: 100%;
-        border-radius: 12px;
-        display: none;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
+#imagePreview {
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 12px;
+    display: none;
+    box-shadow: 0 4px 12px rgba(29,77,97,0.15);
+}
 
-    input[type="file"] { display: none; }
+input[type="file"] { display: none; }
 
-    .center {
-        text-align: center;
-        padding: 30px 0;
-    }
+.center {
+    text-align: center;
+    padding: 30px 0;
+}
 
-    .retry-btn {
-        margin-top: 15px;
-        padding: 10px 20px;
-        background: #ff5252;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-    }
+.retry-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #b23b3b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
-    .retry-btn:hover {
-        background: #e53935;
-    }
+.retry-btn:hover {
+    background: #922f2f;
+}
 
-    @media (max-width: 640px) {
-        .container { width: 100%; }
-        .dates { flex-direction: column; }
-    }
-    /* Floating Continue Button */
+/* Floating Continue Button */
 .floating-continue {
     position: fixed;
     bottom: 20px;
@@ -128,21 +130,26 @@
     font-size: 16px;
     font-weight: 600;
     cursor: not-allowed;
-    background: #cfcfcf;
+    background: #cfd8dc;
     color: #ffffff;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 18px rgba(29,77,97,0.15);
     transition: all 0.3s ease;
     z-index: 1000;
 }
 
 .floating-continue.enabled {
-    background: linear-gradient(135deg, #4CAF50, #43a047);
+    background: linear-gradient(135deg, #1D4D61, #163b4a);
     cursor: pointer;
-    box-shadow: 0 8px 22px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 8px 22px rgba(29,77,97,0.4);
 }
 
 .floating-continue.enabled:hover {
     transform: translateX(-50%) scale(1.02);
+}
+
+@media (max-width: 640px) {
+    .container { width: 100%; }
+    .dates { flex-direction: column; }
 }
 </style>
 </head>
@@ -368,35 +375,7 @@ continueBtn.addEventListener("click", function () {
 
 
 
-// continueBtn.addEventListener("click", function () {
 
-//     // 1️⃣ Get selected date
-//     const selectedDateEl = document.querySelector(".date-option.selected");
-
-//     if (!selectedDateEl) {
-//         alert("Please select a date");
-//         return;
-//     }
-
-//     const selectedDate = selectedDateEl.textContent;
-
-//     // 2️⃣ Get image (base64)
-//     const imageData = imagePreview.src;
-
-//     if (!imageData) {
-//         alert("Please upload an image");
-//         return;
-//     }
-
-//     // ✅ Save separately
-//     localStorage.setItem("selectedDate", selectedDate);
-//     localStorage.setItem("selectedImage", imageData);
-
-//     console.log("Date Saved:", selectedDate);
-//     console.log("Image Saved:", imageData);
-//      window.location.href = "Address.html";
-
-// });
 
 </script>
 
