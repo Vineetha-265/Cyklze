@@ -1461,28 +1461,15 @@ async function validateAndConfirmPickup()  {
     return;
   }
 
-  // if (!selectedDate) {
-  //   alert("Please select pickup date.");
-  //   return;
-  // }
+ 
   const result = Object.entries(cart).map(
   ([key, value]) => `${key}: ${value}`
 );
-//  console.log("cart");
-//  console.log(result);
-//   console.log("cart");
+
 await localStorage.setItem('items_dummy',result);
 await localStorage.setItem('items', JSON.stringify(result));
-  // if (!selectedTime) {
-  //   alert("Please select pickup time.");
-  //   return;
-  // }
 
-  // console.log("ORDER DATA:");
-  // console.log(cart);
-  // console.log(selectedDate, selectedTime);
 window.location.replace("dateandtime.html");
-  // alert("Pickup confirmed successfully!");
 }
 </script>
 
