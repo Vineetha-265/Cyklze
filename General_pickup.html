@@ -1468,9 +1468,9 @@ async function validateAndConfirmPickup()  {
   const result = Object.entries(cart).map(
   ([key, value]) => `${key}: ${value}`
 );
- console.log("cart");
- console.log(result);
-  console.log("cart");
+//  console.log("cart");
+//  console.log(result);
+//   console.log("cart");
 await localStorage.setItem('items_dummy',result);
 await localStorage.setItem('items', JSON.stringify(result));
   // if (!selectedTime) {
@@ -1478,11 +1478,11 @@ await localStorage.setItem('items', JSON.stringify(result));
   //   return;
   // }
 
-  console.log("ORDER DATA:");
-  console.log(cart);
-  console.log(selectedDate, selectedTime);
+  // console.log("ORDER DATA:");
+  // console.log(cart);
+  // console.log(selectedDate, selectedTime);
 window.location.replace("dateandtime.html");
-  alert("Pickup confirmed successfully!");
+  // alert("Pickup confirmed successfully!");
 }
 </script>
 
@@ -1807,5 +1807,4 @@ console.log(pickupDetails);
 </script> -->
 </body>
 </html>
-
 
