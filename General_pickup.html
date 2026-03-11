@@ -1177,7 +1177,7 @@ const tabs = document.querySelectorAll(".type-tab");
 
 let cart = {};
 let kg = {}; // required for confirm button logic
-
+let selectedType = "groceries";
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
 
@@ -1195,7 +1195,7 @@ tabs.forEach(tab => {
     const activeStatus = tab.querySelector(".type-status");
     if (activeStatus) activeStatus.style.display = "block";
 
-    const selectedType = tab.id; // groceries or commercial
+     selectedType = tab.id; // groceries or commercial
 
     // RESET CART WHEN SWITCHING TYPE
     cart = {};
@@ -1241,10 +1241,22 @@ tabs.forEach(tab => {
 /* =====================================================
    CART SYSTEM
 ===================================================== */
-
+let increment = selectedType === "groceries" ? 100 : 500;
 // Step size (kg items = 10, unit items = 1)
+// function getStep(item) {
+//   const box = document.getElementById(item + "-control")
+//     ?.closest(".itemBox");
+
+//   if (!box) return 10;
+
+//   const pack =
+//     box.querySelector(".packSize")?.textContent.toLowerCase() || "";
+
+//   return pack.includes("unit") ? 1 : 10;
+// }
 function getStep(item) {
-  const box = document.getElementById(item + "-control")
+  const box = document
+    .getElementById(item + "-control")
     ?.closest(".itemBox");
 
   if (!box) return 10;
@@ -1252,7 +1264,13 @@ function getStep(item) {
   const pack =
     box.querySelector(".packSize")?.textContent.toLowerCase() || "";
 
-  return pack.includes("unit") ? 1 : 10;
+  const isUnit = pack.includes("unit");
+
+  if (selectedType === "groceries") {
+    return isUnit ? 1 : 100;
+  } else {
+    return isUnit ? 10 : 500;
+  }
 }
 
 
