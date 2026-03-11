@@ -660,13 +660,14 @@ input, select, textarea, button {
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  border-bottom: 2px solid  #2b3a42; /* thin line across bottom */
+  border-bottom: 2px solid #2b3a42; /* thin line across bottom */
 }
 
 .type-tabs{
   display: flex;
 }
 
+/* Default (INACTIVE TAB) */
 .type-tab{
   padding: 14px 30px;
   display: flex;
@@ -674,33 +675,51 @@ input, select, textarea, button {
   cursor: pointer;
   text-align: left;
   position: relative;
+  background: #274d5a;
 }
 
 .type-title{
   font-weight: 600;
   font-size: 13px;
-  color: #2b3a42;
+  color: #ffffff;
 }
 
 .type-sub{
   font-size: 10px;
-  color: #6b7c86;
+  color: rgba(255,255,255,0.75);
 }
 
-/* Active tab style */
+.type-status{
+  display:none;
+  font-size:9px;
+  font-weight:500;
+  margin-top:3px;
+  color:#2b3a42;
+}
+
+/* ACTIVE TAB (SWAPPED STYLE) */
 .type-tab.active{
-  background: #274d5a;
+  background: #ffffff;
   border-radius: 4px 4px 0 0;
 }
 
-.type-tab.active .type-title,
+.type-tab.active .type-title{
+  color: #2b3a42;
+}
+
 .type-tab.active .type-sub{
-  color: #fff;
+  color: #6b7c86;
+}
+
+/* show "In Action" only for active tab */
+.type-tab.active .type-status{
+  display:block;
+  color:#2b3a42;
 }
 
 /* small divider between tabs */
 .type-tab + .type-tab{
-  border-left: 1px solid  #2b3a42;
+  border-left: 1px solid #2b3a42;
 }
   #confirmBtn {
   position: fixed;
@@ -746,15 +765,17 @@ input, select, textarea, button {
   <!-- Items Selection -->
 <div class="type-tabs-wrapper">
   <div class="type-tabs">
-    
+
     <div class="type-tab active" id="groceries">
       <span class="type-title">Household Pickup</span>
       <span class="type-sub">No Stepping Outside</span>
+      <span class="type-status">In Action</span>
     </div>
 
     <div class="type-tab" id="commercial">
       <span class="type-title">Commercial Pickup</span>
       <span class="type-sub">Get Better Prices</span>
+      <span class="type-status">In Action</span>
     </div>
 
   </div>
@@ -1198,9 +1219,19 @@ let kg = {}; // required for confirm button logic
 tabs.forEach(tab => {
   tab.addEventListener("click", () => {
 
-    // activate tab
-    tabs.forEach(t => t.classList.remove("active"));
+    // remove active from all
+    tabs.forEach(t => {
+      t.classList.remove("active");
+
+      const status = t.querySelector(".type-status");
+      if (status) status.style.display = "none";
+    });
+
+    // activate clicked tab
     tab.classList.add("active");
+
+    const activeStatus = tab.querySelector(".type-status");
+    if (activeStatus) activeStatus.style.display = "block";
 
     const selectedType = tab.id; // groceries or commercial
 
@@ -1244,7 +1275,6 @@ tabs.forEach(tab => {
     toggleConfirmButton();
   });
 });
-
 
 /* =====================================================
    CART SYSTEM
