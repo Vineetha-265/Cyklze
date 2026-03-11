@@ -183,7 +183,7 @@ padding-left: 20px;
 
 <body>
  <div class="titleBar">
-  <span class="titleText">Enter Address</span>
+  <span class="titleText">Select Date</span>
 </div>
 <div class="container">
 
@@ -294,11 +294,11 @@ function showError() {
 }
 
 // Call on page load
-// fetchDates();
+fetchDates();
 
-// window.onload = function () {
-//   myFunction();
-// };
+window.onload = function () {
+  myFunction();
+};
 
 function myFunction() {
   const items = localStorage.getItem("items");
