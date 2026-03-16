@@ -665,10 +665,12 @@ input, select, textarea, button {
 
 .type-tabs{
   display: flex;
+  width: 100%; /* make tabs container full width */
 }
 
 /* Default (INACTIVE TAB) */
 .type-tab{
+  flex: 1; /* each tab takes equal width */
   padding: 14px 30px;
   display: flex;
   flex-direction: column;
@@ -1794,4 +1796,3 @@ console.log(pickupDetails);
 </script> -->
 </body>
 </html>
-
