@@ -1399,13 +1399,28 @@ function renderCartControl(item) {
     return;
   }
 
+  // detect unit type
+  const itemBox = control.closest('.itemBox');
+  const priceEl = itemBox.querySelector('.currentPrice');
+
+  let unitType = priceEl.getAttribute('data-unit');
+
+  // fallback: detect from text if data-unit not present
+  if (!unitType) {
+    const text = priceEl.textContent.toLowerCase();
+    unitType = text.includes('kg') ? 'kg' : 'unit';
+  }
+
+  // label based on unit
+  const label = unitType === 'kg' ? 'Kgs' : 'Qty';
+
   // show quantity selector
   control.innerHTML = `
     <div class="quantityBox">
       <button class="qtyBtn"
         onclick="decrementCart('${item}')">−</button>
 
-  <span>Qty: ${cart[item]}</span>
+      <span>${label}: ${cart[item]}</span>
 
       <button class="qtyBtn"
         onclick="incrementCart('${item}')">+</button>
