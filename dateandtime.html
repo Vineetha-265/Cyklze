@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+a<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -277,6 +277,7 @@ function renderDates(dates) {
             document.querySelectorAll(".date-option")
                 .forEach(d => d.classList.remove("selected"));
             div.classList.add("selected");
+              updateContinueButton();
         });
 
         datesContainer.appendChild(div);
@@ -312,24 +313,24 @@ function myFunction() {
 const galleryUpload = document.getElementById('galleryUpload');
 const imagePreview = document.getElementById('imagePreview');
 
-function handleImageUpload(input) {
-    if (!input.files || input.files.length === 0) return;
+// function handleImageUpload(input) {
+//     if (!input.files || input.files.length === 0) return;
 
-    const file = input.files[0];
+//     const file = input.files[0];
 
-    if (!file.type.startsWith("image/")) {
-        alert("Please select a valid image");
-        return;
-    }
+//     if (!file.type.startsWith("image/")) {
+//         alert("Please select a valid image");
+//         return;
+//     }
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        imagePreview.src = e.target.result;
-        imagePreview.style.display = 'block';
-    };
+//     const reader = new FileReader();
+//     reader.onload = function (e) {
+//         imagePreview.src = e.target.result;
+//         imagePreview.style.display = 'block';
+//     };
 
-    reader.readAsDataURL(file);
-}
+//     reader.readAsDataURL(file);
+// }
 
 cameraUpload.addEventListener('change', function() {
     handleImageUpload(this);
@@ -357,14 +358,26 @@ function handleImageUpload(input) {
         imagePreview.style.display = 'block';
 
         // ✅ Enable Continue button
-        continueBtn.disabled = false;
-        continueBtn.classList.add("enabled");
+        // continueBtn.disabled = false;
+        // continueBtn.classList.add("enabled");
+                updateContinueButton(); 
     };
 
     reader.readAsDataURL(file);
 }
 
+function updateContinueButton() {
+    const selectedDate = document.querySelector(".date-option.selected");
+    const hasImage = imagePreview.src && imagePreview.style.display !== "none";
 
+    if (selectedDate && hasImage) {
+        continueBtn.disabled = false;
+        continueBtn.classList.add("enabled");
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.classList.remove("enabled");
+    }
+}
 
 
 
