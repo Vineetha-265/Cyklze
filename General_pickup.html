@@ -1194,7 +1194,39 @@ input, select, textarea, button {
    TAB SWITCH (Groceries / Commercial)
 ===================================================== */
 
-const tabs = document.querySelectorAll(".type-tab");
+  const tabs = document.querySelectorAll('.type-tab');
+
+  // Function to set active tab
+  function setActiveTab(tab) {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    // Store selected tab ID in localStorage
+    localStorage.setItem('selected_pickup_type', tab.id);
+  }
+
+  // Add click event to each tab
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      setActiveTab(tab);
+    });
+  });
+
+  // On page load, restore active tab
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedTab = localStorage.getItem('selected_pickup_type');
+
+    if (savedTab) {
+      const tabToActivate = document.getElementById(savedTab);
+      if (tabToActivate) {
+        setActiveTab(tabToActivate);
+      }
+    }
+  });
+
+
+
+
 
 let cart = {};
 let kg = {}; // required for confirm button logic
@@ -1468,6 +1500,7 @@ async function validateAndConfirmPickup()  {
   ([key, value]) => `${key}: ${value}`
 );
 
+await localStorage.setItem('items_dummy',result);
 await localStorage.setItem('items_dummy',result);
 await localStorage.setItem('items', JSON.stringify(result));
 
