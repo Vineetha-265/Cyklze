@@ -1193,7 +1193,14 @@ input, select, textarea, button {
 /* =====================================================
    TAB SWITCH (Groceries / Commercial)
 ===================================================== */
+// store original state
+const itemsGrid = document.querySelector('.itemsGrid');
+const originalItemsGridHTML = itemsGrid.innerHTML;
 
+// reset function
+function resetItemsGrid() {
+  itemsGrid.innerHTML = originalItemsGridHTML;
+}
   const tabs = document.querySelectorAll('.type-tab');
 
   // Function to set active tab
@@ -1203,6 +1210,7 @@ input, select, textarea, button {
 
     // Store selected tab ID in localStorage
     localStorage.setItem('selected_pickup_type', tab.id);
+      resetItemsGrid();
   }
 
   // Add click event to each tab
