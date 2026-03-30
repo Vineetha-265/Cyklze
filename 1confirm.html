@@ -353,6 +353,7 @@ const date = localStorage.getItem('selectedDate');
 const time = date // ✅ FIXED
 const items = JSON.parse(localStorage.getItem('items')) || [];
 const address = localStorage.getItem('address');
+  const savedTab = localStorage.getItem('selected_pickup_type');
 const storedImage = localStorage.getItem("selectedImage");
 //   selectedImage
 console.log(items);
@@ -469,6 +470,7 @@ window.onload = function () {
 function myFunction() {
   const items = localStorage.getItem("items");
   const image = localStorage.getItem("selectedImage");
+   const savedTab = localStorage.getItem('selected_pickup_type');
     const date = localStorage.getItem("selectedDate");
   // Check for null OR empty string
   if (!items || items === "[]" || !image || image === "[]" ||!date || date === "[]") {
@@ -524,7 +526,7 @@ async function handleConfirm(){
     date,
     time,
     items: items,
-    type: "pickup",
+    type: savedTab,
     image: imageToSend
 })
             }
