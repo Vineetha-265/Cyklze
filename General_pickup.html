@@ -784,7 +784,6 @@ input, select, textarea, button {
   </h1> -->
 
   <!-- Items Selection -->
-   <div class="resett">
 <div class="type-tabs-wrapper">
   <div class="type-tabs">
 
@@ -1130,7 +1129,6 @@ input, select, textarea, button {
 </div>
 
 </div>
-</div>
   <!-- Floating Button -->
    <button id="confirmBtn" class="fab" onclick="validateAndConfirmPickup()">
   Continue
@@ -1139,17 +1137,7 @@ input, select, textarea, button {
   Continue to Address
 </button>
 
-<!-- <footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
-    <p>&copy; 2025 Cyklze. All rights reserved.</p>
-    <p>Cyklze - We Buy Recyclables</p>
-    <p>Email: support@cyklze.com</p>
-    <div style="margin-top: 10px;">
-        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
-        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
-        
-        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
-    </div>
-</footer> -->
+
 
 </div> <!-- END container -->
 
@@ -1196,12 +1184,20 @@ input, select, textarea, button {
    TAB SWITCH (Groceries / Commercial)
 ===================================================== */
 // store original state
-const itemsGrid = document.querySelector('.resett');
-const originalItemsGridHTML = itemsGrid.innerHTML;
+const itemsGrids = document.querySelectorAll('.itemsGrid');
+
+// store original HTML for each
+const originalHTML = [];
+
+itemsGrids.forEach((grid, index) => {
+  originalHTML[index] = grid.innerHTML;
+});
 
 // reset function
 function resetItemsGrid() {
-  itemsGrid.innerHTML = originalItemsGridHTML;
+  itemsGrids.forEach((grid, index) => {
+    grid.innerHTML = originalHTML[index];
+  });
 }
   const tabs = document.querySelectorAll('.type-tab');
 
