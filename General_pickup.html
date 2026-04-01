@@ -1200,16 +1200,26 @@ function resetItemsGrid() {
   });
 }
   const tabs = document.querySelectorAll('.type-tab');
+function setActiveTab(tab) {
+  tabs.forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
 
+  const selectedType = tab.id; // should be "grocery" or "commercial"
+
+  localStorage.setItem('selected_pickup_type', selectedType);
+
+  resetItemsGrid();      // reset UI
+  updatePrices(selectedType); // update prices
+}
   // Function to set active tab
-  function setActiveTab(tab) {
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
+  // function setActiveTab(tab) {
+  //   tabs.forEach(t => t.classList.remove('active'));
+  //   tab.classList.add('active');
 
-    // Store selected tab ID in localStorage
-    localStorage.setItem('selected_pickup_type', tab.id);
-      resetItemsGrid();
-  }
+  //   // Store selected tab ID in localStorage
+  //   localStorage.setItem('selected_pickup_type', tab.id);
+  //     resetItemsGrid();
+  // }
 
   // Add click event to each tab
   tabs.forEach(tab => {
@@ -1218,6 +1228,18 @@ function resetItemsGrid() {
     });
   });
 
+  function updatePrices(type) {
+  const prices = document.querySelectorAll('.currentPrice');
+
+  prices.forEach(price => {
+    const value = price.dataset[type]; // grocery or commercial
+    const unit = price.dataset.unit || 'kg';
+
+    if (value) {
+      price.textContent = `₹${value}/${unit}`;
+    }
+  });
+}
   // On page load, restore active tab
   window.addEventListener('DOMContentLoaded', () => {
     const savedTab = localStorage.getItem('selected_pickup_type');
