@@ -1221,10 +1221,11 @@ input, select, textarea, button {
  <div class="itemBox"  onclick="openProductModal(this)">
   <div class="itemImageWrapper">
     <img src="ac.jpg" alt="AC">
-    <div class="cartControl" id="ac-control"><button class="addBtn"
-        onclick="addToCart(event, 'ac')">
-  ADD
-</button>
+    <div class="cartControl" id="ac-control">
+        <button class="addBtn"
+              onclick="event.stopPropagation(); addItemCart('ac')">
+        ADD
+      </button>
     </div>
   </div>
 
