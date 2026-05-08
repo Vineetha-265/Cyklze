@@ -1605,12 +1605,12 @@ function renderCartControl(item) {
   control.innerHTML = `
     <div class="quantityBox">
       <button class="qtyBtn"
-        onclick="decrementCart('${item}')">−</button>
+        onclick="event.stopPropagation(); decrementCart('${item}')">−</button>
 
       <span>${label}: ${cart[item]}</span>
 
       <button class="qtyBtn"
-        onclick="incrementCart('${item}')">+</button>
+        onclick="event.stopPropagation(); incrementCart('${item}')">+</button>
     </div>
   `;
 }
