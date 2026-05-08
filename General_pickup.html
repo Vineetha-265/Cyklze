@@ -1221,8 +1221,10 @@ input, select, textarea, button {
  <div class="itemBox"  onclick="openProductModal(this)">
   <div class="itemImageWrapper">
     <img src="ac.jpg" alt="AC">
-    <div class="cartControl" id="ac-control">
-      <button class="addBtn"   onclick="event.stopPropagation(); addItemCart('ac')">ADD</button>
+    <div class="cartControl" id="ac-control"><button class="addBtn"
+        onclick="addToCart(event, 'ac')">
+  ADD
+</button>
     </div>
   </div>
 
@@ -1322,7 +1324,10 @@ input, select, textarea, button {
 
 <script>
   function openProductModal(card){
-
+function addToCart(e, item){
+  e.stopPropagation();
+  addItemCart(item);
+}
   const img = card.querySelector("img").src;
   const title = card.querySelector(".itemTitle").innerText;
   const price = card.querySelector(".currentPrice").innerText;
