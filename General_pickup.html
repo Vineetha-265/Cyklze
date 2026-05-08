@@ -756,6 +756,58 @@ input, select, textarea, button {
 
   width: fit-content;
 }
+
+.slideModal{
+  position:fixed;
+  left:0;
+  bottom:-100%;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  transition:0.4s;
+  z-index:999;
+}
+
+/* ACTIVE */
+.slideModal.show{
+  bottom:0;
+}
+
+/* SLIDE PANEL */
+.slideContent{
+  width:100%;
+  max-width:500px;
+  background:#fff;
+  border-radius:20px 20px 0 0;
+  padding:20px;
+  animation:slideUp 0.3s ease;
+  position:relative;
+}
+
+.slideContent img{
+  width:100%;
+  border-radius:12px;
+}
+
+.closeBtn{
+  position:absolute;
+  top:10px;
+  right:20px;
+  font-size:30px;
+  cursor:pointer;
+}
+
+@keyframes slideUp{
+  from{
+    transform:translateY(100%);
+  }
+  to{
+    transform:translateY(0);
+  }
+}
   </style>
 </head>
 <body>
@@ -1126,26 +1178,43 @@ input, select, textarea, button {
   <div class="packSize">Per Unit</div>
   <div class="tag">Appliance</div>
 </div>
-<div class="itemBox">
+<!-- PRODUCT CARD -->
+<div class="itemBox" onclick="openProductModal(this)">
   <div class="itemImageWrapper">
     <img src="https://images.unsplash.com/photo-1721613877687-c9099b698faa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG91YmxlJTIwZG9vciUyMGZyaWRnZXxlbnwwfHwwfHx8MA%3D%3D" alt="double_door_fridge">
+
     <div class="cartControl" id="double_door_fridge-control">
-      <button class="addBtn" onclick="addItemCart('double_door_fridge')">ADD</button>
+      <button class="addBtn" onclick="event.stopPropagation(); addItemCart('double_door_fridge')">
+        ADD
+      </button>
     </div>
   </div>
 
   <div class="priceRow">
-    <span class="currentPrice"
-          data-grocery="1000"
-          data-commercial="1000"
-          data-unit="unit">
-          ₹1000/unit
-    </span>
+    <span class="currentPrice">₹1000/unit</span>
   </div>
 
   <div class="itemTitle">Double Door Refrigerator</div>
   <div class="packSize">Per Unit</div>
   <div class="tag">Appliance</div>
+
+  <!-- Hidden Description -->
+  <div class="itemDescription" style="display:none;">
+    Energy efficient double door refrigerator with spacious storage.
+  </div>
+</div>
+
+
+<!-- SLIDE UP MODAL -->
+<div class="slideModal" id="slideModal">
+  <div class="slideContent">
+    <span class="closeBtn" onclick="closeProductModal()">×</span>
+
+    <img id="modalImg" src="" alt="">
+    <h2 id="modalTitle"></h2>
+    <p id="modalPrice"></p>
+    <p id="modalDesc"></p>
+  </div>
 </div>
 
   <!-- AC -->
@@ -1249,6 +1318,24 @@ input, select, textarea, button {
 </div> <!-- END popupOverlay -->
 
 <script>
+  function openProductModal(card){
+
+  const img = card.querySelector("img").src;
+  const title = card.querySelector(".itemTitle").innerText;
+  const price = card.querySelector(".currentPrice").innerText;
+  const desc = card.querySelector(".itemDescription").innerText;
+
+  document.getElementById("modalImg").src = img;
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modalPrice").innerText = price;
+  document.getElementById("modalDesc").innerText = desc;
+
+  document.getElementById("slideModal").classList.add("show");
+}
+
+function closeProductModal(){
+  document.getElementById("slideModal").classList.remove("show");
+}
 /* =====================================================
    TAB SWITCH (Groceries / Commercial)
 ===================================================== */
