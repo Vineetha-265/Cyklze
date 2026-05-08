@@ -1222,7 +1222,7 @@ input, select, textarea, button {
   <div class="itemImageWrapper">
     <img src="ac.jpg" alt="AC">
     <div class="cartControl" id="ac-control">
-      <button class="addBtn" onclick="addItemCart('ac')">ADD</button>
+      <button class="addBtn"   onclick="event.stopPropagation(); addItemCart('ac')">ADD</button>
     </div>
   </div>
 
