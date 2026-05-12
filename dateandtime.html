@@ -254,7 +254,7 @@ async function fetchDates() {
         const data = await response.json();
 
         // Success UI
-        heading.textContent = data.message || "Select a Date";
+        heading.textContent = "Select a Date";
         subheading.textContent = "This is the closest date available";
 
         renderDates(data.dates);
