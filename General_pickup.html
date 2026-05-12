@@ -1989,20 +1989,21 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
 <script>
 
 
-document.querySelectorAll(".itemBox").forEach(box => {
+document.addEventListener("click", function (e) {
 
-  box.addEventListener("click", function (e) {
+  // Ignore cart buttons area
+  if (e.target.closest(".cartControl")) {
+    return;
+  }
 
-    // Ignore clicks from cart area
-    if (e.target.closest(".cartControl")) {
-      return;
-    }
+  // Detect item box click
+  const itemBox = e.target.closest(".itemBox");
 
-    openProductModal(this);
-  });
+  if (itemBox) {
+    openProductModal(itemBox);
+  }
 
 });
-
 
 
 
