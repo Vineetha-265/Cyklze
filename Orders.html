@@ -459,7 +459,7 @@ async function fetchRequests(loadMore = false) {
         /* ---------------- BUILD URL ---------------- */
 
         let url =
-            "https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/gdata?limit=10";
+            "https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/checkTokenExpiration?limit=10";
 
         if (lastKey) {
             url += `&lastKey=${lastKey}`;
