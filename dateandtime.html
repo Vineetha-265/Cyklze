@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+a<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -245,18 +245,53 @@ const heading = document.getElementById("heading");
 const subheading = document.getElementById("subheading");
 const datesContainer = document.getElementById("datesContainer");
 const errorContainer = document.getElementById("errorContainer");
-document.getElementById("cameraBtn")
-.addEventListener("click", async function (e) {
+// document.getElementById("cameraBtn")
+// .addEventListener("click", async function (e) {
 
-    const allowed = await checkCameraPermission();
+//     const allowed = await checkCameraPermission();
 
-    if (!allowed) {
+//     if (!allowed) {
+//         e.preventDefault();
+//         return;
+//     }
+
+// });
+const cameraBtn = document.getElementById("cameraBtn");
+// const cameraUpload = document.getElementById("cameraUpload");
+
+cameraBtn.addEventListener("click", function (e) {
+    // Only check if running on Chrome (desktop or mobile)
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("Camera access is not supported on this browser.");
         e.preventDefault();
         return;
     }
 
-});
+    // Attempt to request permission before opening file picker
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            // Permission granted, stop the stream immediately
+            stream.getTracks().forEach(track => track.stop());
+            // Let file input open
+        })
+        .catch(err => {
+            // Permission denied or blocked
+            alert(
+`Camera access is denied.
 
+To enable it:
+
+Chrome (Desktop):
+Settings → Privacy and Security → Site Settings → Camera → Allow
+
+Chrome (Mobile):
+Settings → Apps → Chrome → Permissions → Camera → Allow
+
+Then refresh the page and try again.`
+            );
+            e.preventDefault();
+        });
+});
 async function checkCameraPermission() {
 
     if (!navigator.permissions) return;
