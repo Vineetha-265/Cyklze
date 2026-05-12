@@ -98,7 +98,14 @@ h2 {
     box-shadow: 0 4px 12px rgba(29,77,97,0.15);
 }
 
-input[type="file"] { display: none; }
+input[type="file"]{
+    position: absolute;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    overflow: hidden;
+    z-index: -1;
+}
 
 .center {
     text-align: center;
@@ -204,10 +211,13 @@ padding-left: 20px;
      <div style="display:flex; gap:15px; flex-wrap:wrap;">
 
     <!-- Camera Button -->
-    <label class="upload-btn">
-      📷 Take Photo (Use Camera Option inside picker)
-       <input type="file" id="cameraUpload" accept="image/*">
-    </label>
+<label class="upload-btn">
+    📷 Take Photo
+    <input type="file"
+           id="cameraUpload"
+           accept="image/*"
+           capture="environment">
+</label>
 
     <!-- Gallery Button -->
     <label class="upload-btn" style="background:#2196F3;">
