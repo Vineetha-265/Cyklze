@@ -180,16 +180,95 @@
 /* adding three api layers */
 
 
-    #loading {
-      
-       margin-left: 20px;
-     margin-right: 20px;
-     margin-bottom: 400px;
-     margin-top: 300px;
-     padding: 20px;
-      font-size: 20px;
-      display: none;
-    }
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: none; /* or flex when active */
+  align-items: center;
+  justify-content: center;
+
+  z-index: 99999;
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(6px);
+}
+
+/* Card */
+.loading-card {
+  background: rgba(255,255,255,0.96);
+  padding: 26px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  animation: pop 0.2s ease-in-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Spinner ring (Flutter-like) */
+.spinner-ring {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 6px solid rgba(29,77,97,0.15);
+  border-top: 6px solid #1D4D61;
+  animation: spin 1.2s linear infinite;
+  margin: auto;
+  position: relative;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* inner icon */
+.inner-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* Text */
+.loading-text {
+  margin-top: 12px;
+  font-weight: 600;
+  color: #1D4D61;
+  font-size: 16px;
+}
+
+/* Dots animation */
+.dots {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  background: #1D4D61;
+  border-radius: 50%;
+  animation: bounce 0.9s infinite ease-in-out;
+}
+
+.dots span:nth-child(2) { animation-delay: 0.15s; }
+.dots span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
 
     #error-box {
     width: 300px;
@@ -225,19 +304,7 @@
     }
 
     /* Simple spinner */
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #ddd;
-      border-top-color: #2a7be4;
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-      margin: 20px auto;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    
 
       .titleBar {
   position: fixed;
@@ -433,7 +500,7 @@ async function fetchRequests(loadMore = false) {
 
     if (!loadMore) {
 
-        document.getElementById("loading").style.display = "block";
+        document.getElementById("loading").style.display = "flex";
         document.getElementById("error-box").style.display = "none";
         document.getElementById("main-content").style.display = "none";
         document.getElementById("login-box").style.display = "none";
@@ -670,7 +737,7 @@ requestCard.querySelector(".details-btn-container").appendChild(btn);
   document.getElementById("login-box").style.display = "block";
         return;
     }
-     document.getElementById("loading").style.display = "block";
+     document.getElementById("loading").style.display = "flex";
     document.getElementById("error-box").style.display = "none";
     document.getElementById("main-content").style.display = "none";
   document.getElementById("login-box").style.display = "none";
