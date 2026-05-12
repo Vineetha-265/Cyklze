@@ -701,10 +701,14 @@ galleryUpload.addEventListener('change', function() {
     handleImageUpload(this);
 });
 
-window.addEventListener("pageshow", function () {
+window.addEventListener("pageshow", function (event) {
 
-    cameraUpload.value = "";
-    galleryUpload.value = "";
+    // If page is restored from back/forward cache
+    if (event.persisted) {
+
+        window.location.reload();
+
+    }
 
 });
 // cameraUpload.addEventListener('change', function() {
