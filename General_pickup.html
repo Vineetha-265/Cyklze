@@ -1841,9 +1841,9 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
     <img src="chambersilver.jpg" alt="Silver_Alloy">
     <div class="cartControl" id="Silver_Alloy-control">
         <button class="addBtn"
-              onclick="event.stopPropagation(); addItemCart('Silver_Alloy')">
-        ADD
-      </button>
+  onclick="handleAddToCart(event, 'Silver_Alloy', this)">
+  ADD
+</button>
     </div>
   </div>
 
@@ -1987,6 +1987,27 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
 </div> <!-- END popupOverlay -->
 
 <script>
+function handleAddToCart(event, itemName, button) {
+  // Prevent item box click
+  event.stopPropagation();
+
+  // Add item to cart
+  addItemCart(itemName);
+
+  // Open product modal
+  openProductModal(button.closest('.itemBox'));
+}
+
+
+
+
+
+
+
+
+
+
+
   function openProductModal(card){
 function addToCart(e, item){
   e.stopPropagation();
