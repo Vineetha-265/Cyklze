@@ -757,52 +757,81 @@ input, select, textarea, button {
   width: fit-content;
 }
 
+
+
+
+
 .slideModal{
-  position:fixed;
-  left:0;
-  bottom:-100%;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.4);
-  display:flex;
-  justify-content:center;
-  align-items:flex-end;
-  transition:0.4s;
-  z-index:999;
+  position: fixed;
+  left: 0;
+  bottom: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  transition: 0.4s;
+  z-index: 999;
 }
 
 /* ACTIVE */
 .slideModal.show{
-  bottom:0;
+  bottom: 0;
 }
 
 /* SLIDE PANEL */
 .slideContent{
-  width:100%;
-  max-width:500px;
-  background:#fff;
-  border-radius:20px 20px 0 0;
-  padding:20px;
-  animation:slideUp 0.3s ease;
-  position:relative;
+  width: 100%;
+  max-width: 500px;
+
+  /* Fixed height */
+  height: 80vh;
+
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+
+  padding: 20px;
+
+  position: relative;
+
+  /* Scrollable content */
+  overflow-y: auto;
+
+  animation: slideUp 0.3s ease;
+
+  /* Smooth scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optional scrollbar styling */
+.slideContent::-webkit-scrollbar{
+  width: 6px;
+}
+
+.slideContent::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 10px;
 }
 
 .slideContent img{
-  width:100%;
-  border-radius:12px;
+  width: 100%;
+  border-radius: 12px;
 }
 
 .closeBtn{
   position: absolute;
-  top: -15px;
-  right: -15px;
-  
+  top: 15px;
+  right: 15px;
+
   width: 35px;
   height: 35px;
-  
+
   background: #fff;
   border-radius: 50%;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -811,14 +840,16 @@ input, select, textarea, button {
   cursor: pointer;
 
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+
+  z-index: 10;
 }
 
 @keyframes slideUp{
   from{
-    transform:translateY(100%);
+    transform: translateY(100%);
   }
   to{
-    transform:translateY(0);
+    transform: translateY(0);
   }
 }
   </style>
