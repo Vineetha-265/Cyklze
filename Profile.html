@@ -153,7 +153,7 @@
 .loading-overlay {
   position: fixed;
   inset: 0;
-  display: none;
+  display: none;              /* hidden by default */
   align-items: center;
   justify-content: center;
   z-index: 99999;
@@ -538,7 +538,7 @@ function deleteCookie(name) {
 
     // Fetch the user's phone number from the API
     async function fetchUserPhoneNumber() {
-            document.getElementById("loading").style.display = "block";
+            document.getElementById("loading").style.display = "flex";
       document.getElementById("error-box").style.display = "none";
       document.getElementById("main-content").style.display = "none";
         document.getElementById("login-box").style.display = "none";
