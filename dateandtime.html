@@ -1,4 +1,4 @@
-a<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -273,19 +273,21 @@ cameraBtn.addEventListener("click", function (e) {
         })
         .catch(err => {
             // Permission denied or blocked
-            alert(
+       alert(
 `Camera access is denied.
 
-To enable it:
+📱 On mobile: You can take a picture using your phone's camera app and then upload it using "Choose from Gallery".
 
-Chrome (Desktop):
+To enable camera access:
+
+💻 Chrome (Desktop):
 Settings → Privacy and Security → Site Settings → Camera → Allow
 
-Chrome (Mobile):
+📱 Chrome (Mobile):
 Settings → Apps → Chrome → Permissions → Camera → Allow
 
 Then refresh the page and try again.`
-            );
+);
             e.preventDefault();
         });
 });
