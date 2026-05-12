@@ -152,13 +152,18 @@
     /* Simple spinner */
 .loading-overlay {
   position: fixed;
-  inset: 0;
-  display: none;              /* hidden by default */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: none; /* or flex when active */
   align-items: center;
   justify-content: center;
+
   z-index: 99999;
-  backdrop-filter: blur(6px);
   background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(6px);
 }
 
 /* Card */
