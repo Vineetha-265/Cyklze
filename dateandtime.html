@@ -682,6 +682,17 @@ function myFunction() {
 //     reader.readAsDataURL(file);
 // }
 
+
+// Reset input before opening picker
+cameraUpload.addEventListener("click", function () {
+    this.value = "";
+});
+
+galleryUpload.addEventListener("click", function () {
+    this.value = "";
+});
+
+// Handle selection
 cameraUpload.addEventListener('change', function() {
     handleImageUpload(this);
 });
@@ -689,6 +700,20 @@ cameraUpload.addEventListener('change', function() {
 galleryUpload.addEventListener('change', function() {
     handleImageUpload(this);
 });
+
+window.addEventListener("pageshow", function () {
+
+    cameraUpload.value = "";
+    galleryUpload.value = "";
+
+});
+// cameraUpload.addEventListener('change', function() {
+//     handleImageUpload(this);
+// });
+
+// galleryUpload.addEventListener('change', function() {
+//     handleImageUpload(this);
+// });
 
 const continueBtn = document.getElementById('continueBtn');
 
