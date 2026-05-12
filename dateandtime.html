@@ -1,4 +1,4 @@
-a<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -245,6 +245,54 @@ const heading = document.getElementById("heading");
 const subheading = document.getElementById("subheading");
 const datesContainer = document.getElementById("datesContainer");
 const errorContainer = document.getElementById("errorContainer");
+document.getElementById("cameraBtn")
+.addEventListener("click", async function (e) {
+
+    const allowed = await checkCameraPermission();
+
+    if (!allowed) {
+        e.preventDefault();
+        return;
+    }
+
+});
+
+async function checkCameraPermission() {
+
+    if (!navigator.permissions) return;
+
+    try {
+        const permission = await navigator.permissions.query({
+            name: 'camera'
+        });
+
+        // Permanently denied
+        if (permission.state === 'denied') {
+
+            alert(
+`Camera permission is permanently denied.
+
+To enable it:
+
+Android:
+Settings → Apps → Browser → Permissions → Camera → Allow
+
+iPhone:
+Settings → Safari/Chrome → Camera → Allow
+
+Then refresh the page and try again.`
+            );
+
+            return false;
+        }
+
+        return true;
+
+    } catch (err) {
+        console.log(err);
+        return true;
+    }
+}
 
 async function fetchDates() {
     // Show loading state
