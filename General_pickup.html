@@ -2288,18 +2288,19 @@ function renderCartControl(item) {
   // label based on unit
   const label = unitType === 'kg' ? 'Kgs' : 'Qty';
 
-  // show quantity selector
-  control.innerHTML = `
-    <div class="quantityBox">
-      <button class="qtyBtn"
-        onclick="event.stopPropagation(); decrementCart('${item}')">−</button>
+ control.innerHTML = `
+  <div class="quantityBox"
+       onclick="event.stopPropagation()">
 
-      <span>${label}: ${cart[item]}</span>
+    <button class="qtyBtn"
+      onclick="event.stopPropagation(); decrementCart('${item}')">−</button>
 
-      <button class="qtyBtn"
-        onclick="event.stopPropagation(); incrementCart('${item}')">+</button>
-    </div>
-  `;
+    <span>${label}: ${cart[item]}</span>
+
+    <button class="qtyBtn"
+      onclick="event.stopPropagation(); incrementCart('${item}')">+</button>
+  </div>
+`;
 }
 
 
