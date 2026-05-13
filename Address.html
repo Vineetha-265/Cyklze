@@ -159,16 +159,95 @@ font-family: 'Poppins', sans-serif;
 
 
     
-    #loading {
-      
-       margin-left: 20px;
-     margin-right: 20px;
-     margin-bottom: 400px;
-     margin-top: 300px;
-     padding: 20px;
-      font-size: 20px;
-      display: none;
-    }
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: none; /* or flex when active */
+  align-items: center;
+  justify-content: center;
+
+  z-index: 99999;
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(6px);
+}
+
+/* Card */
+.loading-card {
+  background: rgba(255,255,255,0.96);
+  padding: 26px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  animation: pop 0.2s ease-in-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Spinner ring (Flutter-like) */
+.spinner-ring {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 6px solid rgba(29,77,97,0.15);
+  border-top: 6px solid #1D4D61;
+  animation: spin 1.2s linear infinite;
+  margin: auto;
+  position: relative;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* inner icon */
+.inner-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* Text */
+.loading-text {
+  margin-top: 12px;
+  font-weight: 600;
+  color: #1D4D61;
+  font-size: 16px;
+}
+
+/* Dots animation */
+.dots {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  background: #1D4D61;
+  border-radius: 50%;
+  animation: bounce 0.9s infinite ease-in-out;
+}
+
+.dots span:nth-child(2) { animation-delay: 0.15s; }
+.dots span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
 
     #error-box {
     width: 300px;
@@ -325,10 +404,21 @@ font-family: 'Poppins', sans-serif;
     </div>
   </div>
 
-   <div id="loading">
-    <div class="spinner"></div>
-    Loading...
+   <div id="loading" class="loading-overlay">
+  <div class="loading-card">
+
+    <div class="spinner-ring">
+      <div class="inner-icon">♻️</div>
+    </div>
+
+    <div class="loading-text">Please wait…</div>
+
+    <div class="dots">
+      <span></span><span></span><span></span>
+    </div>
+
   </div>
+</div>
 <div class="screen" id="login-box">
         <div class="login-box">
             <h1>Cyklze</h1>
@@ -441,7 +531,7 @@ const isTokenExpired = async () => {
 async function checkTokenAndNavigate() {
   const accessToken = localStorage.getItem('accessToken');
   console.log(accessToken);
-    document.getElementById("loading").style.display = "block";
+    document.getElementById("loading").style.display = "flex";
       document.getElementById("error-box").style.display = "none";
       document.getElementById("main-content").style.display = "none";
         document.getElementById("login-box").style.display = "none";
@@ -516,10 +606,177 @@ if (address && btn) {
 /* ================= LOCALITY DROPDOWN ================= */
 
 const Localities = [
-  { value: 'Kukatpally', label: 'Kukatpally' },
+  { value: 'Abids', label: 'Abids' },
+  { value: 'Adibatla', label: 'Adibatla' },
+  { value: 'Adikmet', label: 'Adikmet' },
+  { value: 'Airport Area', label: 'Airport Area' },
+  { value: 'Allwyn Colony', label: 'Allwyn Colony' },
+  { value: 'Alkapur Township', label: 'Alkapur Township' },
+  { value: 'Alwal', label: 'Alwal' },
+  { value: 'Amberpet', label: 'Amberpet' },
+  { value: 'Ameerpet', label: 'Ameerpet' },
+  { value: 'Anand Nagar', label: 'Anand Nagar' },
+  { value: 'Anandbagh', label: 'Anandbagh' },
+  { value: 'Aramgarh', label: 'Aramgarh' },
+  { value: 'AS Rao Nagar', label: 'AS Rao Nagar' },
+  { value: 'Attapur', label: 'Attapur' },
+  { value: 'Bachupally', label: 'Bachupally' },
+  { value: 'Bahadurpura', label: 'Bahadurpura' },
+  { value: 'Balapur', label: 'Balapur' },
+  { value: 'Balkampet', label: 'Balkampet' },
+  { value: 'Bandlaguda', label: 'Bandlaguda' },
+  { value: 'Banjara Hills', label: 'Banjara Hills' },
+  { value: 'Barkas', label: 'Barkas' },
+  { value: 'Basheerbagh', label: 'Basheerbagh' },
+  { value: 'Beeramguda', label: 'Beeramguda' },
+  { value: 'Begumpet', label: 'Begumpet' },
+  { value: 'BK Guda', label: 'BK Guda' },
+  { value: 'Boduppal', label: 'Boduppal' },
+  { value: 'Bolarum', label: 'Bolarum' },
+  { value: 'Bollaram', label: 'Bollaram' },
+  { value: 'Borabanda', label: 'Borabanda' },
+  { value: 'Bowenpally', label: 'Bowenpally' },
+  { value: 'Champapet', label: 'Champapet' },
+  { value: 'Chaitanyapuri', label: 'Chaitanyapuri' },
+  { value: 'Chandanagar', label: 'Chandanagar' },
+  { value: 'Charminar', label: 'Charminar' },
+  { value: 'Chevella', label: 'Chevella' },
+  { value: 'Chikkadpally', label: 'Chikkadpally' },
+  { value: 'Chintal', label: 'Chintal' },
+  { value: 'Chandrayangutta', label: 'Chandrayangutta' },
+  { value: 'Dilsukhnagar', label: 'Dilsukhnagar' },
+  { value: 'Domalguda', label: 'Domalguda' },
+  { value: 'Dr AS Rao Nagar', label: 'Dr AS Rao Nagar' },
+  { value: 'Dundigal', label: 'Dundigal' },
+  { value: 'ECIL', label: 'ECIL' },
+  { value: 'East Marredpally', label: 'East Marredpally' },
+  { value: 'Erragadda', label: 'Erragadda' },
+  { value: 'Falaknuma', label: 'Falaknuma' },
+  { value: 'Fatehnagar', label: 'Fatehnagar' },
+  { value: 'Film Nagar', label: 'Film Nagar' },
+  { value: 'Financial District', label: 'Financial District' },
+  { value: 'Gachibowli', label: 'Gachibowli' },
+  { value: 'Ghatkesar', label: 'Ghatkesar' },
+  { value: 'Gowlidoddi', label: 'Gowlidoddi' },
+  { value: 'Gundlapochampally', label: 'Gundlapochampally' },
+  { value: 'Habsiguda', label: 'Habsiguda' },
+  { value: 'Hafeezpet', label: 'Hafeezpet' },
+  { value: 'Hayathnagar', label: 'Hayathnagar' },
+  { value: 'Himayatnagar', label: 'Himayatnagar' },
+  { value: 'Hitech City', label: 'Hitech City' },
+  { value: 'Hydernagar', label: 'Hydernagar' },
+  { value: 'Ibrahimpatnam', label: 'Ibrahimpatnam' },
+  { value: 'IDA Bollaram', label: 'IDA Bollaram' },
+  { value: 'IS Sadan', label: 'IS Sadan' },
+  { value: 'Jalpally', label: 'Jalpally' },
+  { value: 'Jeedimetla', label: 'Jeedimetla' },
+  { value: 'Journalist Colony', label: 'Journalist Colony' },
+  { value: 'Jubilee Hills', label: 'Jubilee Hills' },
+  { value: 'Kachiguda', label: 'Kachiguda' },
+  { value: 'Kamineni', label: 'Kamineni' },
+  { value: 'Kandlakoya', label: 'Kandlakoya' },
+  { value: 'Kapra', label: 'Kapra' },
+  { value: 'Karkhana', label: 'Karkhana' },
   { value: 'KBHP', label: 'KBHP' },
+  { value: 'Keesara', label: 'Keesara' },
+  { value: 'Khairatabad', label: 'Khairatabad' },
+  { value: 'Khanapur', label: 'Khanapur' },
+  { value: 'Kokapet', label: 'Kokapet' },
+  { value: 'Kompally', label: 'Kompally' },
+  { value: 'Kondapur', label: 'Kondapur' },
+  { value: 'Kothaguda', label: 'Kothaguda' },
+  { value: 'Kothapet', label: 'Kothapet' },
+  { value: 'Koti', label: 'Koti' },
+  { value: 'KPHB', label: 'KPHB' },
+  { value: 'Kukatpally', label: 'Kukatpally' },
+  { value: 'Kushaiguda', label: 'Kushaiguda' },
+  { value: 'LB Nagar', label: 'LB Nagar' },
+  { value: 'Lakdikapul', label: 'Lakdikapul' },
+  { value: 'Langer Houz', label: 'Langer Houz' },
+  { value: 'Lingampally', label: 'Lingampally' },
+  { value: 'Madhapur', label: 'Madhapur' },
+  { value: 'Madinaguda', label: 'Madinaguda' },
+  { value: 'Maheshwaram', label: 'Maheshwaram' },
+  { value: 'Mailardevpally', label: 'Mailardevpally' },
+  { value: 'Malakpet', label: 'Malakpet' },
+  { value: 'Mallapur', label: 'Mallapur' },
+  { value: 'Malkajgiri', label: 'Malkajgiri' },
+  { value: 'Manikonda', label: 'Manikonda' },
+  { value: 'Marredpally', label: 'Marredpally' },
+  { value: 'Masab Tank', label: 'Masab Tank' },
+  { value: 'Medchal', label: 'Medchal' },
+  { value: 'Mehdipatnam', label: 'Mehdipatnam' },
+  { value: 'Miyapur', label: 'Miyapur' },
+  { value: 'Moosapet', label: 'Moosapet' },
+  { value: 'Moosarambagh', label: 'Moosarambagh' },
+  { value: 'Moinabad', label: 'Moinabad' },
+  { value: 'Moula Ali', label: 'Moula Ali' },
+  { value: 'Musheerabad', label: 'Musheerabad' },
+  { value: 'Nacharam', label: 'Nacharam' },
+  { value: 'Nagole', label: 'Nagole' },
+  { value: 'Nallagandla', label: 'Nallagandla' },
+  { value: 'Nallakunta', label: 'Nallakunta' },
+  { value: 'Nampally', label: 'Nampally' },
+  { value: 'Nanakramguda', label: 'Nanakramguda' },
+  { value: 'Narayanguda', label: 'Narayanguda' },
+  { value: 'Narsingi', label: 'Narsingi' },
+  { value: 'Neredmet', label: 'Neredmet' },
+  { value: 'New Bhoiguda', label: 'New Bhoiguda' },
+  { value: 'Nizampet', label: 'Nizampet' },
+  { value: 'Old Bowenpally', label: 'Old Bowenpally' },
+  { value: 'Osman Nagar', label: 'Osman Nagar' },
+  { value: 'Pahadi Shareef', label: 'Pahadi Shareef' },
+  { value: 'Panjagutta', label: 'Panjagutta' },
+  { value: 'Paradise', label: 'Paradise' },
+  { value: 'Patancheru', label: 'Patancheru' },
+  { value: 'Pedda Amberpet', label: 'Pedda Amberpet' },
+  { value: 'Peerzadiguda', label: 'Peerzadiguda' },
+  { value: 'Pet Basheerabad', label: 'Pet Basheerabad' },
+  { value: 'Pragathi Nagar', label: 'Pragathi Nagar' },
+  { value: 'Puppalaguda', label: 'Puppalaguda' },
+  { value: 'Quthbullapur', label: 'Quthbullapur' },
+  { value: 'Raidurg', label: 'Raidurg' },
+  { value: 'Rai Durgam', label: 'Rai Durgam' },
+  { value: 'Rajendranagar', label: 'Rajendranagar' },
+  { value: 'Ramanthapur', label: 'Ramanthapur' },
+  { value: 'Rasoolpura', label: 'Rasoolpura' },
+  { value: 'RTC X Roads', label: 'RTC X Roads' },
+  { value: 'Safilguda', label: 'Safilguda' },
+  { value: 'Saidabad', label: 'Saidabad' },
+  { value: 'Sainikpuri', label: 'Sainikpuri' },
+  { value: 'Sanath Nagar', label: 'Sanath Nagar' },
+  { value: 'Santosh Nagar', label: 'Santosh Nagar' },
+  { value: 'Saroor Nagar', label: 'Saroor Nagar' },
+  { value: 'Secunderabad', label: 'Secunderabad' },
+  { value: 'Serilingampally', label: 'Serilingampally' },
+  { value: 'Shaikpet', label: 'Shaikpet' },
+  { value: 'Shamirpet', label: 'Shamirpet' },
+  { value: 'Shamshabad', label: 'Shamshabad' },
+  { value: 'Shastripuram', label: 'Shastripuram' },
+  { value: 'Sikh Village', label: 'Sikh Village' },
+  { value: 'Somajiguda', label: 'Somajiguda' },
+  { value: 'Srinagar Colony', label: 'Srinagar Colony' },
+  { value: 'SR Nagar', label: 'SR Nagar' },
+  { value: 'Suchitra', label: 'Suchitra' },
+  { value: 'Sun City', label: 'Sun City' },
+  { value: 'Suraram', label: 'Suraram' },
+  { value: 'Tadbund', label: 'Tadbund' },
+  { value: 'Tarnaka', label: 'Tarnaka' },
+  { value: 'Tellapur', label: 'Tellapur' },
   { value: 'Tirumalagirri', label: 'Tirumalagirri' },
-  { value: 'Bollaram', label: 'Bollaram' }
+  { value: 'Tirumalagiri', label: 'Tirumalagiri' },
+  { value: 'Tolichowki', label: 'Tolichowki' },
+  { value: 'Trimulgherry', label: 'Trimulgherry' },
+  { value: 'Tukkuguda', label: 'Tukkuguda' },
+  { value: 'Uppal', label: 'Uppal' },
+  { value: 'Uppuguda', label: 'Uppuguda' },
+  { value: 'Vengal Rao Nagar', label: 'Vengal Rao Nagar' },
+  { value: 'Vidyanagar', label: 'Vidyanagar' },
+  { value: 'Vivekananda Nagar', label: 'Vivekananda Nagar' },
+  { value: 'Vivekanandapuram', label: 'Vivekanandapuram' },
+  { value: 'West Marredpally', label: 'West Marredpally' },
+  { value: 'Yapral', label: 'Yapral' },
+  { value: 'Yousufguda', label: 'Yousufguda' }
 ];
 
 let selectedLocality = 'Select Locality';
@@ -565,10 +822,7 @@ localitySearch.addEventListener('input', function () {
 
 const Tier1Cities = [
   { value: 'Hyderabad', label: 'Hyderabad' },
-  { value: 'Mumbai', label: 'Mumbai' },
-  { value: 'Delhi', label: 'Delhi' },
-  { value: 'Chennai', label: 'Chennai' },
-  { value: 'Bangalore', label: 'Bangalore' }
+
 ];
 
 let selectedCity = 'Select City';
@@ -662,5 +916,4 @@ function saveAddressAndContinue() {
 
 </body>
 </html>
-
 
