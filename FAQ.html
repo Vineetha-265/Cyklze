@@ -90,14 +90,35 @@
         .floating-btn:hover {
             background-color: #45a049; /* Darker green on hover */
         }
+                .titleBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
+  background-color: #1D4D61;   /* Green */
+  color: white;                 /* White text */
+
+  display: flex;
+  align-items: center;
+  justify-content: left;
+padding-left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 999;
+}
   </style>
 </head>
 <body>
 
   <div class="header">
    
-    <div class="title">FAQ</div>
-  </div>
+   <div class="titleBar">
+  <span class="titleText">FAQ's</span>
+</div>
 
   <div class="faq-list">
     <!-- FAQ Items will go here -->
@@ -199,7 +220,6 @@
 
 </body>
 </html>
-
 
 
 
