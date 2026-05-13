@@ -1,229 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="icon" type="image/png" href="/Cyklze_ikn.png">
-    <link rel="canonical" href="https://cyklze.com/FAQ.html">
-  <title>FAQ </title>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/Cyklze_ikn.png"
+  />
+
+  <link
+    rel="canonical"
+    href="https://cyklze.com/FAQ.html"
+  />
+
+  <title>FAQs | Cyklze</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
+
+    * {
       margin: 0;
       padding: 0;
-      background-color: #ffffff;
+      box-sizing: border-box;
     }
-    .header {
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+        linear-gradient(
+          to bottom,
+          #f8fafc,
+          #eef2f7
+        );
+
+      color: #111827;
+
+      min-height: 100vh;
+    }
+
+    /* ================= TOP BAR ================= */
+
+    .titleBar {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 72px;
+
+      background:
+        rgba(255,255,255,0.78);
+
+      backdrop-filter: blur(14px);
+
+      border-bottom:
+        1px solid rgba(0,0,0,0.06);
+
       display: flex;
       align-items: center;
-      padding: 12px 16px;
-      background-color: #ffffff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+      padding: 0 22px;
+
+      z-index: 1000;
     }
 
-    .header .back-btn {
-      font-size: 24px;
-      cursor: pointer;
+    .titleText {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
     }
 
-    .header .title {
-      flex: 1;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
+    /* ================= MAIN ================= */
+
+    .main {
+      width: 100%;
+      max-width: 760px;
+
+      margin: auto;
+
+      padding:
+        100px 18px
+        120px;
     }
+
+    /* ================= FAQ CARDS ================= */
 
     .faq-item {
-      margin: 8px 0;
-      background-color: #f8f8f8;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background:
+        rgba(255,255,255,0.92);
+
+      border-radius: 22px;
+
+      margin-bottom: 18px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(255,255,255,0.6);
+
+      box-shadow:
+        0 10px 28px rgba(0,0,0,0.05);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .faq-item:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 14px 32px rgba(0,0,0,0.08);
     }
 
     .faq-item-header {
       display: flex;
       align-items: center;
-      padding: 16px;
+      gap: 16px;
+
+      padding: 22px;
+
       cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
     }
 
-    .faq-item-header .question {
+    .question {
       flex: 1;
+
+      font-size: 16px;
+      font-weight: 600;
+
+      line-height: 1.5;
+
+      color: #111827;
     }
 
-    .faq-item-header .icon {
-      transition: transform 0.3s ease;
+    .icon {
+      font-size: 14px;
+
+      color: #1D4D61;
+
+      transition: transform 0.25s ease;
     }
 
-    .faq-item-header .icon.rotated {
+    .icon.rotated {
       transform: rotate(180deg);
     }
 
+    /* ================= ANSWER ================= */
+
     .faq-item-body {
-      padding: 16px;
-      font-size: 14px;
-      color: #5e5e5e;
+      display: none;
+
+      padding:
+        0 22px 22px;
+
+      color: #4b5563;
+
+      font-size: 15px;
+
+      line-height: 1.8;
+
+      animation: fadeIn 0.25s ease;
     }
 
-    .faq-list {
-      padding: 16px;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
+    /* ================= FLOATING BUTTON ================= */
 
-     .floating-btn {
-            position: fixed; /* Fixes the button to the screen */
-            bottom: 20px;    /* Distance from the bottom */
-            right: 20px;     /* Distance from the right */
-            background-color: #4CAF50; /* Green background */
-            color: white;    /* White text */
-            border: none;    /* No border */
-            padding: 15px 25px; /* Padding around the text */
-            font-size: 18px; /* Font size */
-            border-radius: 10px; /* Smooth edges with rounded corners */
-            cursor: pointer; /* Makes the cursor a pointer on hover */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
-        }
+    .floating-btn {
+      position: fixed;
 
-        .floating-btn:hover {
-            background-color: #45a049; /* Darker green on hover */
-        }
-                .titleBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
+      bottom: 22px;
+      left: 50%;
 
-  background-color: #1D4D61;   /* Green */
-  color: white;                 /* White text */
+      transform: translateX(-50%);
 
-  display: flex;
-  align-items: center;
-  justify-content: left;
-padding-left: 20px;
-  font-size: 17px;
-  font-weight: bold;
+      width: calc(100% - 36px);
+      max-width: 760px;
 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 999;
-}
+      border: none;
+
+      background:
+        linear-gradient(
+          135deg,
+          #1D4D61,
+          #25627c
+        );
+
+      color: white;
+
+      padding: 18px;
+
+      border-radius: 18px;
+
+      font-size: 16px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 14px 30px rgba(29,77,97,0.24);
+
+      transition: all 0.25s ease;
+
+      z-index: 1000;
+    }
+
+    .floating-btn:hover {
+      transform:
+        translateX(-50%)
+        translateY(-2px);
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      margin-top: 50px;
+
+      background: #111827;
+
+      color: rgba(255,255,255,0.8);
+
+      padding: 40px 20px;
+
+      border-radius: 24px;
+    }
+
+    footer p {
+      margin-bottom: 10px;
+
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-top: 18px;
+
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: white;
+
+      text-decoration: none;
+
+      opacity: 0.85;
+
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 600px) {
+
+      .titleText {
+        font-size: 20px;
+      }
+
+      .faq-item-header {
+        padding: 18px;
+      }
+
+      .question {
+        font-size: 15px;
+      }
+
+      .faq-item-body {
+        font-size: 14px;
+      }
+
+      footer {
+        border-radius: 18px;
+      }
+    }
+
   </style>
 </head>
+
 <body>
 
-  <div class="header">
-   
-   <div class="titleBar">
-  <span class="titleText">FAQ's</span>
-</div>
+  <!-- ================= TOP BAR ================= -->
 
-  <div class="faq-list">
-    <!-- FAQ Items will go here -->
+  <div class="titleBar">
+    <span class="titleText">FAQs</span>
   </div>
-     <button class="floating-btn"  onclick="window.location.href='index.html';">Book a pickup</button>
-<footer style="background-color: black; color: white; text-align: center; padding: 30px 20px; font-family: Arial, sans-serif;">
-    <p>&copy; 2025 Your Company. All rights reserved.</p>
-    <p>Cyklze - We Buy Recyclables</p>
-    <p>Email: support@cyklze.com</p>
-    <div style="margin-top: 10px;">
-        <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Home</a>
-        <a href="about.html" style="color: white; text-decoration: none; margin: 0 10px;">About</a>
-       
-        <a href="Help.html" style="color: white; text-decoration: none; margin: 0 10px;">Contact</a>
-    </div>
-</footer>
+
+  <!-- ================= MAIN ================= -->
+
+  <div class="main">
+
+    <!-- FAQ LIST -->
+    <div class="faq-list"></div>
+
+    <!-- FOOTER -->
+    <footer>
+
+      <p>© 2025 Cyklze. All rights reserved.</p>
+
+      <p>Cyklze — We Buy Recyclables</p>
+
+      <p>Email: support@cyklze.com</p>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="Help.html">Contact</a>
+      </div>
+
+    </footer>
+
+  </div>
+
+  <!-- FLOATING CTA -->
+
+  <button
+    class="floating-btn"
+    onclick="window.location.href='index.html';"
+  >
+    Book a Pickup
+  </button>
+
+  <!-- ================= SCRIPT ================= -->
+
   <script>
-    // FAQ Data
+
     const faqData = [
+
       {
         question: "How does the scrap pickup service work?",
-        answer: "You can sell your scrap by placing an order on our app/website. Once the order is placed, our team will come to pick it up, weigh and pay you on-site."
+        answer:
+          "You can sell your scrap by placing an order on our app or website. Once the order is placed, our team will arrive at your location, weigh the scrap, and pay you instantly."
       },
+
       {
         question: "What types of scrap can I sell?",
-        answer: "We accept various types of scrap including metals, paper, plastic, and electronics. If you're unsure, contact us for more details."
+        answer:
+          "We accept paper, cardboard, plastic, metals, newspapers, electronics, and many other recyclable materials."
       },
+
       {
         question: "How do I get paid for my scrap?",
-        answer: "Our team will pay you on-site in cash or your preffered method (upi) when they pick up your scrap. Make sure to have the correct quantity and quality of scrap as mentioned in your order."
+        answer:
+          "Payment is made instantly during pickup through cash or UPI, depending on your preference."
       },
+
       {
-        question: "How do I place an order for pickup?",
-        answer: "Simply open the app/website, select pickup type, fill in the details about the scrap you're selling, and confirm the pickup time."
+        question: "How do I place a pickup order?",
+        answer:
+          "Simply open the website, select your scrap category, choose a pickup time, enter your address, and confirm the booking."
       },
+
       {
-        question: "Can I schedule a pickup at any time?",
-        answer: "You can schedule a pickup at your convenience. Our team operates during normal business hours, but we do offer flexible scheduling based on availability."
+        question: "Can I schedule a pickup anytime?",
+        answer:
+          "Yes. You can schedule pickups based on available slots and our operating hours."
       },
-    
+
       {
-        question: "What happens if I change my mind after placing an order?",
-        answer: "You can cancel or reschedule your pickup request through the app before our team arrives. If the pickup is already in progress, please contact customer support."
+        question: "Can I cancel or reschedule my order?",
+        answer:
+          "Yes. You can cancel or reschedule your pickup request before the pickup partner arrives."
       },
-     
+
       {
-        question: "What if I need assistance with sorting the scrap?",
-        answer: "Our team is trained to help with sorting the scrap if necessary. If you're unsure about the type of scrap you have, feel free to ask for guidance."
+        question: "Do you help with sorting scrap?",
+        answer:
+          "Yes. Our pickup team can assist you with identifying and sorting recyclable materials."
       },
-     
+
       {
-        question: "How do I contact customer support?",
-        answer: "You can contact our customer support team directly through the app/website via help or contact us page."
-      },
-     
+        question: "How can I contact customer support?",
+        answer:
+          "You can contact us through the Help or Contact page available on the website."
+      }
+
     ];
 
-    // Function to go back
-    function goBack() {
-      alert("Go back");
-    }
-
-    // Function to toggle the answer visibility
     function toggleAnswer(index) {
-      const faqItem = document.getElementById(`faq-item-${index}`);
-      const icon = document.getElementById(`icon-${index}`);
-      const body = faqItem.querySelector('.faq-item-body');
+
+      const faqItem =
+        document.getElementById(`faq-item-${index}`);
+
+      const icon =
+        document.getElementById(`icon-${index}`);
+
+      const body =
+        faqItem.querySelector('.faq-item-body');
 
       faqItem.classList.toggle('expanded');
-      if (faqItem.classList.contains('expanded')) {
+
+      if (
+        faqItem.classList.contains('expanded')
+      ) {
+
         body.style.display = 'block';
+
         icon.classList.add('rotated');
+
       } else {
+
         body.style.display = 'none';
+
         icon.classList.remove('rotated');
       }
     }
 
-    // Render FAQ Items
-    const faqList = document.querySelector('.faq-list');
+    const faqList =
+      document.querySelector('.faq-list');
+
     faqData.forEach((item, index) => {
-      const faqItem = document.createElement('div');
+
+      const faqItem =
+        document.createElement('div');
+
       faqItem.classList.add('faq-item');
+
       faqItem.id = `faq-item-${index}`;
 
       faqItem.innerHTML = `
-        <div class="faq-item-header" onclick="toggleAnswer(${index})">
-          <div class="question">${item.question}</div>
-          <div id="icon-${index}" class="icon">&#9660;</div>
+
+        <div
+          class="faq-item-header"
+          onclick="toggleAnswer(${index})"
+        >
+
+          <div class="question">
+            ${item.question}
+          </div>
+
+          <div
+            id="icon-${index}"
+            class="icon"
+          >
+            ▼
+          </div>
+
         </div>
-        <div class="faq-item-body" style="display: none;">
-          <p>${item.answer}</p>
+
+        <div
+          class="faq-item-body"
+        >
+          ${item.answer}
         </div>
+
       `;
 
       faqList.appendChild(faqItem);
     });
+
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
