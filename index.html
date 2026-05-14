@@ -750,6 +750,45 @@
 
 
 
+
+
+
+    const playStoreUrl =
+      "https://play.google.com/store/apps/details?id=com.example.app";
+
+    const appStoreUrl =
+      "https://apps.apple.com/app/id123456789";
+
+    const userAgent =
+      navigator.userAgent || navigator.vendor || window.opera;
+
+    let redirectUrl = playStoreUrl;
+
+    // iOS detection
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      redirectUrl = appStoreUrl;
+    }
+
+    // Download redirect
+    document
+      .getElementById("downloadBtn")
+      .addEventListener("click", () => {
+        window.location.href = redirectUrl;
+      });
+
+    // Close banner
+    document
+      .getElementById("closeBanner")
+      .addEventListener("click", () => {
+        document.getElementById("appBanner").style.display = "none";
+      });
+
+
+
+
+
+
+
   const items = ["Iron", "Plastic", "Cardboard","Paper","Books","Bottle","Ac","Fridge","E-Waste","Wire","Copper"];
   let index = 0;
 
