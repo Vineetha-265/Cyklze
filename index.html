@@ -385,10 +385,206 @@
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* TOP STICKY BANNER */
+    .app-banner{
+      position:fixed;
+      top:16px;
+      left:50%;
+      transform:translateX(-50%);
+      width:92%;
+      max-width:520px;
+
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(12px);
+
+      border-radius:20px;
+      padding:14px 16px;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.10),
+        0 2px 10px rgba(0,0,0,0.05);
+
+      border:1px solid rgba(255,255,255,0.7);
+
+      z-index:9999;
+      animation:slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown{
+      from{
+        opacity:0;
+        transform:translate(-50%, -20px);
+      }
+      to{
+        opacity:1;
+        transform:translate(-50%, 0);
+      }
+    }
+
+    .app-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .app-icon{
+      width:58px;
+      height:58px;
+      border-radius:16px;
+      object-fit:cover;
+      flex-shrink:0;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    .app-info{
+      min-width:0;
+    }
+
+    .app-info h2{
+      margin:0;
+      font-size:18px;
+      color:#111827;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .app-info p{
+      margin:4px 0 0;
+      font-size:13px;
+      color:#6b7280;
+      line-height:1.4;
+    }
+
+    .download-btn{
+      border:none;
+      outline:none;
+      background:#111827;
+      color:#fff;
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:14px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.25s ease;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+
+    .download-btn:hover{
+      background:#000;
+      transform:translateY(-2px);
+    }
+
+    .close-btn{
+      position:absolute;
+      top:8px;
+      right:8px;
+
+      width:24px;
+      height:24px;
+
+      border:none;
+      border-radius:50%;
+      background:#f3f4f6;
+      cursor:pointer;
+
+      font-size:14px;
+      color:#555;
+    }
+
+    .close-btn:hover{
+      background:#e5e7eb;
+    }
+
+    @media(max-width:600px){
+
+      .app-banner{
+        top:10px;
+        padding:12px;
+        border-radius:18px;
+      }
+
+      .app-info h2{
+        font-size:16px;
+      }
+
+      .app-info p{
+        font-size:12px;
+      }
+
+      .download-btn{
+        padding:10px 14px;
+        font-size:13px;
+      }
+    }
+
+    @media(max-width:480px){
+
+      .app-banner{
+        align-items:flex-start;
+      }
+
+      .download-btn{
+        margin-top:4px;
+      }
+
+      .app-info p{
+        display:none;
+      }
+    }
 </style>
 </head>
 <body>
+  <!-- Sticky App Banner -->
+  <div class="app-banner" id="appBanner">
 
+    <button class="close-btn" id="closeBanner">✕</button>
+
+    <div class="app-left">
+      <img
+        class="app-icon"
+        src="Cyklze_ikn.png"
+        alt="App Icon"
+      >
+
+      <div class="app-info">
+        <h2>My Awesome App</h2>
+        <p>Download our app for a better experience.</p>
+      </div>
+    </div>
+
+    <button class="download-btn" id="downloadBtn">
+      Download
+    </button>
+
+  </div>
 
 <div class="intro" id="intro">
   <div class="intro-text" id="introText">
