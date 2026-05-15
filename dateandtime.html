@@ -441,6 +441,44 @@ input[type="file"]{
         min-width: unset;
     }
 }
+
+
+
+
+
+
+
+
+
+/* TOAST */
+
+.custom-toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+
+    background: rgba(29,77,97,0.96);
+    color: white;
+
+    padding: 12px 18px;
+    border-radius: 12px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    z-index: 2000;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.custom-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 </style>
 </head>
 
@@ -759,41 +797,111 @@ function updateContinueButton() {
 }
 
 
+function showToast(message) {
+
+    // Remove old toast if exists
+    const oldToast = document.querySelector(".custom-toast");
+    if (oldToast) oldToast.remove();
+
+    const toast = document.createElement("div");
+    toast.className = "custom-toast";
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    // Show animation
+    setTimeout(() => {
+        toast.classList.add("show");
+    }, 10);
+
+    // Hide after 3 sec
+    setTimeout(() => {
+        toast.classList.remove("show");
+
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
+}
+
 
 continueBtn.addEventListener("click", function () {
 
-    /* ------------------ 1️⃣ Get Selected Date ------------------ */
     const selectedDateEl = document.querySelector(".date-option.selected");
+    const imageData = imagePreview.src;
 
-    if (!selectedDateEl) {
-        alert("Please select a date");
+    /* ------------------ VALIDATIONS ------------------ */
+
+    // Neither selected
+    if (!selectedDateEl && !imageData) {
+        showToast("Please select a date and upload an image");
         return;
     }
+
+    // Date missing
+    if (!selectedDateEl) {
+        showToast("Please select a delivery date");
+        return;
+    }
+
+    // Image missing
+    if (!imageData || imagePreview.style.display === "none") {
+        showToast("Please upload an image");
+        return;
+    }
+
+    /* ------------------ SAVE DATA ------------------ */
 
     const selectedDate = selectedDateEl.textContent;
 
-    /* ------------------ 2️⃣ Get Image (Base64) ------------------ */
-    const imageData = imagePreview.src;
+    // Remove data:image/... prefix
+    const pureBase64 = imageData.includes(",")
+        ? imageData.split(",")[1]
+        : imageData;
 
-    if (!imageData) {
-        alert("Please upload an image");
-        return;
-    }
-
-    /* ------------------ 3️⃣ Convert to Pure Base64 ------------------ */
-    // Remove data URL prefix (if present) to match Flutter base64Encode style
-    const pureBase64 = imageData.includes(",") ? imageData.split(",")[1] : imageData;
-
-    /* ------------------ 4️⃣ Save to localStorage ------------------ */
     localStorage.setItem("selectedDate", selectedDate);
     localStorage.setItem("selectedImage", pureBase64);
 
     console.log("Date Saved:", selectedDate);
     console.log("Image Saved (Base64):", pureBase64);
 
-    /* ------------------ 5️⃣ Navigate to Next Page ------------------ */
     window.location.href = "Address.html";
 });
+
+// continueBtn.addEventListener("click", function () {
+
+//     /* ------------------ 1️⃣ Get Selected Date ------------------ */
+//     const selectedDateEl = document.querySelector(".date-option.selected");
+
+//     if (!selectedDateEl) {
+//         alert("Please select a date");
+//         return;
+//     }
+
+//     const selectedDate = selectedDateEl.textContent;
+
+//     /* ------------------ 2️⃣ Get Image (Base64) ------------------ */
+//     const imageData = imagePreview.src;
+
+//     if (!imageData) {
+//         alert("Please upload an image");
+//         return;
+//     }
+
+//     /* ------------------ 3️⃣ Convert to Pure Base64 ------------------ */
+//     // Remove data URL prefix (if present) to match Flutter base64Encode style
+//     const pureBase64 = imageData.includes(",") ? imageData.split(",")[1] : imageData;
+
+//     /* ------------------ 4️⃣ Save to localStorage ------------------ */
+//     localStorage.setItem("selectedDate", selectedDate);
+//     localStorage.setItem("selectedImage", pureBase64);
+
+//     console.log("Date Saved:", selectedDate);
+//     console.log("Image Saved (Base64):", pureBase64);
+
+//     /* ------------------ 5️⃣ Navigate to Next Page ------------------ */
+//     window.location.href = "Address.html";
+// });
 
 
 
