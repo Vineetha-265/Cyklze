@@ -2580,30 +2580,44 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
 //     }
 //   }
 // });
+// window.addEventListener("load", () => {
+
+//   const popup = document.getElementById("welcomePopup");
+
+//   const savedType = localStorage.getItem("selected_pickup_type");
+
+//   const validTabs = ["groceries", "commercial"];
+
+//   // show popup only if:
+//   // - nothing saved OR invalid saved value
+//   if (!savedType || !validTabs.includes(savedType)) {
+
+//     popup.style.display = "flex";
+
+//   } else {
+
+//     popup.style.display = "none";
+
+//     const tab = document.getElementById(savedType);
+
+//     if (tab) {
+//       setActiveTab(tab);
+//     }
+//   }
+// });
+
+
+/* =========================================
+   WELCOME POPUP
+========================================= */
+
 window.addEventListener("load", () => {
 
   const popup = document.getElementById("welcomePopup");
 
-  const savedType = localStorage.getItem("selected_pickup_type");
+  // ALWAYS show popup on every fresh page load
+  popup.style.display = "flex";
 
-  const validTabs = ["groceries", "commercial"];
-
-  // show popup only if:
-  // - nothing saved OR invalid saved value
-  if (!savedType || !validTabs.includes(savedType)) {
-
-    popup.style.display = "flex";
-
-  } else {
-
-    popup.style.display = "none";
-
-    const tab = document.getElementById(savedType);
-
-    if (tab) {
-      setActiveTab(tab);
-    }
-  }
 });
 
 // window.addEventListener("load", () => {
@@ -3058,8 +3072,8 @@ function closePopup() {
 
 /* =========================================
    SELECT PICKUP TYPE
-========================================= */
 
+========================================= */
 function selectPickupType(type){
 
   const popup = document.getElementById("welcomePopup");
@@ -3078,6 +3092,25 @@ function selectPickupType(type){
     setActiveTab(tab);
   }
 }
+
+// function selectPickupType(type){
+
+//   const popup = document.getElementById("welcomePopup");
+
+//   popup.style.display = "none";
+
+//   localStorage.setItem(
+//     "selected_pickup_type",
+//     type
+//   );
+
+//   const tab = document.getElementById(type);
+
+//   if(tab){
+
+//     setActiveTab(tab);
+//   }
+// }
 /* =====================================================
    DATE GENERATION (NEXT 3 DAYS)
 ===================================================== */
