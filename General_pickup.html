@@ -527,21 +527,219 @@ input, select, textarea, button {
 
 
 .appBar {
-  position: fixed;            /* stays on top even when scrolling */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;               /* AppBar height */
-  background-color: #1D4D61;  /* your color */
+  height: 60px;
+  background-color: #1D4D61;
   color: white;
+
   display: flex;
   align-items: center;
-  padding: 0 20px;            /* left-right spacing */
+  justify-content: space-between;
+
+  padding: 0 20px;
+
   font-size: 20px;
   font-weight: bold;
+
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 1000;              /* stay above everything */
+
+  z-index: 1000;
+
+  box-sizing: border-box;
 }
+
+/* TITLE */
+
+.appTitle{
+  font-size:20px;
+  font-weight:700;
+  color:white;
+}
+
+/* =========================================
+   TRUCK ICON
+========================================= */
+
+.truckWrapper{
+  position:relative;
+
+  width:42px;
+  height:42px;
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  font-size:28px;
+
+  border-radius:12px;
+
+  background:rgba(255,255,255,0.12);
+
+  backdrop-filter:blur(4px);
+
+  transition:0.2s;
+}
+
+.truckWrapper:active{
+  transform:scale(0.94);
+}
+
+.truckCount{
+
+  position:absolute;
+
+  top:-5px;
+  right:-5px;
+
+  min-width:20px;
+  height:20px;
+
+  padding:0 5px;
+
+  border-radius:50px;
+
+  background:#ff3b30;
+
+  color:white;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:11px;
+  font-weight:700;
+
+  border:2px solid #1D4D61;
+}
+
+/* =========================================
+   SUMMARY POPUP
+========================================= */
+
+.cartSummaryPopup{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,0.45);
+
+  display:none;
+
+  justify-content:center;
+  align-items:flex-end;
+
+  z-index:99999;
+}
+
+.cartSummaryCard{
+
+  width:100%;
+
+  max-height:75vh;
+
+  background:white;
+
+  border-radius:22px 22px 0 0;
+
+  padding:18px;
+
+  overflow-y:auto;
+
+  animation:slideUp .25s ease;
+}
+
+@keyframes slideUp{
+
+  from{
+    transform:translateY(100%);
+  }
+
+  to{
+    transform:translateY(0);
+  }
+}
+
+.summaryHeader{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:18px;
+}
+
+.summaryHeader span{
+
+  font-size:20px;
+
+  font-weight:700;
+
+  color:#222;
+}
+
+.summaryHeader button{
+
+  border:none;
+
+  background:none;
+
+  font-size:24px;
+
+  cursor:pointer;
+
+  color:#444;
+}
+
+.cartSummaryItems{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+}
+
+.summaryItem{
+
+  background:#f5f7fa;
+
+  border-radius:14px;
+
+  padding:14px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+}
+
+.summaryItemName{
+
+  font-size:15px;
+
+  font-weight:600;
+
+  color:#222;
+}
+
+.summaryItemQty{
+
+  font-size:15px;
+
+  font-weight:700;
+
+  color:#0a8f3d;
+}
+
 
 /* To prevent your content from hiding behind the AppBar */
 .pageContent {
@@ -855,8 +1053,37 @@ input, select, textarea, button {
   </style>
 </head>
 <body>
-    <div class="appBar">
+   <div class="appBar">
+
   <span class="appTitle">Pickup Details</span>
+
+  <!-- Truck Icon -->
+  <div id="truckWrapper" class="truckWrapper" onclick="openCartSummary()">
+
+    🚚
+
+    <span id="truckCount" class="truckCount">0</span>
+
+  </div>
+
+</div>
+<!-- CART SUMMARY POPUP -->
+<div id="cartSummaryPopup" class="cartSummaryPopup">
+
+  <div class="cartSummaryCard">
+
+    <div class="summaryHeader">
+
+      <span>Your Pickup Summary</span>
+
+      <button onclick="closeCartSummary()">✕</button>
+
+    </div>
+
+    <div id="cartSummaryItems" class="cartSummaryItems"></div>
+
+  </div>
+
 </div>
 
 
@@ -2019,6 +2246,70 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
 
 <script>
 
+/* =========================================
+   UPDATE TRUCK ICON
+========================================= */
+
+function updateTruckUI() {
+
+  const truck = document.getElementById("truckWrapper");
+  const truckCount = document.getElementById("truckCount");
+
+  const itemCount = Object.keys(cart).length;
+
+  if (itemCount > 0) {
+
+    truck.style.display = "block";
+    truckCount.innerText = itemCount;
+
+  } else {
+
+    truck.style.display = "none";
+  }
+}
+
+/* =========================================
+   OPEN SUMMARY POPUP
+========================================= */
+
+function openCartSummary() {
+
+  const popup = document.getElementById("cartSummaryPopup");
+  const container = document.getElementById("cartSummaryItems");
+
+  container.innerHTML = "";
+
+  Object.entries(cart).forEach(([item, qty]) => {
+
+    const div = document.createElement("div");
+
+    div.className = "summaryItem";
+
+    div.innerHTML = `
+      <div class="summaryItemName">
+        ${item}
+      </div>
+
+      <div class="summaryItemQty">
+        ${qty}
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+
+  popup.style.display = "flex";
+}
+
+/* =========================================
+   CLOSE SUMMARY POPUP
+========================================= */
+
+function closeCartSummary() {
+
+  document.getElementById("cartSummaryPopup").style.display = "none";
+}
+
 
 document.addEventListener("click", function (e) {
 
@@ -2274,6 +2565,7 @@ function addItemCart(item) {
 
   renderCartControl(item);
   toggleConfirmButton();
+  updateTruckUI();
 }
 
 
@@ -2286,6 +2578,7 @@ function incrementCart(item) {
 
   renderCartControl(item);
   toggleConfirmButton();
+  updateTruckUI();
 }
 
 
@@ -2302,6 +2595,7 @@ function decrementCart(item) {
 
   renderCartControl(item);
   toggleConfirmButton();
+  updateTruckUI();
 }
 
 
