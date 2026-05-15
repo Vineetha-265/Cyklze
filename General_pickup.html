@@ -2556,13 +2556,37 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
 /* =========================================
    WELCOME POPUP
 ========================================= */
-
 window.addEventListener("load", () => {
 
   const popup = document.getElementById("welcomePopup");
 
-  popup.style.display = "flex";
+  // Only show if user hasn't selected before
+  const alreadySelected =
+    localStorage.getItem("selected_pickup_type");
+
+  if (!alreadySelected) {
+
+    popup.style.display = "flex";
+
+  } else {
+
+    popup.style.display = "none";
+
+    const savedTab =
+      document.getElementById(alreadySelected);
+
+    if (savedTab) {
+      setActiveTab(savedTab);
+    }
+  }
 });
+
+// window.addEventListener("load", () => {
+
+//   const popup = document.getElementById("welcomePopup");
+
+//   popup.style.display = "flex";
+// });
 
 function closeWelcomePopup(){
 
@@ -3000,12 +3024,12 @@ function closePopup() {
    WELCOME POPUP
 ========================================= */
 
-window.addEventListener("load", () => {
+// window.addEventListener("load", () => {
 
-  const popup = document.getElementById("welcomePopup");
+//   const popup = document.getElementById("welcomePopup");
 
-  popup.style.display = "flex";
-});
+//   popup.style.display = "flex";
+// });
 
 /* =========================================
    SELECT PICKUP TYPE
@@ -3017,13 +3041,16 @@ function selectPickupType(type){
 
   popup.style.display = "none";
 
+  localStorage.setItem(
+    "selected_pickup_type",
+    type
+  );
+
   const tab = document.getElementById(type);
 
   if(tab){
 
     setActiveTab(tab);
-
-    tab.click();
   }
 }
 /* =====================================================
