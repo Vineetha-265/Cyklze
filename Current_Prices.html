@@ -1,300 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/Cyklze_ikn.png">
-  <link rel="canonical" href="https://cyklze.com/Current_Prices.html">
-  <title>Price List</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Current Prices</title>
+
+  <link rel="icon" type="image/png" href="/Cyklze_ikn.png">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #E8E8E8;
- /* Light aqua color */
-      margin: 0;
-      padding-top: 50px;
-      padding: 0;
-    }
-        .titleBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
 
-  background-color: #1D4D61;   /* Green */
-  color: white;                 /* White text */
-
-  display: flex;
-  align-items: center;
-  justify-content: left;
-padding-left: 20px;
-  font-size: 17px;
-  font-weight: bold;
-
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 999;
-}
-    .container {
-      padding: 16px;
-      padding-top: 50px;
+    *{
+      box-sizing:border-box;
     }
 
-    .loading-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(255, 255, 255, 0.8);
-      visibility: hidden;
-    }
-    .loading-container.show {
-      visibility: visible;
-    }
-    .loading-container img {
-      width: 50px;
-      height: 50px;
-    }
-    .card {
-      margin: 8px;
-      padding: 16px;
-      border-radius: 8px;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .product-name {
-      font-size: 18px;
-      font-weight: bold;
-      color: #000;
-      margin-bottom: 8px;
-    }
-    .price-per-kg {
-      font-size: 16px;
-      color: #000;
-    }
-    .title-bar {
-      padding: 10px;
-      background-color: #FFCCBC; /* Gentle pink color */
-      border-radius: 8px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-      color: #000;
-      margin-bottom: 16px;
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#E8E8E8;
+      padding-top:80px;
+      padding-bottom:100px;
     }
 
+    /* TOP BAR */
 
+    .titleBar{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:60px;
+      background:#1D4D61;
+      color:#fff;
 
+      display:flex;
+      align-items:center;
 
+      padding-left:20px;
 
-      .floating-btn {
-            position: fixed; /* Fixes the button to the screen */
-            bottom: 20px;    /* Distance from the bottom */
-            right: 20px;     /* Distance from the right */
-            background-color: #4CAF50; /* Green background */
-            color: white;    /* White text */
-            border: none;    /* No border */
-            padding: 15px 25px; /* Padding around the text */
-            font-size: 18px; /* Font size */
-            border-radius: 10px; /* Smooth edges with rounded corners */
-            cursor: pointer; /* Makes the cursor a pointer on hover */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
-        }
+      font-size:20px;
+      font-weight:bold;
 
-        .floating-btn:hover {
-            background-color: #45a049; /* Darker green on hover */
-        }
-  </style>
-</head>
-<body>
+      z-index:999;
+      box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    }
 
-  <div class="container">
-      <div class="titleBar">
-  <span class="titleText">Current Prices</span>
-</div>
+    .container{
+      padding:14px;
+    }
 
-    <div id="product-list"></div>
-  </div>
+    /* CATEGORY */
 
-  <div class="loading-container" id="loading-container">
-    <img src="https://i.imgur.com/llF5iyg.gif" alt="Loading..."> <!-- Placeholder loading spinner -->
-  </div>
-  <button class="floating-btn"  onclick="window.location.href='index.html';">Book a pickup</button>
-  <script>
-    const API_URL = 'https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order'; // Replace with your actual API URL
-    const accessToken = 'yourAccessTokenHere'; // Replace with your actual access token
+    .category-title{
+      font-size:22px;
+      font-weight:bold;
+      margin:24px 8px 12px;
+      color:#1D4D61;
+    }
 
-    const productListElement = document.getElementById('product-list');
-    const loadingContainer = document.getElementById('loading-container');
+    /* CARD */
 
-    async function fetchProducts() {
-      loadingContainer.classList.add('show'); // Show loading indicator
-      try {
-        const response = await fetch(API_URL, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+    .card{
+      background:#fff;
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:12px;
 
-        const data = await response.json();
-        if (data) {
-          displayProducts(data); // Assuming the response is an array
-        }
-      } catch (error) {
-        alert('Failed to fetch products. Please try again.');
-        console.error('FetchProductsError:', error);
-      } finally {
-        loadingContainer.classList.remove('show'); // Hide loading indicator
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .left{
+      flex:1;
+    }
+
+    .product-name{
+      font-size:18px;
+      font-weight:bold;
+      color:#111;
+      margin-bottom:6px;
+    }
+
+    .product-meta{
+      font-size:13px;
+      color:#666;
+      margin-bottom:4px;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#E8F5E9;
+      color:#2E7D32;
+      padding:4px 10px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:600;
+      margin-top:6px;
+    }
+
+    .price{
+      font-size:18px;
+      font-weight:bold;
+      color:#1D4D61;
+      white-space:nowrap;
+      margin-left:10px;
+    }
+
+    /* FLOATING BUTTON */
+
+    .floating-btn{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+
+      background:#4CAF50;
+      color:#fff;
+
+      border:none;
+      border-radius:14px;
+
+      padding:15px 24px;
+
+      font-size:16px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      box-shadow:0 4px 12px rgba(0,0,0,0.2);
+
+      z-index:999;
+    }
+
+    .floating-btn:hover{
+      background:#43a047;
+    }
+
+    @media(max-width:600px){
+
+      .card{
+        padding:14px;
+      }
+
+      .product-name{
+        font-size:16px;
+      }
+
+      .price{
+        font-size:16px;
+      }
+
+      .category-title{
+        font-size:20px;
       }
     }
 
-    // function displayProducts(products) {
-    //   productListElement.innerHTML = ''; // Clear the previous list
-    //   products.forEach(product => {
-    //     const card = document.createElement('div');
-    //     card.classList.add('card');
-        
-    //     const productName = document.createElement('div');
-    //     productName.classList.add('product-name');
-    //     productName.textContent = product.product;
-        
-    //     const pricePerKg = document.createElement('div');
-    //     pricePerKg.classList.add('price-per-kg');
-    //     pricePerKg.textContent = `₹${product.pricePerKg} per kg`;
-        
-    //     card.appendChild(productName);
-    //     card.appendChild(pricePerKg);
-    //     productListElement.appendChild(card);
-    //   });
-    // }
-// function displayProducts(products) {
-//   productListElement.innerHTML = ''; // Clear previous list
+  </style>
+</head>
 
-//   // Create category containers
-//   const generalContainer = document.createElement('div');
-//   const metalContainer = document.createElement('div');
+<body>
 
-//   generalContainer.classList.add('category-container');
-//   metalContainer.classList.add('category-container');
+  <!-- TOP BAR -->
 
-//   // Category titles
-//   const generalTitle = document.createElement('h2');
-//   generalTitle.textContent = "General Products";
+  <div class="titleBar">
+    Current Prices
+  </div>
 
-//   const metalTitle = document.createElement('h2');
-//   metalTitle.textContent = "Metal Products";
+  <div class="container">
 
-//   generalContainer.appendChild(generalTitle);
-//   metalContainer.appendChild(metalTitle);
+    <!-- GENERAL -->
 
-//   // Separate products by category
-//   const generalProducts = products.filter(p => p.cat === 'general');
-//   const metalProducts = products.filter(p => p.cat === 'metal');
+    <div class="category-title">
+      General Recyclables
+    </div>
 
-//   // Function to add cards
-//   function createCards(list, container) {
-//     list.forEach(product => {
-//       const card = document.createElement('div');
-//       card.classList.add('card');
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Plastic</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Eco Friendly</div>
+      </div>
+      <div class="price">₹12/kg</div>
+    </div>
 
-//       const productName = document.createElement('div');
-//       productName.classList.add('product-name');
-//       productName.textContent = product.product;
+    <div class="card">
+      <div class="left">
+        <div class="product-name">White Plastic</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Eco Friendly</div>
+      </div>
+      <div class="price">₹13/kg</div>
+    </div>
 
-//       const pricePerKg = document.createElement('div');
-//       pricePerKg.classList.add('price-per-kg');
-//       pricePerKg.textContent = `₹${product.pricePerKg} per kg`;
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Glass</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Reusable</div>
+      </div>
+      <div class="price">₹4/kg</div>
+    </div>
 
-//       card.appendChild(productName);
-//       card.appendChild(pricePerKg);
-//       container.appendChild(card);
-//     });
-//   }
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Newspaper</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Best Seller</div>
+      </div>
+      <div class="price">₹15/kg</div>
+    </div>
 
-//   // Build both lists
-//   createCards(generalProducts, generalContainer);
-//   createCards(metalProducts, metalContainer);
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Books</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">High Value</div>
+      </div>
+      <div class="price">₹8/kg</div>
+    </div>
 
-//   // Add both sections to the page
-//   productListElement.appendChild(generalContainer);
-//   productListElement.appendChild(metalContainer);
-// }
-function displayProducts(products) {
-  productListElement.innerHTML = ''; // Clear previous list
+    <div class="card">
+      <div class="left">
+        <div class="product-name">White Books</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">High Value</div>
+      </div>
+      <div class="price">₹13/kg</div>
+    </div>
 
-  // Create category containers
-  const generalContainer = document.createElement('div');
-  const metalContainer = document.createElement('div');
-  const ewasteContainer = document.createElement('div');
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Cardboard</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Best Rate</div>
+      </div>
+      <div class="price">₹14/kg</div>
+    </div>
 
-  generalContainer.classList.add('category-container');
-  metalContainer.classList.add('category-container');
-  ewasteContainer.classList.add('category-container');
+    <!-- METALS -->
 
-  // Category titles
-  const generalTitle = document.createElement('h2');
-  generalTitle.textContent = "General Recycables";
+    <div class="category-title">
+      Metal Recyclables
+    </div>
 
-  const metalTitle = document.createElement('h2');
-  metalTitle.textContent = "Metal Recycables";
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Iron</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Scrap Metal</div>
+      </div>
+      <div class="price">₹30/kg</div>
+    </div>
 
-  const ewasteTitle = document.createElement('h2');
-  ewasteTitle.textContent = "E-Waste Recycables";
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Pure Aluminium</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Scrap Metal</div>
+      </div>
+      <div class="price">₹190/kg</div>
+    </div>
 
-  generalContainer.appendChild(generalTitle);
-  metalContainer.appendChild(metalTitle);
-  ewasteContainer.appendChild(ewasteTitle);
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Brass</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Scrap Metal</div>
+      </div>
+      <div class="price">₹650/kg</div>
+    </div>
 
-  // Separate products by category
-  const generalProducts = products.filter(p => p.cat === 'general');
-  const metalProducts = products.filter(p => p.cat === 'metal');
-  const ewasteProducts = products.filter(p => p.cat === 'ewaste');
+    <!-- COPPER -->
 
-  // Function to add cards
-  function createCards(list, container) {
-    list.forEach(product => {
-      const card = document.createElement('div');
-      card.classList.add('card');
+    <div class="category-title">
+      Copper
+    </div>
 
-      const productName = document.createElement('div');
-      productName.classList.add('product-name');
-      productName.textContent = product.product;
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Copper Wire</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Premium Copper</div>
+      </div>
+      <div class="price">₹600/kg</div>
+    </div>
 
-      const pricePerKg = document.createElement('div');
-      pricePerKg.classList.add('price-per-kg');
-      pricePerKg.textContent = `₹${product.pricePerKg}`;
+    <div class="card">
+      <div class="left">
+        <div class="product-name">AC Copper Tubes</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Premium Copper</div>
+      </div>
+      <div class="price">₹1100/kg</div>
+    </div>
 
-      card.appendChild(productName);
-      card.appendChild(pricePerKg);
-      container.appendChild(card);
-    });
-  }
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Cut Copper</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Premium Copper</div>
+      </div>
+      <div class="price">₹1000/kg</div>
+    </div>
 
-  // Build three lists
-  createCards(generalProducts, generalContainer);
-  createCards(metalProducts, metalContainer);
-  createCards(ewasteProducts, ewasteContainer);
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Burnt Copper</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Copper Scrap</div>
+      </div>
+      <div class="price">₹800/kg</div>
+    </div>
 
-  // Add all sections to the page
-  productListElement.appendChild(generalContainer);
-  productListElement.appendChild(metalContainer);
-  productListElement.appendChild(ewasteContainer);
-}
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Geyser Copper</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Copper Scrap</div>
+      </div>
+      <div class="price">₹800/kg</div>
+    </div>
 
-    // Fetch products when the page loads
-    window.onload = fetchProducts;
-  </script>
+    <!-- E-WASTE -->
+
+    <div class="category-title">
+      E-Waste Appliances
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Single Door Refrigerator</div>
+        <div class="product-meta">Per Unit</div>
+        <div class="tag">Appliance</div>
+      </div>
+      <div class="price">₹500+/unit</div>
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Double Door Refrigerator</div>
+        <div class="product-meta">Per Unit</div>
+        <div class="tag">Appliance</div>
+      </div>
+      <div class="price">₹1000/unit</div>
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Top Load Washing Machine</div>
+        <div class="product-meta">Per Unit</div>
+        <div class="tag">Appliance</div>
+      </div>
+      <div class="price">₹500+/unit</div>
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Front Load Washing Machine</div>
+        <div class="product-meta">Per Unit</div>
+        <div class="tag">Appliance</div>
+      </div>
+      <div class="price">₹800+/unit</div>
+    </div>
+
+    <!-- AIR CONDITIONERS -->
+
+    <div class="category-title">
+      Air Conditioners
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Complete AC</div>
+        <div class="product-meta">Per Unit</div>
+        <div class="tag">Appliance</div>
+      </div>
+      <div class="price">₹5000-7000/unit</div>
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">AC Indoor Unit</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Appliance</div>
+      </div>
+      <div class="price">₹110/kg</div>
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">AC Outdoor Unit</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Appliance</div>
+      </div>
+      <div class="price">₹110/kg</div>
+    </div>
+
+    <!-- SILVER -->
+
+    <div class="category-title">
+      Silver
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Pure Silver</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Precious Metal</div>
+      </div>
+      <div class="price">₹250/kg</div>
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Silver Utensils</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Precious Metal</div>
+      </div>
+      <div class="price">₹180/kg</div>
+    </div>
+
+    <div class="card">
+      <div class="left">
+        <div class="product-name">Silver Alloy (Chamver)</div>
+        <div class="product-meta">Per Kg</div>
+        <div class="tag">Precious Metal</div>
+      </div>
+      <div class="price">₹170/kg</div>
+    </div>
+
+  </div>
+
+  <!-- FLOATING BUTTON -->
+
+  <button
+    class="floating-btn"
+    onclick="window.location.href='index.html';"
+  >
+    Book a Pickup
+  </button>
 
 </body>
 </html>
-
-
-
-
-
