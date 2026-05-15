@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -521,7 +521,7 @@ input[type="file"]{
         <img id="imagePreview" />
     </div>
     <div style="height: 100px;"></div>
-<button id="continueBtn" class="floating-continue" disabled>
+<button id="continueBtn" class="floating-continue">
     Continue
 </button>
 </div>
@@ -782,19 +782,36 @@ function handleImageUpload(input) {
 
     reader.readAsDataURL(file);
 }
-
 function updateContinueButton() {
-    const selectedDate = document.querySelector(".date-option.selected");
-    const hasImage = imagePreview.src && imagePreview.style.display !== "none";
 
+    const selectedDate = document.querySelector(".date-option.selected");
+    const hasImage = imagePreview.src &&
+                     imagePreview.style.display !== "none";
+
+    // Only change appearance
     if (selectedDate && hasImage) {
-        continueBtn.disabled = false;
+
         continueBtn.classList.add("enabled");
+
     } else {
-        continueBtn.disabled = true;
+
         continueBtn.classList.remove("enabled");
+
     }
 }
+
+// function updateContinueButton() {
+//     const selectedDate = document.querySelector(".date-option.selected");
+//     const hasImage = imagePreview.src && imagePreview.style.display !== "none";
+
+//     if (selectedDate && hasImage) {
+//         continueBtn.disabled = false;
+//         continueBtn.classList.add("enabled");
+//     } else {
+//         continueBtn.disabled = true;
+//         continueBtn.classList.remove("enabled");
+//     }
+// }
 
 
 function showToast(message) {
