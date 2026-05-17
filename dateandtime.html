@@ -705,27 +705,45 @@ window.addEventListener("pageshow", function (event) {
 /* ------------------ CONTINUE BUTTON ------------------ */
 
 /* ✅ START DISABLED */
-continueBtn.disabled = true;
-
+//continueBtn.disabled = true;
+continueBtn.classList.remove("enabled");
 function updateContinueButton() {
 
-    const selectedDate = document.querySelector(".date-option.selected");
+    const selectedDate =
+        document.querySelector(".date-option.selected");
 
     const hasImage = imageUploaded;
 
     if (selectedDate && hasImage) {
 
-        continueBtn.disabled = false;
         continueBtn.classList.add("enabled");
 
     } else {
 
-        continueBtn.disabled = true;
         continueBtn.classList.remove("enabled");
 
     }
 
 }
+// function updateContinueButton() {
+
+//     const selectedDate = document.querySelector(".date-option.selected");
+
+//     const hasImage = imageUploaded;
+
+//     if (selectedDate && hasImage) {
+
+//         continueBtn.disabled = false;
+//         continueBtn.classList.add("enabled");
+
+//     } else {
+
+//         continueBtn.disabled = true;
+//         continueBtn.classList.remove("enabled");
+
+//     }
+
+// }
 
 /* ------------------ TOAST ------------------ */
 
