@@ -526,8 +526,375 @@ input[type="file"]{
     Continue
 </button>
 </div>
-
 <script>
+const API_URL = "https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/dateandaddress";
+
+const cameraUpload = document.getElementById('cameraUpload');
+const galleryUpload = document.getElementById('galleryUpload');
+const imagePreview = document.getElementById('imagePreview');
+const heading = document.getElementById("heading");
+const subheading = document.getElementById("subheading");
+const datesContainer = document.getElementById("datesContainer");
+const errorContainer = document.getElementById("errorContainer");
+const cameraBtn = document.getElementById("cameraBtn");
+const continueBtn = document.getElementById('continueBtn');
+
+/* ------------------ IMAGE STATE FLAG ------------------ */
+let imageUploaded = false;
+
+/* ------------------ CAMERA PERMISSION ------------------ */
+
+cameraBtn.addEventListener("click", function (e) {
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+
+        alert("Camera access is not supported on this browser.");
+        e.preventDefault();
+        return;
+
+    }
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+
+        .then(stream => {
+
+            stream.getTracks().forEach(track => track.stop());
+
+        })
+
+        .catch(err => {
+
+            alert(
+`Camera access is denied.
+
+📱 On mobile: You can take a picture using your phone's camera app and then upload it using "Choose from Gallery".
+
+To enable camera access:
+
+💻 Chrome (Desktop):
+Settings → Privacy and Security → Site Settings → Camera → Allow
+
+📱 Chrome (Mobile):
+Settings → Apps → Chrome → Permissions → Camera → Allow
+
+Then refresh the page and try again.`
+            );
+
+            e.preventDefault();
+
+        });
+
+});
+
+async function checkCameraPermission() {
+
+    if (!navigator.permissions) return;
+
+    try {
+
+        const permission = await navigator.permissions.query({
+            name: 'camera'
+        });
+
+        if (permission.state === 'denied') {
+
+            alert(
+`Camera permission is permanently denied.
+
+To enable it:
+
+Android:
+Settings → Apps → Browser → Permissions → Camera → Allow
+
+iPhone:
+Settings → Safari/Chrome → Camera → Allow
+
+Then refresh the page and try again.`
+            );
+
+            return false;
+
+        }
+
+        return true;
+
+    } catch (err) {
+
+        console.log(err);
+        return true;
+
+    }
+
+}
+
+/* ------------------ FETCH DATES ------------------ */
+
+async function fetchDates() {
+
+    heading.textContent = "Loading...";
+    subheading.textContent = "Please wait while we fetch available dates";
+
+    datesContainer.innerHTML = "";
+    errorContainer.style.display = "none";
+
+    try {
+
+        const response = await fetch(API_URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) throw new Error("Network error");
+
+        const data = await response.json();
+
+        heading.textContent = "Select a Date";
+        subheading.textContent = "This is the closest date available";
+
+        renderDates(data.dates);
+
+    } catch (error) {
+
+        showError();
+
+    }
+
+}
+
+function renderDates(dates) {
+
+    datesContainer.innerHTML = "";
+
+    dates.forEach((date, index) => {
+
+        const div = document.createElement("div");
+
+        div.className = "date-option";
+        div.textContent = date;
+
+        div.addEventListener("click", () => {
+
+            document.querySelectorAll(".date-option")
+                .forEach(d => d.classList.remove("selected"));
+
+            div.classList.add("selected");
+
+            updateContinueButton();
+
+        });
+
+        datesContainer.appendChild(div);
+
+    });
+
+}
+
+function showError() {
+
+    heading.textContent = "OOps";
+    subheading.textContent = "Something went wrong";
+
+    errorContainer.style.display = "block";
+
+    errorContainer.innerHTML = `
+        <button class="retry-btn" onclick="fetchDates()">Retry</button>
+    `;
+
+}
+
+/* ------------------ PAGE LOAD ------------------ */
+
+fetchDates();
+
+window.onload = function () {
+    myFunction();
+};
+
+function myFunction() {
+
+    const items = localStorage.getItem("items");
+
+    if (!items || items === "[]") {
+
+        window.location.replace("index.html");
+
+    }
+
+}
+
+/* ------------------ RESET FILE INPUT ------------------ */
+
+cameraUpload.addEventListener("click", function () {
+    this.value = "";
+});
+
+galleryUpload.addEventListener("click", function () {
+    this.value = "";
+});
+
+/* ------------------ HANDLE IMAGE ------------------ */
+
+cameraUpload.addEventListener('change', function() {
+    handleImageUpload(this);
+});
+
+galleryUpload.addEventListener('change', function() {
+    handleImageUpload(this);
+});
+
+function handleImageUpload(input) {
+
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    if (!file.type.startsWith("image/")) {
+
+        alert("Please select a valid image");
+        return;
+
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block';
+
+        /* ✅ REAL IMAGE FLAG */
+        imageUploaded = true;
+
+        updateContinueButton();
+
+    };
+
+    reader.readAsDataURL(file);
+
+}
+
+/* ------------------ PAGE CACHE FIX ------------------ */
+
+window.addEventListener("pageshow", function (event) {
+
+    if (event.persisted) {
+
+        window.location.reload();
+
+    }
+
+});
+
+/* ------------------ CONTINUE BUTTON ------------------ */
+
+/* ✅ START DISABLED */
+continueBtn.disabled = true;
+
+function updateContinueButton() {
+
+    const selectedDate = document.querySelector(".date-option.selected");
+
+    const hasImage = imageUploaded;
+
+    if (selectedDate && hasImage) {
+
+        continueBtn.disabled = false;
+        continueBtn.classList.add("enabled");
+
+    } else {
+
+        continueBtn.disabled = true;
+        continueBtn.classList.remove("enabled");
+
+    }
+
+}
+
+/* ------------------ TOAST ------------------ */
+
+function showToast(message) {
+
+    const oldToast = document.querySelector(".custom-toast");
+
+    if (oldToast) oldToast.remove();
+
+    const toast = document.createElement("div");
+
+    toast.className = "custom-toast";
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add("show");
+    }, 10);
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+
+    }, 3000);
+
+}
+
+/* ------------------ CONTINUE CLICK ------------------ */
+
+continueBtn.addEventListener("click", function () {
+
+    const selectedDateEl = document.querySelector(".date-option.selected");
+
+    /* ✅ SAFE IMAGE CHECK */
+    const imageData = imageUploaded ? imagePreview.src : null;
+
+    /* ------------------ VALIDATIONS ------------------ */
+
+    if (!selectedDateEl && !imageData) {
+
+        showToast("Please select a date and upload an image");
+        return;
+
+    }
+
+    if (!selectedDateEl) {
+
+        showToast("Please select a delivery date");
+        return;
+
+    }
+
+    if (!imageData || imagePreview.style.display === "none") {
+
+        showToast("Please upload an image");
+        return;
+
+    }
+
+    /* ------------------ SAVE DATA ------------------ */
+
+    const selectedDate = selectedDateEl.textContent;
+
+    const pureBase64 = imageData.includes(",")
+        ? imageData.split(",")[1]
+        : imageData;
+
+    localStorage.setItem("selectedDate", selectedDate);
+    localStorage.setItem("selectedImage", pureBase64);
+
+    console.log("Date Saved:", selectedDate);
+    console.log("Image Saved (Base64):", pureBase64);
+
+    window.location.href = "Address.html";
+
+});
+
+</script>
+<!-- <script>
 const API_URL = "https://0gb8de1kda.execute-api.us-east-1.amazonaws.com/2order/2order/dateandaddress";
 const cameraUpload = document.getElementById('cameraUpload');
 const galleryUpload = document.getElementById('galleryUpload');
@@ -536,6 +903,7 @@ const heading = document.getElementById("heading");
 const subheading = document.getElementById("subheading");
 const datesContainer = document.getElementById("datesContainer");
 const errorContainer = document.getElementById("errorContainer");
+
 // document.getElementById("cameraBtn")
 // .addEventListener("click", async function (e) {
 
@@ -925,7 +1293,7 @@ continueBtn.addEventListener("click", function () {
 
 
 
-</script>
+</script> -->
 
 </body>
 </html>
