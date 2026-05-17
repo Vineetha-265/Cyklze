@@ -522,7 +522,7 @@ input[type="file"]{
         <img id="imagePreview" />
     </div>
     <div style="height: 100px;"></div>
-<button id="continueBtn" class="floating-continue">
+<button type="button" id="continueBtn" class="floating-continue">
     Continue
 </button>
 </div>
@@ -760,7 +760,9 @@ function showToast(message) {
 
 /* ------------------ CONTINUE CLICK ------------------ */
 
-continueBtn.addEventListener("click", function () {
+continueBtn.addEventListener("click", function (e) {
+
+    e.preventDefault();
 
     const selectedDateEl = document.querySelector(".date-option.selected");
 
