@@ -669,72 +669,126 @@ if (!requests || requests.length === 0) {
 
 
 
-      requests.forEach(request => {
-        const requestCard = document.createElement('div');
-        requestCard.classList.add('request-card');
-        requestCard.innerHTML = `
-       <div style="display: flex; align-items: center; justify-content: space-between;">
-  <p class="request-title"
-     style="font-size: 18px; font-weight: bold; color: #2c3e50; margin: 5px 0;">
-    Ordered on: ${request.time}
-  </p>
- <span class="details-btn-container"></span>
+//       requests.forEach(request => {
+//         const requestCard = document.createElement('div');
+//         requestCard.classList.add('request-card');
+//         requestCard.innerHTML = `
+//        <div style="display: flex; align-items: center; justify-content: space-between;">
+//   <p class="request-title"
+//      style="font-size: 18px; font-weight: bold; color: #2c3e50; margin: 5px 0;">
+//     Ordered on: ${request.time}
+//   </p>
+//  <span class="details-btn-container"></span>
 
-</div>
+// </div>
 
 
-<p class="request-description" 
-   style="background: #e8f5e9; padding: 8px; border-left: 4px solid #2ecc71; margin: 5px 0;">
-   Pickup Location: ${request.Address}
-</p>
+// <p class="request-description" 
+//    style="background: #e8f5e9; padding: 8px; border-left: 4px solid #2ecc71; margin: 5px 0;">
+//    Pickup Location: ${request.Address}
+// </p>
 
-<p class="request-status" 
-   style="font-weight: bold; color: #fff; background: #3498db; padding: 6px 10px; border-radius: 4px; display: inline-block; margin: 5px 0;">
-   Status: ${request.Status}
-</p>
+// <p class="request-status" 
+//    style="font-weight: bold; color: #fff; background: #3498db; padding: 6px 10px; border-radius: 4px; display: inline-block; margin: 5px 0;">
+//    Status: ${request.Status}
+// </p>
 
-<p class="request-weight" 
-   style="background: #fff3cd; padding: 8px; border-left: 4px solid #f1c40f; margin: 5px 0;">
-   Set Date: ${request.Set_date}
-</p>
+// <p class="request-weight" 
+//    style="background: #fff3cd; padding: 8px; border-left: 4px solid #f1c40f; margin: 5px 0;">
+//    Set Date: ${request.Set_date}
+// </p>
 
-<p class="request-products" 
-   style="background: #f8f9fa; padding: 10px; border: 1px solid #dcdcdc; border-radius: 5px; margin: 5px 0;">
-   Items: ${request.Selected_items}
-</p>
+// <p class="request-products" 
+//    style="background: #f8f9fa; padding: 10px; border: 1px solid #dcdcdc; border-radius: 5px; margin: 5px 0;">
+//    Items: ${request.Selected_items}
+// </p>
 
-<p class="request-status-comments" 
-   style="font-style: italic; color: #7f8c8d; margin: 5px 0;">
-   Comments: ${request.Status_comments}
-</p>
+// <p class="request-status-comments" 
+//    style="font-style: italic; color: #7f8c8d; margin: 5px 0;">
+//    Comments: ${request.Status_comments}
+// </p>
 
-        `;
+//         `;
 
-        // Conditionally render Cancel button
-        if (request.Status.toLowerCase() !== 'cancel' && request.Status.toLowerCase() !== 'processing') {
-          const cancelButton = document.createElement('div');
-          cancelButton.classList.add('cancel-button');
-          cancelButton.textContent = 'Cancel';
-          cancelButton.addEventListener('click', () =>
-          // handleCancelClick(request)
-          openPopup(request)
-          );
-          requestCard.appendChild(cancelButton);
-        }
-          const btn = document.createElement("button");
-  btn.textContent = "Details";
-  btn.className = "details-btn";
+//         // Conditionally render Cancel button
+//         if (request.Status.toLowerCase() !== 'cancel' && request.Status.toLowerCase() !== 'processing') {
+//           const cancelButton = document.createElement('div');
+//           cancelButton.classList.add('cancel-button');
+//           cancelButton.textContent = 'Cancel';
+//           cancelButton.addEventListener('click', () =>
+//           // handleCancelClick(request)
+//           openPopup(request)
+//           );
+//           requestCard.appendChild(cancelButton);
+//         }
+//           const btn = document.createElement("button");
+//   btn.textContent = "Details";
+//   btn.className = "details-btn";
 
-  btn.addEventListener("click", () => {
-    goToDetails(request);
-  });
+//   btn.addEventListener("click", () => {
+//     goToDetails(request);
+//   });
   
 
-//  requestCard.appendChild(btn);
-requestCard.querySelector(".details-btn-container").appendChild(btn);
+// //  requestCard.appendChild(btn);
+// requestCard.querySelector(".details-btn-container").appendChild(btn);
 
-        requestList.appendChild(requestCard);
-      });
+//         requestList.appendChild(requestCard);
+//       });
+   
+   requests.forEach(request => {
+    const requestCard = document.createElement('div');
+    requestCard.classList.add('request-card');
+
+    requestCard.innerHTML = `
+       <div style="display: flex; align-items: center; justify-content: space-between;">
+          <p class="request-title"
+             style="font-size: 18px; font-weight: bold; color: #2c3e50; margin: 5px 0;">
+            Ordered on: ${request.time}
+          </p>
+          <span class="details-btn-container"></span>
+       </div>
+
+       <p class="request-description" 
+          style="background: #e8f5e9; padding: 8px; border-left: 4px solid #2ecc71; margin: 5px 0;">
+          Pickup Location: ${request.Address}
+       </p>
+
+       <p class="request-status" 
+          style="font-weight: bold; color: #fff; background: #3498db; padding: 6px 10px; border-radius: 4px; display: inline-block; margin: 5px 0;">
+          Status: ${request.Status}
+       </p>
+
+       <p class="request-weight" 
+          style="background: #fff3cd; padding: 8px; border-left: 4px solid #f1c40f; margin: 5px 0;">
+          Set Date: ${request.Set_date}
+       </p>
+
+       <p class="request-products" 
+          style="background: #f8f9fa; padding: 10px; border: 1px solid #dcdcdc; border-radius: 5px; margin: 5px 0;">
+          Items: ${request.Selected_items}
+       </p>
+
+       <p class="request-status-comments" 
+          style="font-style: italic; color: #7f8c8d; margin: 5px 0;">
+          Comments: ${request.Status_comments}
+       </p>
+    `;
+
+    // Details button
+    const btn = document.createElement("button");
+    btn.textContent = "Details";
+    btn.className = "details-btn";
+
+    btn.addEventListener("click", () => {
+        goToDetails(request);
+    });
+
+    requestCard.querySelector(".details-btn-container").appendChild(btn);
+
+    requestList.appendChild(requestCard);
+});
+   
     }
 
     // Handle cancel request
