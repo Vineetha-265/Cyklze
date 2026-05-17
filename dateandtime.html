@@ -588,6 +588,7 @@ const datesContainer = document.getElementById("datesContainer");
 const errorContainer = document.getElementById("errorContainer");
 const cameraBtn = document.getElementById("cameraBtn");
 const continueBtn = document.getElementById('continueBtn');
+const continueWithoutImageBtn = document.getElementById('continueWithoutImageBtn');
 
 /* ------------------ IMAGE STATE FLAG ------------------ */
 let imageUploaded = false;
@@ -827,6 +828,69 @@ function showToast(message) {
 }
 
 /* ------------------ CONTINUE CLICK ------------------ */
+// continueWithoutImageBtn
+
+continueWithoutImageBtn.addEventListener("click", function (e) {
+
+    e.preventDefault();
+
+    const selectedDateEl = document.querySelector(".date-option.selected");
+
+    /* ✅ SAFE IMAGE CHECK */
+    // const imageData = imageUploaded ? imagePreview.src : null;
+
+    // /* ------------------ VALIDATIONS ------------------ */
+
+    // if (!selectedDateEl && !imageData) {
+
+    //     showToast("Please select a date and upload an image");
+    //     return;
+
+    // }
+
+    if (!selectedDateEl) {
+
+        showToast("Please select a delivery date");
+        return;
+
+    }
+
+    // if (!imageData || imagePreview.style.display === "none") {
+
+    //     showToast("Please upload an image");
+    //     return;
+
+    // }
+
+    /* ------------------ SAVE DATA ------------------ */
+
+    const selectedDate = selectedDateEl.textContent;
+
+    // const pureBase64 = imageData.includes(",")
+    //     ? imageData.split(",")[1]
+    //     : imageData;
+
+    localStorage.setItem("selectedDate", selectedDate);
+    localStorage.setItem("selectedImage", "no");
+
+    // console.log("Date Saved:", selectedDate);
+    // console.log("Image Saved (Base64):", pureBase64);
+
+    window.location.href = "Address.html";
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 continueBtn.addEventListener("click", function (e) {
 
@@ -877,6 +941,8 @@ continueBtn.addEventListener("click", function (e) {
     window.location.href = "Address.html";
 
 });
+
+
 </script>
 
 <!-- <script>
