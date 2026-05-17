@@ -753,29 +753,29 @@
 
 
 
+const playStoreUrl =
+  "https://play.google.com/store/apps/details?id=com.techqarin.cyklze";
 
-    const playStoreUrl =
-      "https://play.google.com/store/apps/details?id=com.techqarin.cyklze";
+const appStoreUrl =
+  "https://apps.apple.com/in/app/cyklze/id6754166187";
 
-    const appStoreUrl =
-      "https://apps.apple.com/in/app/cyklze/id6754166187";
+const userAgent =
+  navigator.userAgent || navigator.vendor || window.opera;
 
-    const userAgent =
-      navigator.userAgent || navigator.vendor || window.opera;
+// Better iOS detection (includes newer iPads)
+const isIOS =
+  /iPad|iPhone|iiPod/.test(userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-    let redirectUrl = playStoreUrl;
+// Default to Play Store for Android + unsupported devices
+const redirectUrl = isIOS ? appStoreUrl : playStoreUrl;
 
-    // iOS detection
-    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-      redirectUrl = appStoreUrl;
-    }
-
-    // Download redirect
-    document
-      .getElementById("downloadBtn")
-      .addEventListener("click", () => {
-        window.location.href = redirectUrl;
-      });
+// Download redirect
+document
+  .getElementById("downloadBtn")
+  .addEventListener("click", () => {
+    window.location.href = redirectUrl;
+  });
 
     // Close banner
     document
