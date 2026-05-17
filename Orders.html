@@ -778,9 +778,10 @@ requestCard.querySelector(".details-btn-container").appendChild(btn);
         }
 
         // WAIT for refresh
-        await fetchRequests();
+        // await fetchRequests();
 
         alert('Request canceled successfully!');
+         window.history.back();
 
         // NOW hide loading after everything is done
         document.getElementById("loading").style.display = "none";
