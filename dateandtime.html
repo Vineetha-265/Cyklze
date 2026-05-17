@@ -733,12 +733,14 @@ async function fetchDates() {
 
         heading.textContent = "Select a Date";
         subheading.textContent = "This is the closest date available";
+        const msg = "surge";
+        //data.message;
 
         // renderDates(data.dates);
         /* ---------------- SURGE CHECK ---------------- */
 
-if (data.message &&
-    data.message.toLowerCase().includes("surge")) {
+if (msg &&
+    msg.toLowerCase().includes("surge")) {
 
     document.getElementById("surgeOverlay")
         .style.display = "flex";
