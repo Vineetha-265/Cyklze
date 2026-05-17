@@ -459,7 +459,7 @@ window.onload = checkTokenAndNavigate;
 
 document.getElementById("confirmBtn").addEventListener("click", handleConfirm);
 window.onload = function () {
-  myFunction();
+//   myFunction();
 };
     function goToLogin() {
     // Redirect to your login page
@@ -468,15 +468,46 @@ window.onload = function () {
 
 }
 
+// function myFunction() {
+//   const items = localStorage.getItem("items");
+//   const image = localStorage.getItem("selectedImage");
+//    const savedTab = localStorage.getItem('selected_pickup_type');
+//     const date = localStorage.getItem("selectedDate");
+//       const accessToken = localStorage.getItem('accessToken');
+//   // Check for null OR empty string
+//   if (!items || items === "[]" || !image || image === "[]" ||!date || date === "[]") {
+//     window.location.replace("index.html");
+//   }
+// }
 function myFunction() {
+
   const items = localStorage.getItem("items");
   const image = localStorage.getItem("selectedImage");
-   const savedTab = localStorage.getItem('selected_pickup_type');
-    const date = localStorage.getItem("selectedDate");
-  // Check for null OR empty string
-  if (!items || items === "[]" || !image || image === "[]" ||!date || date === "[]") {
-    window.location.replace("index.html");
+  const savedTab = localStorage.getItem("selected_pickup_type");
+  const date = localStorage.getItem("selectedDate");
+  const accessToken = localStorage.getItem("accessToken");
+
+  // Check for missing/empty values
+  if (
+      !items ||
+      items === "[]" ||
+
+      !date ||
+      date === "[]" ||
+
+      !savedTab ||
+
+      !accessToken ||
+
+      (
+        (!image || image === "[]") &&
+        savedTab !== "commercial"
+      )
+  ) {
+
+      window.location.replace("index.html");
   }
+
 }
 async function handleConfirm(){
 
