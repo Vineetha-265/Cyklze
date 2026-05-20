@@ -759,6 +759,65 @@ const playStoreUrl =
 const appStoreUrl =
   "https://apps.apple.com/in/app/cyklze/id6754166187";
 
+
+
+  // localStorage key
+  const STORAGE_KEY = "cyklze_last_redirect_time";
+
+  // 12 hours in milliseconds
+  const TWELVE_HOURS = 12 * 60 * 60 * 1000;
+
+  function autoRedirectToStore() {
+    try {
+      const now = Date.now();
+
+      // Get previous saved time
+      const lastRedirectTime = localStorage.getItem(STORAGE_KEY);
+
+      // If exists and within 12 hrs → stop execution
+      if (
+        lastRedirectTime &&
+        now - parseInt(lastRedirectTime, 10) < TWELVE_HOURS
+      ) {
+        console.log("Redirect skipped (within 12 hours)");
+        return;
+      }
+
+      // Detect device
+      const userAgent =
+        navigator.userAgent || navigator.vendor || window.opera;
+
+      const isIOS =
+        /iPad|iPhone|iPod/.test(userAgent) ||
+        (navigator.platform === "MacIntel" &&
+          navigator.maxTouchPoints > 1);
+
+      const isAndroid = /android/i.test(userAgent);
+
+      let redirectUrl = null;
+
+      if (isIOS) {
+        redirectUrl = appStoreUrl;
+      } else if (isAndroid) {
+        redirectUrl = playStoreUrl;
+      }
+
+      // Redirect only for mobile devices
+      if (redirectUrl) {
+        // Save current execution time
+        localStorage.setItem(STORAGE_KEY, now.toString());
+
+        // Navigate
+        window.location.href = redirectUrl;
+      }
+    } catch (error) {
+      console.error("Redirect error:", error);
+    }
+  }
+
+  // Execute on page load
+  window.addEventListener("load", autoRedirectToStore);
+
 const userAgent =
   navigator.userAgent || navigator.vendor || window.opera;
 
