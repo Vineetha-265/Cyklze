@@ -2900,7 +2900,7 @@ tabs.forEach(tab => {
 /* =====================================================
    CART SYSTEM
 ===================================================== */
-let increment = selectedType === "groceries" ? 100 : 500;
+let increment = selectedType === "groceries" ? 50 : 500;
 // Step size (kg items = 10, unit items = 1)
 // function getStep(item) {
 //   const box = document.getElementById(item + "-control")
@@ -2926,7 +2926,7 @@ function getStep(item) {
   const isUnit = pack.includes("unit");
 
   if (selectedType === "groceries") {
-    return isUnit ? 1 : 100;
+    return isUnit ? 1 : 50;
   } else {
     return isUnit ? 10 : 500;
   }
