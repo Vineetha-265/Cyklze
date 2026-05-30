@@ -2487,7 +2487,7 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
     </div>
 
     <div class="pickupBtnDesc">
-      Suitable for scrap above <b>50 Kgs</b>
+      Suitable for scrap above <b>20 Kgs</b>
     </div>
 
     <div class="pickupBtnExamples">
@@ -2935,7 +2935,7 @@ function getStep(item) {
   const isUnit = pack.includes("unit");
 
   if (selectedType === "groceries") {
-    return isUnit ? 1 : 30;
+    return isUnit ? 1 : 20;
   } else {
     return isUnit ? 10 : 500;
   }
