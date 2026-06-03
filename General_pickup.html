@@ -2633,20 +2633,38 @@ function autoRedirectToStore() {
 
     const interval = setInterval(() => {
       seconds--;
+if (seconds > 0) {
+  toast.textContent =
+    `Navigating to ${storeName} in ${seconds} second${seconds > 1 ? "s" : ""}...`;
+} else {
+  clearInterval(interval);
 
-      if (seconds > 0) {
-        toast.textContent =
-          `Navigating to ${storeName} in ${seconds} second${seconds > 1 ? "s" : ""}...`;
-      } else {
-        clearInterval(interval);
+  toast.textContent = `Opening ${storeName}...`;
 
-        localStorage.setItem(
-          STORAGE_KEY,
-          Date.now().toString()
-        );
+  setTimeout(() => {
+    toast.style.display = "none";
 
-        window.location.href = redirectUrl;
-      }
+    localStorage.setItem(
+      STORAGE_KEY,
+      Date.now().toString()
+    );
+
+    window.location.href = redirectUrl;
+  }, 500);
+}
+      // if (seconds > 0) {
+      //   toast.textContent =
+      //     `Navigating to ${storeName} in ${seconds} second${seconds > 1 ? "s" : ""}...`;
+      // } else {
+      //   clearInterval(interval);
+
+      //   localStorage.setItem(
+      //     STORAGE_KEY,
+      //     Date.now().toString()
+      //   );
+
+      //   window.location.href = redirectUrl;
+      // }
     }, 1000);
 
   } catch (error) {
