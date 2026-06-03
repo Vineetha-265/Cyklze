@@ -2560,8 +2560,101 @@ We buy pure silver. Accepted materials include genuine silver items, silver wire
 
   </div> <!-- END popupContent -->
 </div> <!-- END popupOverlay -->
-
+<div id="redirectToast" style="
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111827;
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:14px;
+  z-index:99999;
+  display:none;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
+">
+</div>
 <script>
+
+  const playStoreUrl =
+  "https://play.google.com/store/apps/details?id=com.techqarin.cyklze";
+
+const appStoreUrl =
+  "https://apps.apple.com/in/app/cyklze/id6754166187";
+
+const STORAGE_KEY = "cyklze_last_redirect_time";
+const TWELVE_HOURS = 12 * 60 * 60 * 1000;
+
+function autoRedirectToStore() {
+  try {
+    const now = Date.now();
+
+    const lastRedirectTime = localStorage.getItem(STORAGE_KEY);
+
+    if (
+      lastRedirectTime &&
+      now - parseInt(lastRedirectTime, 10) < TWELVE_HOURS
+    ) {
+      console.log("Redirect skipped (within 12 hours)");
+      return;
+    }
+
+    const userAgent =
+      navigator.userAgent || navigator.vendor || window.opera;
+
+    const isIOS =
+      /iPad|iPhone|iPod/.test(userAgent) ||
+      (navigator.platform === "MacIntel" &&
+        navigator.maxTouchPoints > 1);
+
+    const isAndroid = /android/i.test(userAgent);
+
+    let redirectUrl = null;
+    let storeName = "";
+
+    if (isIOS) {
+      redirectUrl = appStoreUrl;
+      storeName = "App Store";
+    } else if (isAndroid) {
+      redirectUrl = playStoreUrl;
+      storeName = "Play Store";
+    }
+
+    if (!redirectUrl) return;
+
+    const toast = document.getElementById("redirectToast");
+
+    let seconds = 5;
+
+    toast.style.display = "block";
+    toast.textContent =
+      `Navigating to ${storeName} in ${seconds} seconds...`;
+
+    const interval = setInterval(() => {
+      seconds--;
+
+      if (seconds > 0) {
+        toast.textContent =
+          `Navigating to ${storeName} in ${seconds} second${seconds > 1 ? "s" : ""}...`;
+      } else {
+        clearInterval(interval);
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          Date.now().toString()
+        );
+
+        window.location.href = redirectUrl;
+      }
+    }, 1000);
+
+  } catch (error) {
+    console.error("Redirect error:", error);
+  }
+}
+
+window.addEventListener("load", autoRedirectToStore);
 /* =========================================
    WELCOME POPUP
 ========================================= */
