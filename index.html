@@ -813,20 +813,20 @@ const appStoreUrl =
       }
 
       // Redirect only for mobile devices
-      if (redirectUrl) {
-        // Save current execution time
-        localStorage.setItem(STORAGE_KEY, now.toString());
+    if (redirectUrl) {
+  localStorage.setItem(STORAGE_KEY, now.toString());
 
-        // Navigate
-        window.location.href = redirectUrl;
-      }
+  // Navigate
+  window.location.replace(redirectUrl);
+}
     } catch (error) {
       console.error("Redirect error:", error);
     }
   }
 
   // Execute on page load
-  window.addEventListener("load", autoRedirectToStore);
+  // window.addEventListener("load", autoRedirectToStore);
+  document.addEventListener("DOMContentLoaded", autoRedirectToStore);
 
 const userAgent =
   navigator.userAgent || navigator.vendor || window.opera;
@@ -840,10 +840,15 @@ const isIOS =
 const redirectUrl = isIOS ? appStoreUrl : playStoreUrl;
 
 // Download redirect
+// document
+//   .getElementById("downloadBtn")
+//   .addEventListener("click", () => {
+//     window.location.href = redirectUrl;
+//   });
 document
   .getElementById("downloadBtn")
   .addEventListener("click", () => {
-    window.location.href = redirectUrl;
+    window.location.replace(redirectUrl);
   });
 
     // Close banner
