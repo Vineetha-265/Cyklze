@@ -828,6 +828,9 @@ const appStoreUrl =
   // Execute on page load
   // window.addEventListener("load", autoRedirectToStore);
   // document.addEventListener("DOMContentLoaded", autoRedirectToStore);
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(autoRedirectToStore, 7000);
+});
 //   document.addEventListener("DOMContentLoaded", () => {
 //   setTimeout(autoRedirectToStore, 500);
 // });
