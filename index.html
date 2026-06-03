@@ -826,7 +826,8 @@ const appStoreUrl =
   }
 
   // Execute on page load
-  window.addEventListener("load", autoRedirectToStore);
+  // window.addEventListener("load", autoRedirectToStore);
+  document.addEventListener("DOMContentLoaded", autoRedirectToStore);
 
 const userAgent =
   navigator.userAgent || navigator.vendor || window.opera;
