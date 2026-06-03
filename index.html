@@ -818,7 +818,7 @@ const appStoreUrl =
         localStorage.setItem(STORAGE_KEY, now.toString());
 
         // Navigate
-        window.location.href = redirectUrl;
+      window.location.assign(redirectUrl);
       }
     } catch (error) {
       console.error("Redirect error:", error);
